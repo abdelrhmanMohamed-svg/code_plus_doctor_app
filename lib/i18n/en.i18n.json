@@ -1,0 +1,129 @@
+{
+  "common": {
+    "brandName": "Doctor Hunt"
+  },
+  "onboarding": {
+    "title1": "Find Trusted Doctors",
+    "title2": "Choose Best Doctors",
+    "title3": "Easy Appointments",
+    "body": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of it over 2000 years old.",
+    "next": "Next",
+    "getStarted": "Get Started",
+    "skip": "Skip"
+  },
+  "chooseRole": {
+    "title": "Choose Your Role",
+    "subtitle": "Select the role that best describes you to continue!",
+    "patient": "Patient",
+    "patientDescription": "Book appointments and manage your medical records.",
+    "doctor": "Doctor",
+    "doctorDescription": "Manage appointments and your schedule as a medical professional.",
+    "continueButton": "Continue"
+  },
+  "login": {
+    "welcomeBack": "Welcome back",
+    "joinSubtitle": "You can search course, apply course and find\nscholarship for abroad studies",
+    "forgotPassword": "Forgot Password?",
+    "button": "Login",
+    "dontHaveAccount": "Don't have an account?",
+    "joinUs": "Join us"
+  },
+  "signUp": {
+    "title": "Sign Up",
+    "subtitle": "Create your account to continue!",
+    "fullNameFieldLabel": "Full Name",
+    "fullNameHint": "Enter your full name",
+    "phoneFieldLabel": "Phone Number",
+    "phoneHint": "Enter your phone number",
+    "confirmPasswordFieldLabel": "Confirm Password",
+    "confirmPasswordHint": "Re-enter your password",
+    "button": "Sign Up",
+    "alreadyHaveAccount": "Already have an account?",
+    "joinTitle": "Join us to start searching",
+    "joinSubtitle": "You can search course, apply course and find\nscholarship for abroad studies",
+    "googleLabel": "Google",
+    "facebookLabel": "Facebook",
+    "nameHint": "Name",
+    "emailHint": "Email",
+    "passwordHint": "Password",
+    "termsAgreement": "I agree with the Terms of Service & Privacy Policy",
+    "haveAccount": "Have an account?",
+    "logIn": "Log in"
+  },
+  "forgotPassword": {
+    "sheetTitle": "Forgot Password",
+    "sheetBody": "Enter your email for the verification process, we will send 4 digits code to your email",
+    "enterCodeSheetTitle": "Enter 4 Digits Code",
+    "enterCodeSheetBody": "Enter the 4 digits code that you received on your email",
+    "resetPasswordSheetTitle": "Reset Password",
+    "resetPasswordSheetBody": "Set the new password for your account so you can login and access all the features",
+    "newPasswordHint": "New password",
+    "reEnterPasswordHint": "Re-enter password",
+    "updatePasswordButton": "Update Password"
+  },
+  "tabs": {
+    "home": "Home",
+    "appointments": "Appointments",
+    "chat": "Chat",
+    "profile": "Profile"
+  },
+  "home": {
+    "greeting": "Hi Handwerker!",
+    "userName": "Find Your Doctor",
+    "searchHint": "Search.....",
+    "liveDoctors": "Live Doctors",
+    "popularDoctor": "Popular Doctor",
+    "featureDoctor": "Feature Doctor",
+    "seeAll": "See all",
+    "liveBadge": "LIVE"
+  },
+  "doctorData": {
+    "drBlessing": "Dr. Blessing",
+    "drBlessingSpecialty": "Dentist Specialist",
+    "drFillerupGrab": "Dr. Fillerup Grab",
+    "drFillerupGrabSpecialty": "Medicine Specialist",
+    "drCrick": "Dr. Crick",
+    "drLachinet": "Dr. Lachinet",
+    "drStrain": "Dr. Strain",
+    "priceCrick": "$ 25.00/ hours",
+    "priceLachinet": "$ 29.00/ hours",
+    "priceStrain": "$ 22.00/ hours"
+  },
+  "findDoctors": {
+    "title": "Find Doctors",
+    "searchHint": "Dentist",
+    "drShrutiKedia": "Dr. Shruti Kedia",
+    "drWatamaniuk": "Dr. Watamaniuk",
+    "drCrownover": "Dr. Crownover",
+    "drBalestra": "Dr. Balestra",
+    "toothsDentist": "Tooths Dentist",
+    "experience7Years": "7 Years experience",
+    "experience9Years": "9 Years experience",
+    "experience5Years": "5 Years experience",
+    "experience6Years": "6 Years experience",
+    "rating87": "87%",
+    "rating74": "74%",
+    "rating59": "59%",
+    "stories69": "69 Patient Stories",
+    "stories78": "78 Patient Stories",
+    "stories86": "86 Patient Stories",
+    "nextAvailable": "Next Available",
+    "timeTen": "10:00 AM tomorrow",
+    "timeTwelve": "12:00 AM tomorrow",
+    "timeEleven": "11:00 AM tomorrow",
+    "bookNow": "Book Now"
+  },
+  "doctorDetails": {
+    "title": "Doctor Details",
+    "drPediatrician": "Dr. Pediatrician",
+    "specialistCardiologist": "Specialist Cardiologist",
+    "price28PerHour": "28.00/hr",
+    "statsRunning": "Running",
+    "statsOngoing": "Ongoing",
+    "statsPatient": "Patient",
+    "servicesTitle": "Services",
+    "serviceItem1": " Patient care should be the number one priority.",
+    "serviceItem2": " If you run your practice you know how frustrating.",
+    "serviceItem3": " That's why some of appointment reminder system."
+  }
+}
