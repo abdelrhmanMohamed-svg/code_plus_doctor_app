@@ -77,16 +77,16 @@ class _AppBottomNavBar extends StatelessWidget {
             ),
             NavigationDestination(
               icon: Icon(
-                Icons.calendar_month_outlined,
+                Icons.favorite_outline,
                 size: 22.r,
                 color: AppColors.navIconInactive,
               ),
               selectedIcon: Icon(
-                Icons.calendar_month,
+                Icons.favorite,
                 size: 24.r,
                 color: AppColors.background,
               ),
-              label: context.t.tabs.appointments,
+              label: context.t.tabs.favourites,
             ),
             NavigationDestination(
               icon: Icon(

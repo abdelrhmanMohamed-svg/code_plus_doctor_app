@@ -10,7 +10,7 @@ import '../../../../core/theme/style_atom.dart';
 import '../../../../core/utils/image_assets.dart';
 import '../../../../core/widgets/blurred_blob.dart';
 import '../widgets/auth_password_field.dart';
-import '../widgets/auth_primary_button.dart';
+import '../../../../core/widgets/primary_button.dart';
 import '../widgets/auth_social_button.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/forgot_password_sheet.dart';
@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 34.h),
                   _buildFields(),
                   SizedBox(height: 59.h),
-                  AuthPrimaryButton(
+                  PrimaryButton(
                     label: context.t.login.button,
                     onTap: () => context.go(AppRouter.home),
                   ),

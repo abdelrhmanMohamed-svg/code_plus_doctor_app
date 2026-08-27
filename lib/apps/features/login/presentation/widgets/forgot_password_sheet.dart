@@ -6,7 +6,7 @@ import '../../../../../i18n/strings.g.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/style_atom.dart';
 import '../widgets/auth_password_field.dart';
-import '../widgets/auth_primary_button.dart';
+import '../../../../core/widgets/primary_button.dart';
 import '../widgets/auth_text_field.dart';
 
 /// Opens the forgot-password sheet (email → code → reset) from the login screen.
@@ -105,7 +105,7 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
           ),
         ),
         SizedBox(height: 32.h),
-        AuthPrimaryButton(
+        PrimaryButton(
           label: context.t.chooseRole.continueButton,
           onTap: _advance,
         ),
@@ -125,7 +125,7 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
         SizedBox(height: 28.h),
         _buildCodeField(),
         SizedBox(height: 32.h),
-        AuthPrimaryButton(
+        PrimaryButton(
           label: context.t.chooseRole.continueButton,
           onTap: _advance,
         ),
@@ -159,7 +159,7 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
           ),
         ),
         SizedBox(height: 32.h),
-        AuthPrimaryButton(
+        PrimaryButton(
           label: context.t.forgotPassword.updatePasswordButton,
           onTap: _close,
         ),

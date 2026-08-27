@@ -1,7 +1,8 @@
 import 'package:go_router/go_router.dart';
 
 import '../../core/widgets/app_shell.dart';
-import '../../features/appointments/presentation/screens/appointments_screen.dart';
+import '../../features/appointment_booking/presentation/screens/appointment_booking_screen.dart';
+import '../../features/favourite_doctors/presentation/screens/favourite_doctors_screen.dart';
 import '../../features/chat/presentation/screens/chat_screen.dart';
 import '../../features/choose_role/presentation/screens/choose_role_screen.dart';
 import '../../features/doctor_details/presentation/screens/doctor_details_screen.dart';
@@ -23,7 +24,8 @@ class AppRouter {
   static const String home = '/home';
   static const String findDoctors = '/find-doctors';
   static const String doctorDetails = '/doctor-details';
-  static const String appointments = '/appointments';
+  static const String favourites = '/favourites';
+  static const String appointmentBooking = '/appointment-booking';
   static const String chat = '/chat';
   static const String profile = '/profile';
 
@@ -48,6 +50,10 @@ class AppRouter {
         path: doctorDetails,
         builder: (context, state) => const DoctorDetailsScreen(),
       ),
+      GoRoute(
+        path: appointmentBooking,
+        builder: (context, state) => const AppointmentBookingScreen(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
             AppShell(navigationShell: navigationShell),
@@ -63,8 +69,8 @@ class AppRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: appointments,
-                builder: (context, state) => const AppointmentsScreen(),
+                path: favourites,
+                builder: (context, state) => const FavouriteDoctorsScreen(),
               ),
             ],
           ),

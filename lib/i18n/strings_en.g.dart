@@ -47,10 +47,13 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$signUp$en signUp = Translations$signUp$en._(_root);
 	late final Translations$forgotPassword$en forgotPassword = Translations$forgotPassword$en._(_root);
 	late final Translations$tabs$en tabs = Translations$tabs$en._(_root);
+	late final Translations$favouriteDoctors$en favouriteDoctors = Translations$favouriteDoctors$en._(_root);
 	late final Translations$home$en home = Translations$home$en._(_root);
 	late final Translations$doctorData$en doctorData = Translations$doctorData$en._(_root);
 	late final Translations$findDoctors$en findDoctors = Translations$findDoctors$en._(_root);
+	late final Translations$appointmentBooking$en appointmentBooking = Translations$appointmentBooking$en._(_root);
 	late final Translations$doctorDetails$en doctorDetails = Translations$doctorDetails$en._(_root);
+	late final Translations$thankYou$en thankYou = Translations$thankYou$en._(_root);
 }
 
 // Path: common
@@ -268,14 +271,62 @@ class Translations$tabs$en {
 	/// en: 'Home'
 	String get home => 'Home';
 
-	/// en: 'Appointments'
-	String get appointments => 'Appointments';
+	/// en: 'Favourites'
+	String get favourites => 'Favourites';
 
 	/// en: 'Chat'
 	String get chat => 'Chat';
 
 	/// en: 'Profile'
 	String get profile => 'Profile';
+}
+
+// Path: favouriteDoctors
+class Translations$favouriteDoctors$en {
+	Translations$favouriteDoctors$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Favourite Doctors'
+	String get title => 'Favourite Doctors';
+
+	/// en: 'Dentist'
+	String get searchHint => 'Dentist';
+
+	/// en: 'Dr. Shouey'
+	String get drShouey => 'Dr. Shouey';
+
+	/// en: 'Dr. Christenfeld N'
+	String get drChristenfeldN => 'Dr. Christenfeld N';
+
+	/// en: 'Dentist Specialist'
+	String get specalistDentist => 'Dentist Specialist';
+
+	/// en: 'Medicine Specialist'
+	String get specalistMedicine => 'Medicine Specialist';
+
+	/// en: 'Cardiology Specialist'
+	String get specalistCardiology => 'Cardiology Specialist';
+
+	/// en: 'Cancer Specialist'
+	String get specalistCancer => 'Cancer Specialist';
+
+	/// en: 'Feature Doctor'
+	String get featureDoctor => 'Feature Doctor';
+
+	/// en: 'Running'
+	String get statsRunning => 'Running';
+
+	/// en: 'Ongoing'
+	String get statsOngoing => 'Ongoing';
+
+	/// en: 'Patient'
+	String get statsPatient => 'Patient';
+
+	/// en: 'Review'
+	String get statsReview => 'Review';
 }
 
 // Path: home
@@ -425,6 +476,60 @@ class Translations$findDoctors$en {
 	String get bookNow => 'Book Now';
 }
 
+// Path: appointmentBooking
+class Translations$appointmentBooking$en {
+	Translations$appointmentBooking$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Appointment'
+	String get title => 'Appointment';
+
+	/// en: 'Available Time'
+	String get availableTime => 'Available Time';
+
+	/// en: 'Reminder Me Before'
+	String get reminderMeBefore => 'Reminder Me Before';
+
+	/// en: 'Confirm'
+	String get confirm => 'Confirm';
+
+	/// en: '10:00 AM'
+	String get time10am => '10:00 AM';
+
+	/// en: '12:00 AM'
+	String get time12am => '12:00 AM';
+
+	/// en: '02:00 PM'
+	String get time2pm => '02:00 PM';
+
+	/// en: '03:00 PM'
+	String get time3pm => '03:00 PM';
+
+	/// en: '04:00 PM'
+	String get time4pm => '04:00 PM';
+
+	/// en: '30'
+	String get reminder30 => '30';
+
+	/// en: '40'
+	String get reminder40 => '40';
+
+	/// en: '25'
+	String get reminder25 => '25';
+
+	/// en: '10'
+	String get reminder10 => '10';
+
+	/// en: '35'
+	String get reminder35 => '35';
+
+	/// en: 'Minit'
+	String get minutes => 'Minit';
+}
+
 // Path: doctorDetails
 class Translations$doctorDetails$en {
 	Translations$doctorDetails$en._(this._root);
@@ -465,6 +570,30 @@ class Translations$doctorDetails$en {
 
 	/// en: ' That's why some of appointment reminder system.'
 	String get serviceItem3 => ' That\'s why some of appointment reminder system.';
+}
+
+// Path: thankYou
+class Translations$thankYou$en {
+	Translations$thankYou$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Thank You!'
+	String get title => 'Thank You!';
+
+	/// en: 'Appointment Booked'
+	String get subtitle => 'Appointment Booked';
+
+	/// en: 'Your appointment has been booked successfully. You will receive a confirmation notification shortly.'
+	String get message => 'Your appointment has been booked successfully. You will receive a confirmation notification shortly.';
+
+	/// en: 'Edit Appointment'
+	String get editButton => 'Edit Appointment';
+
+	/// en: 'Done'
+	String get doneButton => 'Done';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -526,9 +655,22 @@ extension on Translations {
 			'forgotPassword.reEnterPasswordHint' => 'Re-enter password',
 			'forgotPassword.updatePasswordButton' => 'Update Password',
 			'tabs.home' => 'Home',
-			'tabs.appointments' => 'Appointments',
+			'tabs.favourites' => 'Favourites',
 			'tabs.chat' => 'Chat',
 			'tabs.profile' => 'Profile',
+			'favouriteDoctors.title' => 'Favourite Doctors',
+			'favouriteDoctors.searchHint' => 'Dentist',
+			'favouriteDoctors.drShouey' => 'Dr. Shouey',
+			'favouriteDoctors.drChristenfeldN' => 'Dr. Christenfeld N',
+			'favouriteDoctors.specalistDentist' => 'Dentist Specialist',
+			'favouriteDoctors.specalistMedicine' => 'Medicine Specialist',
+			'favouriteDoctors.specalistCardiology' => 'Cardiology Specialist',
+			'favouriteDoctors.specalistCancer' => 'Cancer Specialist',
+			'favouriteDoctors.featureDoctor' => 'Feature Doctor',
+			'favouriteDoctors.statsRunning' => 'Running',
+			'favouriteDoctors.statsOngoing' => 'Ongoing',
+			'favouriteDoctors.statsPatient' => 'Patient',
+			'favouriteDoctors.statsReview' => 'Review',
 			'home.greeting' => 'Hi Handwerker!',
 			'home.userName' => 'Find Your Doctor',
 			'home.searchHint' => 'Search.....',
@@ -569,6 +711,21 @@ extension on Translations {
 			'findDoctors.timeTwelve' => '12:00 AM tomorrow',
 			'findDoctors.timeEleven' => '11:00 AM tomorrow',
 			'findDoctors.bookNow' => 'Book Now',
+			'appointmentBooking.title' => 'Appointment',
+			'appointmentBooking.availableTime' => 'Available Time',
+			'appointmentBooking.reminderMeBefore' => 'Reminder Me Before',
+			'appointmentBooking.confirm' => 'Confirm',
+			'appointmentBooking.time10am' => '10:00 AM',
+			'appointmentBooking.time12am' => '12:00 AM',
+			'appointmentBooking.time2pm' => '02:00 PM',
+			'appointmentBooking.time3pm' => '03:00 PM',
+			'appointmentBooking.time4pm' => '04:00 PM',
+			'appointmentBooking.reminder30' => '30',
+			'appointmentBooking.reminder40' => '40',
+			'appointmentBooking.reminder25' => '25',
+			'appointmentBooking.reminder10' => '10',
+			'appointmentBooking.reminder35' => '35',
+			'appointmentBooking.minutes' => 'Minit',
 			'doctorDetails.title' => 'Doctor Details',
 			'doctorDetails.drPediatrician' => 'Dr. Pediatrician',
 			'doctorDetails.specialistCardiologist' => 'Specialist Cardiologist',
@@ -580,6 +737,11 @@ extension on Translations {
 			'doctorDetails.serviceItem1' => ' Patient care should be the number one priority.',
 			'doctorDetails.serviceItem2' => ' If you run your practice you know how frustrating.',
 			'doctorDetails.serviceItem3' => ' That\'s why some of appointment reminder system.',
+			'thankYou.title' => 'Thank You!',
+			'thankYou.subtitle' => 'Appointment Booked',
+			'thankYou.message' => 'Your appointment has been booked successfully. You will receive a confirmation notification shortly.',
+			'thankYou.editButton' => 'Edit Appointment',
+			'thankYou.doneButton' => 'Done',
 			_ => null,
 		};
 	}

@@ -8,12 +8,8 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/style_atom.dart';
 import '../../../../core/utils/image_assets.dart';
 import '../../../../core/widgets/blurred_blob.dart';
+import '../../../../core/widgets/primary_button.dart';
 import '../widgets/onboarding_page.dart';
-
-/// Design-derived dimensions for the shared navigation controls.
-const double _buttonWidth = 295;
-const double _buttonHeight = 54;
-const double _buttonRadius = 10;
 
 /// Hosts the swipeable onboarding pages and the fixed navigation controls.
 class OnboardingScreen extends StatefulWidget {
@@ -122,31 +118,18 @@ class _OnboardingControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("object");
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 38.w),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Material(
-            color: AppColors.primary,
-            borderRadius: BorderRadius.circular(_buttonRadius.r),
-            child: InkWell(
-              onTap: onGetStarted,
-              borderRadius: BorderRadius.circular(_buttonRadius.r),
-              child: SizedBox(
-                width: _buttonWidth.w,
-                height: _buttonHeight.h,
-                child: Center(
-                  child: Text(
-                    isLast
-                        ? context.t.onboarding.getStarted
-                        : context.t.onboarding.next,
-                    style: StyleAtom.onboardingButton,
-                  ),
-                ),
-              ),
-            ),
+          PrimaryButton(
+            label: isLast
+                ? context.t.onboarding.getStarted
+                : context.t.onboarding.next,
+            onTap: onGetStarted,
+            borderRadius: 10,
+            labelStyle: StyleAtom.onboardingButton,
           ),
           SizedBox(height: 14.h),
           GestureDetector(

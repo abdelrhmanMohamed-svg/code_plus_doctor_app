@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../i18n/strings.g.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/style_atom.dart';
+import '../../../../core/widgets/primary_button.dart';
 import '../controller/find_doctor_cubit.dart';
 import '../controller/find_doctor_state.dart';
 
@@ -127,18 +128,12 @@ class DoctorCard extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              Container(
-                width: 112.w,
-                height: 34.h,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(4.r),
-                ),
-                child: Text(
-                  context.t.findDoctors.bookNow,
-                  style: StyleAtom.findDoctorBookNow,
-                ),
+              PrimaryButton(
+                label: context.t.findDoctors.bookNow,
+                width: 112,
+                height: 34,
+                borderRadius: 4,
+                labelStyle: StyleAtom.findDoctorBookNow,
               ),
             ],
           ),

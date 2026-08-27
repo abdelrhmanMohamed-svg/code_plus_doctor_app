@@ -46,6 +46,7 @@ dependencies:
   pin_code_fields: ^9.4.0
   slang: ^4.19.0
   slang_flutter: ^4.19.0
+  syncfusion_flutter_datepicker: ^34.2.5
 
 dev_dependencies:
   flutter_test:
