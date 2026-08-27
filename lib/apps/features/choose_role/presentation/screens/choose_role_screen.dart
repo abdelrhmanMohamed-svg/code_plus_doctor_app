@@ -5,9 +5,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../i18n/strings.g.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/widgets/blurred_blob.dart';
 import '../../../../core/utils/image_assets.dart';
 import '../../../../core/theme/style_atom.dart';
+import '../../../../core/widgets/blurred_blob.dart';
+import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
 import '../controller/choose_role_cubit.dart';
@@ -109,32 +110,19 @@ class ChooseRoleScreen extends StatelessWidget {
   }
 
   Widget _buildContinueButton(BuildContext context) {
-    return Container(
-      height: 56.h,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.r),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x0D000000),
-            blurRadius: 2.r,
-            offset: const Offset(0, 1),
-          ),
-        ],
-      ),
-      child: Material(
-        color: AppColors.primary,
-        borderRadius: BorderRadius.circular(12.r),
-        child: InkWell(
-          onTap: () => context.go(AppRouter.login),
-          borderRadius: BorderRadius.circular(12.r),
-          child: Center(
-            child: Text(
-              context.t.chooseRole.continueButton,
-              style: StyleAtom.continueButton,
-            ),
-          ),
+    return PrimaryButton(
+      label: context.t.chooseRole.continueButton,
+      onTap: () => context.go(AppRouter.login),
+      width: double.infinity,
+      height: 56,
+      boxShadow: [
+        BoxShadow(
+          color: const Color(0x0D000000),
+          blurRadius: 2.r,
+          offset: const Offset(0, 1),
         ),
-      ),
+      ],
+      labelStyle: StyleAtom.continueButton,
     );
   }
 }

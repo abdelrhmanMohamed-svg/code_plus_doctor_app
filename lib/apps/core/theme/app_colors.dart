@@ -7,6 +7,7 @@ class AppColors {
   AppColors._();
 
   static const Color primary = Color(0xFF0EBE7F);
+  static const Color white = Color(0xffffffff);
   static const Color gradientEnd = Color(0xFF07D9AD);
   static const Color title = Color(0xFF333333);
   static const Color secondary = Color(0xFF677294);
@@ -57,4 +58,9 @@ class AppColors {
   static const Color cardShadow = Color(0x1A000000);
   static const Color statBoxGrey = Color(0xFFCBCBCB);
   static const Color likeHeartRed = Color(0xFFFF0000);
+
+  static const Color appointmentBg = Color(0xFFF9F8F8);
+
+  static const Color successCircleBg = Color(0xFFE7F8F2);
+  static const Color dialogScrim = Color(0xC9202020);
 }

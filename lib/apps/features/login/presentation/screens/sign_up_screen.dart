@@ -10,7 +10,7 @@ import '../../../../core/theme/style_atom.dart';
 import '../../../../core/utils/image_assets.dart';
 import '../../../../core/widgets/blurred_blob.dart';
 import '../widgets/auth_password_field.dart';
-import '../widgets/auth_primary_button.dart';
+import '../../../../core/widgets/primary_button.dart';
 import '../widgets/auth_social_button.dart';
 import '../widgets/auth_text_field.dart';
 
@@ -59,7 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SizedBox(height: 15.h),
                   _buildTermsRow(),
                   SizedBox(height: 59.h),
-                  AuthPrimaryButton(
+                  PrimaryButton(
                     label: context.t.signUp.button,
                     onTap: () {},
                   ),

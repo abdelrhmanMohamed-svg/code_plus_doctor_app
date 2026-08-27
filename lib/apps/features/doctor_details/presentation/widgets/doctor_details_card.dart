@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../i18n/strings.g.dart';
+import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/style_atom.dart';
+import '../../../../core/widgets/primary_button.dart';
 import '../../data/models/doctor_model.dart';
 import '../controller/doctor_details_cubit.dart';
 import '../controller/doctor_details_state.dart';
@@ -117,18 +120,13 @@ class DoctorDetailsCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: 15.h),
-          Container(
-            width: 140.w,
-            height: 32.h,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: AppColors.primary,
-              borderRadius: BorderRadius.circular(4.r),
-            ),
-            child: Text(
-              context.t.findDoctors.bookNow,
-              style: StyleAtom.findDoctorBookNow,
-            ),
+          PrimaryButton(
+            label: context.t.findDoctors.bookNow,
+            onTap: () => context.push(AppRouter.appointmentBooking),
+            width: 140,
+            height: 32,
+            borderRadius: 4,
+            labelStyle: StyleAtom.findDoctorBookNow,
           ),
         ],
       ),

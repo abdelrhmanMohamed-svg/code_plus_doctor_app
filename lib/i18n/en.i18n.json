@@ -63,9 +63,24 @@
   },
   "tabs": {
     "home": "Home",
-    "appointments": "Appointments",
+    "favourites": "Favourites",
     "chat": "Chat",
     "profile": "Profile"
+  },
+  "favouriteDoctors": {
+    "title": "Favourite Doctors",
+    "searchHint": "Dentist",
+    "drShouey": "Dr. Shouey",
+    "drChristenfeldN": "Dr. Christenfeld N",
+    "specalistDentist": "Dentist Specialist",
+    "specalistMedicine": "Medicine Specialist",
+    "specalistCardiology": "Cardiology Specialist",
+    "specalistCancer": "Cancer Specialist",
+    "featureDoctor": "Feature Doctor",
+    "statsRunning": "Running",
+    "statsOngoing": "Ongoing",
+    "statsPatient": "Patient",
+    "statsReview": "Review"
   },
   "home": {
     "greeting": "Hi Handwerker!",
@@ -113,6 +128,23 @@
     "timeEleven": "11:00 AM tomorrow",
     "bookNow": "Book Now"
   },
+  "appointmentBooking": {
+    "title": "Appointment",
+    "availableTime": "Available Time",
+    "reminderMeBefore": "Reminder Me Before",
+    "confirm": "Confirm",
+    "time10am": "10:00 AM",
+    "time12am": "12:00 AM",
+    "time2pm": "02:00 PM",
+    "time3pm": "03:00 PM",
+    "time4pm": "04:00 PM",
+    "reminder30": "30",
+    "reminder40": "40",
+    "reminder25": "25",
+    "reminder10": "10",
+    "reminder35": "35",
+    "minutes": "Minit"
+  },
   "doctorDetails": {
     "title": "Doctor Details",
     "drPediatrician": "Dr. Pediatrician",
@@ -125,5 +157,12 @@
     "serviceItem1": " Patient care should be the number one priority.",
     "serviceItem2": " If you run your practice you know how frustrating.",
     "serviceItem3": " That's why some of appointment reminder system."
+  },
+  "thankYou": {
+    "title": "Thank You!",
+    "subtitle": "Appointment Booked",
+    "message": "Your appointment has been booked successfully. You will receive a confirmation notification shortly.",
+    "editButton": "Edit Appointment",
+    "doneButton": "Done"
   }
 }

@@ -23,4 +23,5 @@ class ImageAssets {
   static const String categoryHeart = 'assets/images/heart.png';
   static const String categoryTeeth = 'assets/images/teeth.png';
   static const String map = 'assets/images/map.png';
+  static const String successLike = 'assets/images/like.png';
 }
