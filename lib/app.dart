@@ -20,8 +20,8 @@ class DoctorHuntApp extends StatelessWidget {
         title: context.t.common.brandName,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          scaffoldBackgroundColor: AppColors.background,
-          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
+          scaffoldBackgroundColor: AppColors.white,
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.green),
         ),
         locale: TranslationProvider.of(context).flutterLocale,
         supportedLocales: AppLocaleUtils.supportedLocales,

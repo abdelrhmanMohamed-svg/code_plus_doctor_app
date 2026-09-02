@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../i18n/strings.g.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
+import '../../../../../generated/style_atoms.dart';
 import '../../data/models/doctor_model.dart';
 
 /// Three-column stats bar (Running / Ongoing / Patient) on the
@@ -19,11 +19,11 @@ class DoctorStatsCard extends StatelessWidget {
       width: 305.w,
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(10.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.cardShadow,
+            color: AppColors.overlayLight,
             blurRadius: 20.r,
             offset: const Offset(0, 0),
           ),
@@ -63,15 +63,15 @@ class _StatBox extends StatelessWidget {
       child: Container(
         height: 64.h,
         decoration: BoxDecoration(
-          color: AppColors.statBoxGrey.withValues(alpha: 0.3),
+          color: AppColors.greyMedium.withValues(alpha: 0.3),
           borderRadius: BorderRadius.circular(10.r),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(value, style: StyleAtom.statsValue),
+            Text(value, style: context.medium18Dark),
             SizedBox(height: 3.h),
-            Text(label, style: StyleAtom.statsLabel),
+            Text(label, style: context.regular13Grey),
           ],
         ),
       ),

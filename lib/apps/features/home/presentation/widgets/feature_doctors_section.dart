@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../i18n/strings.g.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
+import '../../../../../generated/style_atoms.dart';
 import '../../../../core/utils/image_assets.dart';
 import 'home_section_title.dart';
 
@@ -77,11 +77,11 @@ class _FeatureDoctorCard extends StatelessWidget {
       width: 96.w,
       height: 130.h,
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(6.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.cardShadow,
+            color: AppColors.overlayLight,
             blurRadius: 8.r,
             offset: const Offset(0, 3),
           ),
@@ -101,19 +101,19 @@ class _FeatureDoctorCard extends StatelessWidget {
           SizedBox(height: 8.h),
           Text(
             doctor.name,
-            style: StyleAtom.homeFeatureName,
+            style: context.medium12Dark,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
           SizedBox(height: 2.h),
-          Text(doctor.price, style: StyleAtom.homeFeaturePrice),
+          Text(doctor.price, style: context.regular9GreenMint),
           SizedBox(height: 4.h),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.star, size: 10.r, color: AppColors.starFilled),
+              Icon(Icons.star, size: 10.r, color: AppColors.yellowWarm),
               SizedBox(width: 2.w),
-              Text(doctor.rating, style: StyleAtom.homeRatingText),
+              Text(doctor.rating, style: context.regular10Grey),
             ],
           ),
         ],

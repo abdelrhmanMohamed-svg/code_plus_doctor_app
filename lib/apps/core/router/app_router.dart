@@ -1,8 +1,11 @@
+import 'package:doctor_hunt/apps/features/favourite_doctors/presentation/screens/favourite_doctors_screen.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../core/widgets/app_shell.dart';
+import '../auth/auth_status_notifier.dart';
+import '../di/injection.dart';
+import '../widgets/app_shell.dart';
+import '../widgets/loading_screen.dart';
 import '../../features/appointment_booking/presentation/screens/appointment_booking_screen.dart';
-import '../../features/favourite_doctors/presentation/screens/favourite_doctors_screen.dart';
 import '../../features/chat/presentation/screens/chat_screen.dart';
 import '../../features/choose_role/presentation/screens/choose_role_screen.dart';
 import '../../features/doctor_details/presentation/screens/doctor_details_screen.dart';
@@ -18,6 +21,7 @@ class AppRouter {
   AppRouter._();
 
   static const String onboarding = '/onboarding';
+  static const String splash = '/splash';
   static const String chooseRole = '/choose-role';
   static const String login = '/login';
   static const String signUp = '/sign-up';
@@ -29,9 +33,32 @@ class AppRouter {
   static const String chat = '/chat';
   static const String profile = '/profile';
 
+  static const _authRoutes = {onboarding, chooseRole, login, signUp};
+  static const _shellRoutes = {home, favourites, chat, profile};
+
   static final GoRouter router = GoRouter(
-    initialLocation: onboarding,
+    initialLocation: splash,
+    refreshListenable: getIt<AuthStatusNotifier>(),
+    redirect: (context, state) {
+      final status = getIt<AuthStatusNotifier>().value;
+      final path = state.matchedLocation;
+
+      if (status == AuthSessionStatus.unknown) return splash;
+
+      if (status == AuthSessionStatus.authenticated) {
+        if (path == splash || _authRoutes.contains(path)) return home;
+      }
+
+      if (status == AuthSessionStatus.unauthenticated) {
+        if (path == splash || _shellRoutes.contains(path)) {
+          return onboarding;
+        }
+      }
+
+      return null;
+    },
     routes: [
+      GoRoute(path: splash, builder: (context, state) => const LoadingScreen()),
       GoRoute(
         path: onboarding,
         builder: (context, state) => const OnboardingScreen(),

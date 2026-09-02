@@ -1,21 +1,23 @@
+import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
 
 /// White rounded input matching the auth reference.
-class AuthTextField extends StatelessWidget {
-  const AuthTextField({
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({
     super.key,
     required this.controller,
     required this.hint,
     this.keyboardType,
+    this.validator,
   });
 
   final TextEditingController controller;
   final String hint;
   final TextInputType? keyboardType;
+  final FormFieldValidator<String>? validator;
 
   InputBorder _border(Color color) {
     return OutlineInputBorder(
@@ -26,26 +28,23 @@ class AuthTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
-      style: TextStyle(
-        fontSize: 16.sp,
-        color: AppColors.authTitle,
-        fontFamily: StyleAtom.fontFamilyPlusJakartaSans,
-      ),
+      validator: validator,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      style: context.regular16Black,
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: TextStyle(
-          fontSize: 16.sp,
-          color: AppColors.authMutedText,
-          fontFamily: StyleAtom.fontFamilyPlusJakartaSans,
-        ),
+        hintStyle: context.regular16GreyBlueDark,
+
         filled: true,
-        fillColor: Colors.white,
+        fillColor: AppColors.white,
         contentPadding: EdgeInsets.symmetric(horizontal: 21.w, vertical: 16.h),
-        enabledBorder: _border(AppColors.authInputBorder),
-        focusedBorder: _border(AppColors.primary),
+        enabledBorder: _border(AppColors.greyBorderSoft),
+        focusedBorder: _border(AppColors.green),
+        errorBorder: _border(AppColors.red),
+        focusedErrorBorder: _border(AppColors.red),
       ),
     );
   }

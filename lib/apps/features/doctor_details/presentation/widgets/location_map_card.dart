@@ -21,11 +21,11 @@ class LocationMapCard extends StatelessWidget {
           image: AssetImage(ImageAssets.map),
           fit: BoxFit.cover,
         ),
-        color: AppColors.background,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(10.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.cardShadow,
+            color: AppColors.overlayLight,
             blurRadius: 30.r,
             offset: const Offset(0, 0),
           ),

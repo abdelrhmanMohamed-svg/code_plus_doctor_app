@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../i18n/strings.g.dart';
+import '../../../generated/style_atoms.dart';
 import '../theme/app_colors.dart';
-import '../theme/style_atom.dart';
 import '../utils/image_assets.dart';
 import 'primary_button.dart';
 
@@ -23,7 +24,7 @@ void showSuccessDialog(
     context: context,
     barrierDismissible: false,
     barrierLabel: 'success',
-    barrierColor: AppColors.dialogScrim,
+    barrierColor: AppColors.overlayDark,
     transitionDuration: const Duration(milliseconds: 200),
     pageBuilder: (_, __, ___) => _SuccessDialog(
       title: title,
@@ -59,7 +60,7 @@ class _SuccessDialog extends StatelessWidget {
           width: 335.w,
           height: 520.h,
           decoration: BoxDecoration(
-            color: AppColors.background,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(16.r),
           ),
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -70,7 +71,7 @@ class _SuccessDialog extends StatelessWidget {
                 width: 156.w,
                 height: 156.h,
                 decoration: const BoxDecoration(
-                  color: AppColors.successCircleBg,
+                  color: AppColors.mintPale,
                   shape: BoxShape.circle,
                 ),
                 child: Center(
@@ -83,20 +84,20 @@ class _SuccessDialog extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 24.h),
-              Text(title, style: StyleAtom.thankYouTitle),
+              Text(title, style: context.bold30DarkNavy),
               SizedBox(height: 8.h),
-              Text(subtitle, style: StyleAtom.thankYouSubtitle),
+              Text(subtitle, style: context.medium16Green),
               SizedBox(height: 16.h),
               Text(
                 message,
-                style: StyleAtom.thankYouBody,
+                style: context.regular14Grey,
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 28.h),
               PrimaryButton(
                 label: context.t.thankYou.doneButton,
                 onTap: () {
-                  Navigator.of(context).pop();
+                  context.pop();
                   onAction?.call();
                 },
               ),
@@ -106,23 +107,18 @@ class _SuccessDialog extends StatelessWidget {
                 height: 54.h,
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: AppColors.inputBorder),
+                    side: const BorderSide(color: AppColors.greyBorder),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.r),
                     ),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    context.pop();
                     onAction?.call();
                   },
                   child: Text(
                     actionLabel,
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.secondary,
-                      fontFamily: StyleAtom.fontFamilyPlusJakartaSans,
-                    ),
+                    style: context.semiBold16Grey,
                   ),
                 ),
               ),

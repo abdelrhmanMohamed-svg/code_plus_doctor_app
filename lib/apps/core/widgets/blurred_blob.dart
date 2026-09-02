@@ -43,12 +43,12 @@ class BackgroundBlobs extends StatelessWidget {
         Positioned(
           left: -100.w,
           top: -33.h,
-          child: BlurredBlob(color: AppColors.blurBlueBlob, sigma: 135),
+          child: BlurredBlob(color: AppColors.blue, sigma: 135),
         ),
         Positioned(
           right: -53.w,
           bottom: -45.h,
-          child: BlurredBlob(color: AppColors.blurColorONChooseRule),
+          child: BlurredBlob(color: AppColors.greenFaded),
         ),
       ],
     );

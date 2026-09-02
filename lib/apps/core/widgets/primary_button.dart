@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../generated/style_atoms.dart';
 import '../theme/app_colors.dart';
-import '../theme/style_atom.dart';
 
 /// A reusable primary action button.
 ///
@@ -18,6 +18,7 @@ class PrimaryButton extends StatelessWidget {
     this.borderRadius = 12,
     this.labelStyle,
     this.boxShadow,
+    this.isLoading = false,
   });
 
   final String label;
@@ -27,20 +28,16 @@ class PrimaryButton extends StatelessWidget {
   final double borderRadius;
   final TextStyle? labelStyle;
   final List<BoxShadow>? boxShadow;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
-    final defaultStyle = TextStyle(
-      fontSize: 18.sp,
-      fontWeight: FontWeight.w700,
-      color: AppColors.background,
-      fontFamily: StyleAtom.fontFamilyPlusJakartaSans,
-    );
+    final defaultStyle = context.bold18White;
 
     final effectiveStyle = labelStyle ?? defaultStyle;
 
     final button = Material(
-      color: AppColors.primary,
+      color: AppColors.green,
       borderRadius: BorderRadius.circular(borderRadius.r),
       child: InkWell(
         onTap: onTap,
@@ -49,11 +46,20 @@ class PrimaryButton extends StatelessWidget {
           width: width.w,
           height: height.h,
           child: Center(
-            child: Text(
-              label,
-              textAlign: TextAlign.center,
-              style: effectiveStyle,
-            ),
+            child: isLoading
+                ? SizedBox(
+                    width: 20.r,
+                    height: 20.r,
+                    child: const CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: AppColors.white,
+                    ),
+                  )
+                : Text(
+                    label,
+                    textAlign: TextAlign.center,
+                    style: effectiveStyle,
+                  ),
           ),
         ),
       ),
@@ -69,9 +75,6 @@ class PrimaryButton extends StatelessWidget {
           )
         : button;
 
-    return Align(
-      alignment: Alignment.center,
-      child: effectiveButton,
-    );
+    return Align(alignment: Alignment.center, child: effectiveButton);
   }
 }

@@ -10,23 +10,23 @@ class CategoryTabs extends StatelessWidget {
 
   static const List<_CategoryTab> _tabs = [
     _CategoryTab(
-      AppColors.categoryBlueStart,
-      AppColors.categoryBlueEnd,
+      AppColors.blueVibrant,
+      AppColors.purple,
       ImageAssets.categoryBody,
     ),
     _CategoryTab(
-      AppColors.primary,
-      AppColors.gradientEnd,
+      AppColors.green,
+      AppColors.greenLight,
       ImageAssets.categoryEye,
     ),
     _CategoryTab(
-      AppColors.categoryOrangeStart,
-      AppColors.categoryOrangeEnd,
+      AppColors.orange,
+      AppColors.yellow,
       ImageAssets.categoryHeart,
     ),
     _CategoryTab(
-      AppColors.categoryRedStart,
-      AppColors.categoryRedEnd,
+      AppColors.redLight,
+      AppColors.redLighter,
       ImageAssets.categoryTeeth,
     ),
   ];

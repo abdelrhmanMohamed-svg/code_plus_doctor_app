@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../i18n/strings.g.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
+import '../../../../../generated/style_atoms.dart';
 import '../../../../core/utils/image_assets.dart';
 import '../../../../core/widgets/blurred_blob.dart';
 import '../controller/favourite_doctors_cubit.dart';
@@ -47,9 +47,9 @@ class FavouriteDoctorsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final gridDoctors = _buildGridDoctors(context);
-    final initialFavorites = gridDoctors.where((d) => true).map((d) => d.id);
+    final initialFavorites = gridDoctors.map((d) => d.id);
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.white,
       body: Stack(
         children: [
           const BackgroundBlobs(),
@@ -67,7 +67,7 @@ class FavouriteDoctorsScreen extends StatelessWidget {
                       children: [
                         Text(
                           context.t.favouriteDoctors.title,
-                          style: StyleAtom.findDoctorsTitle,
+                          style: context.semiBold21BlackSoft,
                         ),
                       ],
                     ),
@@ -167,33 +167,6 @@ class FavouriteDoctorsScreen extends StatelessWidget {
   }
 }
 
-class _BackButton extends StatelessWidget {
-  const _BackButton({required this.onPressed});
-
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: AppColors.background,
-      borderRadius: BorderRadius.circular(10.r),
-      child: InkWell(
-        onTap: onPressed,
-        borderRadius: BorderRadius.circular(10.r),
-        child: SizedBox(
-          width: 30.r,
-          height: 30.r,
-          child: Icon(
-            Icons.chevron_left,
-            size: 18.r,
-            color: AppColors.secondary,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class _SectionTitle extends StatelessWidget {
   const _SectionTitle({required this.title});
 
@@ -201,7 +174,7 @@ class _SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(title, style: StyleAtom.homeSectionTitle);
+    return Text(title, style: context.medium18Dark);
   }
 }
 

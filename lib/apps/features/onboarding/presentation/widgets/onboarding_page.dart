@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../i18n/strings.g.dart';
+import '../../../../../generated/style_atoms.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
 
 /// Design-derived dimensions for a single onboarding page.
 const double _illustrationSize = 336;
@@ -39,13 +39,13 @@ class OnboardingPage extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: StyleAtom.onboardingTitle,
+            style: context.medium28Dark,
           ),
           SizedBox(height: 11.h),
           Text(
             context.t.onboarding.body,
             textAlign: TextAlign.center,
-            style: StyleAtom.onboardingBody,
+            style: context.regular14Grey,
           ),
         ],
       ),
@@ -81,7 +81,7 @@ class _Illustration extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: const [AppColors.primary, AppColors.gradientEnd],
+                  colors: const [AppColors.green, AppColors.greenLight],
                 ),
               ),
             ),

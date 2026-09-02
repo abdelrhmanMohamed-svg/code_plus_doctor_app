@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -31,19 +32,16 @@ class SelectablePillRow extends StatelessWidget {
             height: 60.h,
             decoration: BoxDecoration(
               color: isSelected
-                  ? AppColors.primary
-                  : AppColors.primary.withValues(alpha: 0.08),
+                  ? AppColors.green
+                  : AppColors.green.withValues(alpha: 0.08),
               shape: BoxShape.circle,
             ),
             alignment: Alignment.center,
             child: Text(
               items[index],
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: (isSelected ? 14 : 13).sp,
-                fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-                color: isSelected ? AppColors.white : AppColors.primary,
-              ),
+
+              style: isSelected ? context.bold14White : context.semiBold13Green,
             ),
           ),
         );

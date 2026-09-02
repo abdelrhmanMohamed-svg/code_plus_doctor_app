@@ -14,7 +14,7 @@ class AppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.white,
       body: navigationShell,
       bottomNavigationBar: _AppBottomNavBar(
         currentIndex: navigationShell.currentIndex,
@@ -40,11 +40,11 @@ class _AppBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: AppColors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
         boxShadow: [
           BoxShadow(
-            color: AppColors.cardShadow,
+            color: AppColors.overlayLight,
             blurRadius: 12.r,
             offset: const Offset(0, -3),
           ),
@@ -54,9 +54,9 @@ class _AppBottomNavBar extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
         child: NavigationBar(
           height: 74.h,
-          backgroundColor: AppColors.background,
+          backgroundColor: AppColors.white,
           elevation: 0,
-          indicatorColor: AppColors.primary,
+          indicatorColor: AppColors.green,
           indicatorShape: const CircleBorder(),
           selectedIndex: currentIndex,
           onDestinationSelected: onDestinationSelected,
@@ -66,12 +66,12 @@ class _AppBottomNavBar extends StatelessWidget {
               icon: Icon(
                 Icons.home_outlined,
                 size: 22.r,
-                color: AppColors.navIconInactive,
+                color: AppColors.greyBlueLight,
               ),
               selectedIcon: Icon(
                 Icons.home,
                 size: 24.r,
-                color: AppColors.background,
+                color: AppColors.white,
               ),
               label: context.t.tabs.home,
             ),
@@ -79,12 +79,12 @@ class _AppBottomNavBar extends StatelessWidget {
               icon: Icon(
                 Icons.favorite_outline,
                 size: 22.r,
-                color: AppColors.navIconInactive,
+                color: AppColors.greyBlueLight,
               ),
               selectedIcon: Icon(
                 Icons.favorite,
                 size: 24.r,
-                color: AppColors.background,
+                color: AppColors.white,
               ),
               label: context.t.tabs.favourites,
             ),
@@ -92,12 +92,12 @@ class _AppBottomNavBar extends StatelessWidget {
               icon: Icon(
                 Icons.chat_bubble_outline,
                 size: 22.r,
-                color: AppColors.navIconInactive,
+                color: AppColors.greyBlueLight,
               ),
               selectedIcon: Icon(
                 Icons.chat_bubble,
                 size: 24.r,
-                color: AppColors.background,
+                color: AppColors.white,
               ),
               label: context.t.tabs.chat,
             ),
@@ -105,12 +105,12 @@ class _AppBottomNavBar extends StatelessWidget {
               icon: Icon(
                 Icons.person_outline,
                 size: 22.r,
-                color: AppColors.navIconInactive,
+                color: AppColors.greyBlueLight,
               ),
               selectedIcon: Icon(
                 Icons.person,
                 size: 24.r,
-                color: AppColors.background,
+                color: AppColors.white,
               ),
               label: context.t.tabs.profile,
             ),

@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,11 +27,11 @@ class FavouriteDoctorGridCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10.r),
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(8.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.cardShadow,
+            color: AppColors.overlayLight,
             blurRadius: 8.r,
             offset: const Offset(0, 3),
           ),
@@ -64,7 +65,7 @@ class FavouriteDoctorGridCard extends StatelessWidget {
                           padding: EdgeInsets.all(4.r),
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
-                            color: AppColors.background,
+                            color: AppColors.white,
                           ),
                           child: Icon(
                             state.isFavorited(id)
@@ -72,8 +73,8 @@ class FavouriteDoctorGridCard extends StatelessWidget {
                                 : Icons.favorite_border,
                             size: 16.r,
                             color: state.isFavorited(id)
-                                ? AppColors.likeHeartRed
-                                : AppColors.secondary,
+                                ? AppColors.redBright
+                                : AppColors.grey,
                           ),
                         ),
                       ),
@@ -84,18 +85,14 @@ class FavouriteDoctorGridCard extends StatelessWidget {
           SizedBox(height: 8.h),
           Text(
             name,
-            style: TextStyle(
-              fontSize: 15.sp,
-              fontWeight: FontWeight.w500,
-              color: const Color(0xFF333333),
-            ),
+            style: context.bold15Dark,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
           SizedBox(height: 2.h),
           Text(
             specialty,
-            style: TextStyle(fontSize: 12.sp, color: AppColors.featurePrice),
+            style: context.regular15GreenMint,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),

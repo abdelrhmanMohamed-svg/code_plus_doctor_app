@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/theme/style_atom.dart';
+import '../../../../../generated/style_atoms.dart';
 import '../../../../../i18n/strings.g.dart';
 
 /// Header row with a back button and "Appointment" title.
@@ -20,10 +20,7 @@ class AppointmentHeader extends StatelessWidget {
             child: Icon(Icons.arrow_back_ios, size: 20.r),
           ),
           SizedBox(width: 12.w),
-          Text(
-            context.t.appointmentBooking.title,
-            style: StyleAtom.appointmentTitle,
-          ),
+          Text(context.t.appointmentBooking.title, style: context.bold18Dark),
         ],
       ),
     );

@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../i18n/strings.g.dart';
+import '../../../../../generated/style_atoms.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
 
 /// Static search input shown overlapping the profile header.
 ///
@@ -16,7 +16,7 @@ class HomeSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: AppColors.background,
+      color: AppColors.white,
       borderRadius: BorderRadius.circular(6.r),
       child: InkWell(
         onTap: () => context.push(AppRouter.findDoctors),
@@ -24,11 +24,11 @@ class HomeSearchBar extends StatelessWidget {
         child: Container(
           height: 54.h,
           decoration: BoxDecoration(
-            color: AppColors.background,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(6.r),
             boxShadow: [
               BoxShadow(
-                color: AppColors.cardShadow,
+                color: AppColors.overlayLight,
                 blurRadius: 10.r,
                 offset: const Offset(0, 4),
               ),
@@ -37,9 +37,9 @@ class HomeSearchBar extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(width: 16.w),
-              Icon(Icons.search, size: 20.r, color: AppColors.secondary),
+              Icon(Icons.search, size: 20.r, color: AppColors.grey),
               SizedBox(width: 16.w),
-              Text(context.t.home.searchHint, style: StyleAtom.homeSearchHint),
+              Text(context.t.home.searchHint, style: context.regular15Grey),
             ],
           ),
         ),

@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../i18n/strings.g.dart';
+import '../../../../../generated/style_atoms.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
 import '../../../../core/utils/image_assets.dart';
 import '../../../../core/widgets/blurred_blob.dart';
 import '../../../../core/widgets/primary_button.dart';
@@ -66,7 +66,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.white,
       body: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -129,7 +129,7 @@ class _OnboardingControls extends StatelessWidget {
                 : context.t.onboarding.next,
             onTap: onGetStarted,
             borderRadius: 10,
-            labelStyle: StyleAtom.onboardingButton,
+            labelStyle: context.medium18White,
           ),
           SizedBox(height: 14.h),
           GestureDetector(
@@ -139,7 +139,7 @@ class _OnboardingControls extends StatelessWidget {
               padding: EdgeInsets.all(8.r),
               child: Text(
                 context.t.onboarding.skip,
-                style: StyleAtom.onboardingSkip,
+                style: context.regular14Grey,
               ),
             ),
           ),

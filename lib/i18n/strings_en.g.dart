@@ -47,6 +47,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$signUp$en signUp = Translations$signUp$en._(_root);
 	late final Translations$forgotPassword$en forgotPassword = Translations$forgotPassword$en._(_root);
 	late final Translations$tabs$en tabs = Translations$tabs$en._(_root);
+	late final Translations$profile$en profile = Translations$profile$en._(_root);
 	late final Translations$favouriteDoctors$en favouriteDoctors = Translations$favouriteDoctors$en._(_root);
 	late final Translations$home$en home = Translations$home$en._(_root);
 	late final Translations$doctorData$en doctorData = Translations$doctorData$en._(_root);
@@ -54,6 +55,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$appointmentBooking$en appointmentBooking = Translations$appointmentBooking$en._(_root);
 	late final Translations$doctorDetails$en doctorDetails = Translations$doctorDetails$en._(_root);
 	late final Translations$thankYou$en thankYou = Translations$thankYou$en._(_root);
+	late final Translations$auth$en auth = Translations$auth$en._(_root);
 }
 
 // Path: common
@@ -281,6 +283,18 @@ class Translations$tabs$en {
 	String get profile => 'Profile';
 }
 
+// Path: profile
+class Translations$profile$en {
+	Translations$profile$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Logout'
+	String get logout => 'Logout';
+}
+
 // Path: favouriteDoctors
 class Translations$favouriteDoctors$en {
 	Translations$favouriteDoctors$en._(this._root);
@@ -337,8 +351,8 @@ class Translations$home$en {
 
 	// Translations
 
-	/// en: 'Hi Handwerker!'
-	String get greeting => 'Hi Handwerker!';
+	/// en: 'Hi {name}!'
+	String greeting({required Object name}) => 'Hi ${name}!';
 
 	/// en: 'Find Your Doctor'
 	String get userName => 'Find Your Doctor';
@@ -596,6 +610,60 @@ class Translations$thankYou$en {
 	String get doneButton => 'Done';
 }
 
+// Path: auth
+class Translations$auth$en {
+	Translations$auth$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'No account found with this email.'
+	String get userNotFound => 'No account found with this email.';
+
+	/// en: 'Incorrect password. Please try again.'
+	String get wrongPassword => 'Incorrect password. Please try again.';
+
+	/// en: 'An account already exists with this email.'
+	String get emailAlreadyInUse => 'An account already exists with this email.';
+
+	/// en: 'Password is too weak. Please use a stronger password.'
+	String get weakPassword => 'Password is too weak. Please use a stronger password.';
+
+	/// en: 'Please enter a valid email address.'
+	String get invalidEmail => 'Please enter a valid email address.';
+
+	/// en: 'Incorrect email or password. Please try again.'
+	String get invalidCredentials => 'Incorrect email or password. Please try again.';
+
+	/// en: 'Network error. Please check your connection.'
+	String get networkRequestFailed => 'Network error. Please check your connection.';
+
+	/// en: 'Something went wrong. Please try again.'
+	String get generic => 'Something went wrong. Please try again.';
+
+	/// en: 'Please accept the Terms of Service to continue.'
+	String get termsRequired => 'Please accept the Terms of Service to continue.';
+
+	/// en: 'Please fill in all fields.'
+	String get emptyFields => 'Please fill in all fields.';
+
+	/// en: 'This field is required.'
+	String get fieldRequired => 'This field is required.';
+
+	/// en: 'Password must be at least 6 characters.'
+	String get passwordTooShort => 'Password must be at least 6 characters.';
+
+	/// en: 'Passwords do not match.'
+	String get passwordsMismatch => 'Passwords do not match.';
+
+	/// en: 'Google sign-in isn't configured. Please check your Firebase settings.'
+	String get googleSignInConfig => 'Google sign-in isn\'t configured. Please check your Firebase settings.';
+
+	/// en: 'Google sign-in failed. Please try again.'
+	String get googleSignInError => 'Google sign-in failed. Please try again.';
+}
+
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -658,6 +726,7 @@ extension on Translations {
 			'tabs.favourites' => 'Favourites',
 			'tabs.chat' => 'Chat',
 			'tabs.profile' => 'Profile',
+			'profile.logout' => 'Logout',
 			'favouriteDoctors.title' => 'Favourite Doctors',
 			'favouriteDoctors.searchHint' => 'Dentist',
 			'favouriteDoctors.drShouey' => 'Dr. Shouey',
@@ -671,7 +740,7 @@ extension on Translations {
 			'favouriteDoctors.statsOngoing' => 'Ongoing',
 			'favouriteDoctors.statsPatient' => 'Patient',
 			'favouriteDoctors.statsReview' => 'Review',
-			'home.greeting' => 'Hi Handwerker!',
+			'home.greeting' => ({required Object name}) => 'Hi ${name}!',
 			'home.userName' => 'Find Your Doctor',
 			'home.searchHint' => 'Search.....',
 			'home.liveDoctors' => 'Live Doctors',
@@ -742,6 +811,21 @@ extension on Translations {
 			'thankYou.message' => 'Your appointment has been booked successfully. You will receive a confirmation notification shortly.',
 			'thankYou.editButton' => 'Edit Appointment',
 			'thankYou.doneButton' => 'Done',
+			'auth.userNotFound' => 'No account found with this email.',
+			'auth.wrongPassword' => 'Incorrect password. Please try again.',
+			'auth.emailAlreadyInUse' => 'An account already exists with this email.',
+			'auth.weakPassword' => 'Password is too weak. Please use a stronger password.',
+			'auth.invalidEmail' => 'Please enter a valid email address.',
+			'auth.invalidCredentials' => 'Incorrect email or password. Please try again.',
+			'auth.networkRequestFailed' => 'Network error. Please check your connection.',
+			'auth.generic' => 'Something went wrong. Please try again.',
+			'auth.termsRequired' => 'Please accept the Terms of Service to continue.',
+			'auth.emptyFields' => 'Please fill in all fields.',
+			'auth.fieldRequired' => 'This field is required.',
+			'auth.passwordTooShort' => 'Password must be at least 6 characters.',
+			'auth.passwordsMismatch' => 'Passwords do not match.',
+			'auth.googleSignInConfig' => 'Google sign-in isn\'t configured. Please check your Firebase settings.',
+			'auth.googleSignInError' => 'Google sign-in failed. Please try again.',
 			_ => null,
 		};
 	}

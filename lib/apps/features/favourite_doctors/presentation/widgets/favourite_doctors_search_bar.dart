@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../i18n/strings.g.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
+import '../../../../../generated/style_atoms.dart';
 
 /// Search input shown on the Favourite Doctors screen.
 class FavouriteDoctorsSearchBar extends StatefulWidget {
@@ -40,11 +40,11 @@ class _FavouriteDoctorsSearchBarState extends State<FavouriteDoctorsSearchBar> {
       height: 54.h,
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(6.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.cardShadow,
+            color: AppColors.overlayLight,
             blurRadius: 20.r,
             offset: const Offset(0, 0),
           ),
@@ -52,7 +52,7 @@ class _FavouriteDoctorsSearchBarState extends State<FavouriteDoctorsSearchBar> {
       ),
       child: Row(
         children: [
-          Icon(Icons.search, size: 20.r, color: AppColors.secondary),
+          Icon(Icons.search, size: 20.r, color: AppColors.grey),
           SizedBox(width: 12.w),
           Expanded(
             child: TextField(
@@ -61,17 +61,17 @@ class _FavouriteDoctorsSearchBarState extends State<FavouriteDoctorsSearchBar> {
               onChanged: widget.onChanged,
               onTapOutside: (_) => _focusNode.unfocus(),
               textAlignVertical: TextAlignVertical.center,
-              style: StyleAtom.findDoctorsSearchHint,
-              cursorColor: AppColors.secondary,
+              style: context.regular19Grey,
+              cursorColor: AppColors.grey,
               decoration: InputDecoration(
                 hintText: context.t.favouriteDoctors.searchHint,
-                hintStyle: StyleAtom.findDoctorsSearchHint,
+                hintStyle: context.regular19Grey,
                 border: InputBorder.none,
                 isCollapsed: true,
               ),
             ),
           ),
-          Icon(Icons.tune, size: 11.r, color: AppColors.secondary),
+          Icon(Icons.tune, size: 11.r, color: AppColors.grey),
         ],
       ),
     );

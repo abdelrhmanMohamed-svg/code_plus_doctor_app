@@ -44,6 +44,10 @@ Every feature follows the same `data/{models, repo, service}` + `presentation/{c
 - **Navigation:** `go_router`, centralized in `apps/core/router/`. No direct `Navigator` use in feature code. No auth guards unless requested.
 - **Responsive:** `flutter_screenutil` for Figma-derived UI dimensions (`.w`, `.h`, `.sp`, `.r`). Don't apply it blindly to every numeric value — non-dimension/API/framework constants stay normal values. Responsiveness adapts the Figma design; it must NOT redesign the UI (visual hierarchy, component structure, spacing system, interaction patterns stay as designed).
 - **Design tokens:** centralized in `lib/generated/` (`app_colors.dart`, `image_assets.dart`, `style_atom.dart`). **Never hand-edit generated files** — see Generated files below.
+- **Styling (mandatory):**
+  - Use `atmos_style` for **all** UI styling. Never use inline `TextStyle(...)` objects or ad-hoc style construction. Every text/typography style must come from `atmos_style`.
+  - Use `app_colors` for **all** colors. No hardcoded color values anywhere in UI code — colors must come from `app_colors`.
+  - When a style or color you need isn't available, extend/modify the generation source that produces `style_atom.dart` / `app_colors.dart` and regenerate — never hand-edit generated files and never inline a one-off style/color.
 - **Const:** prefer `const` constructors/values where applicable and they improve immutability/performance; don't force `const` where it reduces readability or isn't applicable.
 
 ## UI / Figma
@@ -80,7 +84,8 @@ Do not move business logic into widgets, services, or repositories when it belon
 - No business logic in screens or UI widgets.
 - No `BuildContext` in repositories, services, models, or Cubits/controllers — `BuildContext`-dependent operations live only in the presentation/UI layer.
 - No `setState` when state belongs in a Cubit — Cubit should normally own feature state.
-- No hardcoded colors.
+- No hardcoded colors — all colors must come from `app_colors`.
+- No inline `TextStyle(...)` objects or ad-hoc styles — all text/typography styles must come from `atmos_style`.
 - No hardcoded user-facing strings.
 - No unnecessary duplication, abstractions, or dependencies.
 - No direct navigation outside the centralized router.

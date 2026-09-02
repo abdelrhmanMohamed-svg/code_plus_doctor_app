@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../i18n/strings.g.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
+import '../../../../../generated/style_atoms.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../data/models/doctor_model.dart';
 import '../controller/doctor_details_cubit.dart';
@@ -24,11 +24,11 @@ class DoctorDetailsCard extends StatelessWidget {
       width: 335.w,
       padding: EdgeInsets.fromLTRB(19.w, 18.h, 16.w, 16.h),
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(8.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.cardShadow,
+            color: AppColors.overlayLight,
             blurRadius: 20.r,
             offset: const Offset(0, 0),
           ),
@@ -58,7 +58,7 @@ class DoctorDetailsCard extends StatelessWidget {
                         Expanded(
                           child: Text(
                             doctor.name,
-                            style: StyleAtom.doctorDetailsName,
+                            style: context.medium18Dark,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -77,8 +77,8 @@ class DoctorDetailsCard extends StatelessWidget {
                                     : Icons.favorite_border,
                                 size: 19.r,
                                 color: state.isFavorited(doctor.id)
-                                    ? AppColors.likeHeartRed
-                                    : AppColors.secondary,
+                                    ? AppColors.redBright
+                                    : AppColors.grey,
                               ),
                             ),
                           ),
@@ -88,7 +88,7 @@ class DoctorDetailsCard extends StatelessWidget {
                     SizedBox(height: 4.h),
                     Text(
                       doctor.specialty,
-                      style: StyleAtom.doctorDetailsSpecialty,
+                      style: context.light14Grey,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -101,13 +101,13 @@ class DoctorDetailsCard extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text: "\$ ",
-                            style: StyleAtom.doctorDetailsPrice.copyWith(
-                              color: AppColors.primary,
+                            style: context.medium16Dark.copyWith(
+                              color: AppColors.green,
                             ),
                             children: [
                               TextSpan(
                                 text: doctor.price,
-                                style: StyleAtom.doctorDetailsPrice,
+                                style: context.medium16Dark,
                               ),
                             ],
                           ),
@@ -126,7 +126,7 @@ class DoctorDetailsCard extends StatelessWidget {
             width: 140,
             height: 32,
             borderRadius: 4,
-            labelStyle: StyleAtom.findDoctorBookNow,
+            labelStyle: context.medium14White,
           ),
         ],
       ),
@@ -150,8 +150,8 @@ class _StarRating extends StatelessWidget {
           Icons.star,
           size: 13.r,
           color: index < rating.round()
-              ? AppColors.starFilled
-              : AppColors.starInactive,
+              ? AppColors.yellowWarm
+              : AppColors.greyLight,
         ),
       ),
     );
