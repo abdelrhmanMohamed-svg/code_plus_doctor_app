@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../i18n/strings.g.dart';
+import '../../../../../generated/style_atoms.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/image_assets.dart';
-import '../../../../core/theme/style_atom.dart';
 import '../../../../core/widgets/blurred_blob.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/di/injection.dart';
@@ -22,7 +22,7 @@ class ChooseRoleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.white,
       body: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -59,7 +59,7 @@ class ChooseRoleScreen extends StatelessWidget {
         children: [
           Image.asset(ImageAssets.logo, width: 70.r, height: 70.r),
           SizedBox(height: 11.h),
-          Text(context.t.common.brandName, style: StyleAtom.brandName),
+          Text(context.t.common.brandName, style: context.bold25BlackSoft),
         ],
       ),
     );
@@ -72,13 +72,13 @@ class ChooseRoleScreen extends StatelessWidget {
         Text(
           context.t.chooseRole.title,
           textAlign: TextAlign.center,
-          style: StyleAtom.chooseRoleTitle,
+          style: context.regular28DarkNavy,
         ),
         SizedBox(height: 8.h),
         Text(
           context.t.chooseRole.subtitle,
           textAlign: TextAlign.center,
-          style: StyleAtom.chooseRoleSubtitle,
+          style: context.regular14GreyMuted,
         ),
       ],
     );
@@ -101,8 +101,8 @@ class ChooseRoleScreen extends StatelessWidget {
             icon: Icons.medical_services_outlined,
             title: context.t.chooseRole.doctor,
             body: context.t.chooseRole.doctorDescription,
-            selected: state.selectedRole == Role.admin,
-            onTap: () => context.read<ChooseRoleCubit>().selectRole(Role.admin),
+            selected: state.selectedRole == Role.doctor,
+            onTap: () => context.read<ChooseRoleCubit>().selectRole(Role.doctor),
           ),
         ],
       ),
@@ -117,12 +117,12 @@ class ChooseRoleScreen extends StatelessWidget {
       height: 56,
       boxShadow: [
         BoxShadow(
-          color: const Color(0x0D000000),
+          color: AppColors.overlayLight,
           blurRadius: 2.r,
           offset: const Offset(0, 1),
         ),
       ],
-      labelStyle: StyleAtom.continueButton,
+      labelStyle: context.semiBold16White,
     );
   }
 }

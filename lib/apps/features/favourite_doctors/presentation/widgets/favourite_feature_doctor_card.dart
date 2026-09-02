@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
+import '../../../../../generated/style_atoms.dart';
 import '../../../../core/utils/image_assets.dart';
 
 /// Compact feature doctor card matching the home _FeatureDoctorCard design.
@@ -24,11 +24,11 @@ class FavouriteFeatureDoctorCard extends StatelessWidget {
       width: 96.w,
       height: 130.h,
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(6.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.cardShadow,
+            color: AppColors.overlayLight,
             blurRadius: 8.r,
             offset: const Offset(0, 3),
           ),
@@ -48,19 +48,19 @@ class FavouriteFeatureDoctorCard extends StatelessWidget {
           SizedBox(height: 8.h),
           Text(
             name,
-            style: StyleAtom.homeFeatureName,
+            style: context.medium12Dark,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
           SizedBox(height: 2.h),
-          Text(price, style: StyleAtom.homeFeaturePrice),
+          Text(price, style: context.regular9GreenMint),
           SizedBox(height: 4.h),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.star, size: 10.r, color: AppColors.starFilled),
+              Icon(Icons.star, size: 10.r, color: AppColors.yellowWarm),
               SizedBox(width: 2.w),
-              Text(rating, style: StyleAtom.homeRatingText),
+              Text(rating, style: context.regular10Grey),
             ],
           ),
         ],

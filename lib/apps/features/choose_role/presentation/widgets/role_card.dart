@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../generated/style_atoms.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
 
 /// A selectable role card with distinct selected/unselected visuals.
 class RoleCard extends StatelessWidget {
@@ -29,17 +29,15 @@ class RoleCard extends StatelessWidget {
       height: selected ? 164.h : 122.h,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: selected ? AppColors.roleSelectedBg : AppColors.roleCardBg,
+        color: selected ? AppColors.greenPale : AppColors.offWhite,
         borderRadius: BorderRadius.circular(20.r),
         border: Border.all(
-          color: selected
-              ? AppColors.roleSelectedBorder
-              : AppColors.roleCardBorder,
+          color: selected ? AppColors.greenDark : AppColors.greyLight,
         ),
         boxShadow: selected
             ? [
                 BoxShadow(
-                  color: const Color(0x0D000000),
+                  color: AppColors.overlayLight,
                   blurRadius: 2.r,
                   offset: const Offset(0, 1),
                 ),
@@ -64,12 +62,12 @@ class RoleCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(title, style: StyleAtom.roleCardTitle),
+                          Text(title, style: context.semiBold20DarkNavy),
                           if (selected) ...[
                             SizedBox(height: 6.h),
                             Text(
                               body,
-                              style: StyleAtom.roleCardBody,
+                              style: context.regular14GreyMuted,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -87,7 +85,7 @@ class RoleCard extends StatelessWidget {
                   child: Icon(
                     Icons.check_circle,
                     size: 24.r,
-                    color: AppColors.primary,
+                    color: AppColors.green,
                   ),
                 ),
             ],
@@ -102,13 +100,13 @@ class RoleCard extends StatelessWidget {
       width: 56.r,
       height: 56.r,
       decoration: BoxDecoration(
-        color: AppColors.roleIconBoxBg,
+        color: AppColors.greenLighter,
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: Icon(
         icon,
         size: 28.r,
-        color: selected ? AppColors.primary : AppColors.roleIconMuted,
+        color: selected ? AppColors.green : AppColors.greyMuted,
       ),
     );
   }

@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../i18n/strings.g.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
+import '../../../../../generated/style_atoms.dart';
 import '../../../../core/widgets/blurred_blob.dart';
 import '../../data/models/doctor_model.dart';
 import '../controller/doctor_details_cubit.dart';
@@ -25,7 +25,7 @@ class DoctorDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = doctor ?? Doctor.dummyDoctors.first;
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.white,
       body: Stack(
         children: [
           const BackgroundBlobs(),
@@ -44,7 +44,7 @@ class DoctorDetailsScreen extends StatelessWidget {
                         SizedBox(width: 19.w),
                         Text(
                           context.t.doctorDetails.title,
-                          style: StyleAtom.doctorDetailsTitle,
+                          style: context.medium18Dark,
                         ),
                       ],
                     ),
@@ -84,7 +84,7 @@ class _BackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: AppColors.background,
+      color: AppColors.white,
       borderRadius: BorderRadius.circular(10.r),
       child: InkWell(
         onTap: onPressed,
@@ -92,11 +92,7 @@ class _BackButton extends StatelessWidget {
         child: SizedBox(
           width: 30.r,
           height: 30.r,
-          child: Icon(
-            Icons.chevron_left,
-            size: 18.r,
-            color: AppColors.secondary,
-          ),
+          child: Icon(Icons.chevron_left, size: 18.r, color: AppColors.grey),
         ),
       ),
     );

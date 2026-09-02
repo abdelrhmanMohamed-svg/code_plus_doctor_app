@@ -1,5 +1,5 @@
 /// The two app user roles selectable on the choose-role screen.
-enum Role { patient, admin }
+enum Role { patient, doctor }
 
 /// Immutable state tracking the currently selected user role.
 class ChooseRoleState {

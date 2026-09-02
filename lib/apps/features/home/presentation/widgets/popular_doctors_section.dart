@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../i18n/strings.g.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
+import '../../../../../generated/style_atoms.dart';
 import '../../../../core/utils/image_assets.dart';
 import 'home_section_title.dart';
 
@@ -74,11 +74,11 @@ class _PopularDoctorCard extends StatelessWidget {
         width: 190.w,
         height: 264.h,
         decoration: BoxDecoration(
-          color: AppColors.background,
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(12.r),
           boxShadow: [
             BoxShadow(
-              color: AppColors.cardShadow,
+              color: AppColors.overlayLight,
               blurRadius: 10.r,
               offset: const Offset(0, 4),
             ),
@@ -106,14 +106,14 @@ class _PopularDoctorCard extends StatelessWidget {
                   children: [
                     Text(
                       doctor.name,
-                      style: StyleAtom.homePopularName,
+                      style: context.medium18Dark,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 2.h),
                     Text(
                       doctor.specialty,
-                      style: StyleAtom.homeSpecialty,
+                      style: context.regular12Grey,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -126,8 +126,8 @@ class _PopularDoctorCard extends StatelessWidget {
                           Icons.star,
                           size: 13.r,
                           color: index < _filledStars
-                              ? AppColors.starFilled
-                              : AppColors.starInactive,
+                              ? AppColors.yellowWarm
+                              : AppColors.greyLight,
                         ),
                       ),
                     ),

@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -21,11 +22,11 @@ class _CalendarCardState extends State<CalendarCard> {
       width: 335.w,
       height: 280.h,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(8.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.cardShadow,
+            color: AppColors.overlayLight,
             blurRadius: 20.r,
             offset: const Offset(0, 0),
           ),
@@ -39,19 +40,14 @@ class _CalendarCardState extends State<CalendarCard> {
 
           initialDisplayDate: DateTime(2021, 2, 1),
           headerStyle: DateRangePickerHeaderStyle(
-            backgroundColor: AppColors.primary,
+            backgroundColor: AppColors.green,
             textAlign: TextAlign.center,
-            textStyle: TextStyle(
-              color: Colors.white,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w500,
-            ),
+            textStyle: context.semiBold16White,
           ),
           monthViewSettings: const DateRangePickerMonthViewSettings(
             dayFormat: 'EEE',
           ),
-          selectionTextStyle: const TextStyle(color: Colors.white),
-          selectionColor: AppColors.primary,
+          selectionColor: AppColors.green,
           onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
             setState(() {});
           },

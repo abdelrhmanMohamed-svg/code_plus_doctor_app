@@ -1,8 +1,8 @@
+import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
 
 /// Rounded white social-login button with a soft elevation.
 class AuthSocialButton extends StatelessWidget {
@@ -22,11 +22,11 @@ class AuthSocialButton extends StatelessWidget {
     return Container(
       height: 57.h,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: AppColors.shadowLight,
             blurRadius: 6.r,
             offset: Offset(0, 2.h),
           ),
@@ -45,11 +45,7 @@ class AuthSocialButton extends StatelessWidget {
               SizedBox(width: 8.w),
               Text(
                 label,
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  color: AppColors.authMutedText,
-                  fontFamily: StyleAtom.fontFamilyPlusJakartaSans,
-                ),
+                style: context.regular16BlueDark
               ),
             ],
           ),

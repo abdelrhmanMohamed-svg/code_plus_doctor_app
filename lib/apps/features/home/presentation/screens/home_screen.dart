@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/di/injection.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/blurred_blob.dart';
+import '../../../profile/presentation/controller/user_cubit.dart';
 import '../widgets/category_tabs.dart';
 import '../widgets/feature_doctors_section.dart';
 import '../widgets/home_search_bar.dart';
@@ -17,7 +20,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.white,
       body: Stack(
         children: [
           const BackgroundBlobs(),
@@ -57,7 +60,12 @@ class HomeScreen extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          const Positioned.fill(child: ProfileHeader()),
+          Positioned.fill(
+            child: BlocProvider(
+              create: (_) => getIt<UserCubit>(),
+              child: const ProfileHeader(),
+            ),
+          ),
           Positioned(
             top: 150.h,
             left: 20.w,

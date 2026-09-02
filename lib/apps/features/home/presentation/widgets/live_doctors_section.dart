@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../i18n/strings.g.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
+import '../../../../../generated/style_atoms.dart';
 import '../../../../core/utils/image_assets.dart';
 
 /// Horizontal scroll of live-streaming doctor cards.
@@ -25,7 +25,7 @@ class LiveDoctorsSection extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Text(
             context.t.home.liveDoctors,
-            style: StyleAtom.homeSectionTitle,
+            style: context.medium18Dark,
           ),
         ),
         SizedBox(height: 20.h),
@@ -59,7 +59,7 @@ class _LiveDoctorCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(6.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.cardShadow,
+            color: AppColors.overlayLight,
             blurRadius: 10.r,
             offset: const Offset(0, 4),
           ),
@@ -72,7 +72,7 @@ class _LiveDoctorCard extends StatelessWidget {
           children: [
             Image.asset(photo, fit: BoxFit.cover),
             DecoratedBox(
-              decoration: BoxDecoration(color: AppColors.liveOverlay),
+              decoration: BoxDecoration(color: AppColors.overlay),
             ),
             Positioned(top: 11.h, right: 11.w, child: const _LiveBadge()),
             const Center(child: _PlayOverlay()),
@@ -91,7 +91,7 @@ class _LiveBadge extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
       decoration: BoxDecoration(
-        color: AppColors.liveBadgeRed,
+        color: AppColors.red,
         borderRadius: BorderRadius.circular(3.r),
       ),
       child: Row(
@@ -102,11 +102,11 @@ class _LiveBadge extends StatelessWidget {
             height: 5.r,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: AppColors.background,
+              color: AppColors.white,
             ),
           ),
           SizedBox(width: 4.w),
-          Text(context.t.home.liveBadge, style: StyleAtom.homeLiveBadge),
+          Text(context.t.home.liveBadge, style: context.semiBold9White),
         ],
       ),
     );
@@ -124,12 +124,12 @@ class _PlayOverlay extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: Colors.transparent,
-        border: Border.all(color: AppColors.background, width: 4),
+        border: Border.all(color: AppColors.white, width: 4),
       ),
       child: Icon(
         Icons.play_arrow_rounded,
         size: 18.r,
-        color: AppColors.background,
+        color: AppColors.white,
       ),
     );
   }

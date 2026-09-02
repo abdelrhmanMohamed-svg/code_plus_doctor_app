@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../../../../generated/style_atoms.dart';
 import '../../../../../i18n/strings.g.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
-import '../widgets/auth_password_field.dart';
+import '../../../../core/utils/app_validator.dart';
 import '../../../../core/widgets/primary_button.dart';
+import '../widgets/auth_password_field.dart';
 import '../widgets/auth_text_field.dart';
 
 /// Opens the forgot-password sheet (email → code → reset) from the login screen.
@@ -37,6 +39,8 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _reEnterPasswordController =
       TextEditingController();
+  final _emailFormKey = GlobalKey<FormState>();
+  final _resetFormKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -52,16 +56,12 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
     });
   }
 
-  void _close() {
-    Navigator.of(context).pop();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       height: _step == _ForgotStep.reset ? 470 : 360.h,
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: AppColors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
       ),
       child: SafeArea(
@@ -87,29 +87,34 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
   }
 
   Widget _buildEmailStep() {
-    return Column(
-      key: const ValueKey('emailStep'),
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildStepHeader(
-          context.t.forgotPassword.sheetTitle,
-          context.t.forgotPassword.sheetBody,
-        ),
-        SizedBox(height: 28.h),
-        SizedBox(
-          height: 54.h,
-          child: AuthTextField(
-            controller: _emailController,
-            hint: context.t.signUp.emailHint,
-            keyboardType: TextInputType.emailAddress,
+    final t = context.t;
+    return Form(
+      key: _emailFormKey,
+      child: Column(
+        key: const ValueKey('emailStep'),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildStepHeader(
+            t.forgotPassword.sheetTitle,
+            t.forgotPassword.sheetBody,
           ),
-        ),
-        SizedBox(height: 32.h),
-        PrimaryButton(
-          label: context.t.chooseRole.continueButton,
-          onTap: _advance,
-        ),
-      ],
+          SizedBox(height: 28.h),
+          CustomTextField(
+            controller: _emailController,
+            hint: t.signUp.emailHint,
+            keyboardType: TextInputType.emailAddress,
+            validator: AppValidator.email(t),
+          ),
+          SizedBox(height: 32.h),
+          PrimaryButton(
+            label: t.chooseRole.continueButton,
+            onTap: () {
+              if (!_emailFormKey.currentState!.validate()) return;
+              _advance();
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -134,36 +139,39 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
   }
 
   Widget _buildResetStep() {
-    return Column(
-      key: const ValueKey('resetStep'),
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildStepHeader(
-          context.t.forgotPassword.resetPasswordSheetTitle,
-          context.t.forgotPassword.resetPasswordSheetBody,
-        ),
-        SizedBox(height: 28.h),
-        SizedBox(
-          height: 54.h,
-          child: AuthPasswordField(
+    final t = context.t;
+    return Form(
+      key: _resetFormKey,
+      child: Column(
+        key: const ValueKey('resetStep'),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildStepHeader(
+            t.forgotPassword.resetPasswordSheetTitle,
+            t.forgotPassword.resetPasswordSheetBody,
+          ),
+          SizedBox(height: 28.h),
+          AuthPasswordField(
             controller: _newPasswordController,
-            hint: context.t.forgotPassword.newPasswordHint,
+            hint: t.forgotPassword.newPasswordHint,
+            validator: AppValidator.password(t),
           ),
-        ),
-        SizedBox(height: 20.h),
-        SizedBox(
-          height: 54.h,
-          child: AuthPasswordField(
+          SizedBox(height: 20.h),
+          AuthPasswordField(
             controller: _reEnterPasswordController,
-            hint: context.t.forgotPassword.reEnterPasswordHint,
+            hint: t.forgotPassword.reEnterPasswordHint,
+            validator: AppValidator.confirmPassword(t, _newPasswordController),
           ),
-        ),
-        SizedBox(height: 32.h),
-        PrimaryButton(
-          label: context.t.forgotPassword.updatePasswordButton,
-          onTap: _close,
-        ),
-      ],
+          SizedBox(height: 32.h),
+          PrimaryButton(
+            label: t.forgotPassword.updatePasswordButton,
+            onTap: () {
+              if (!_resetFormKey.currentState!.validate()) return;
+              context.pop();
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -171,24 +179,11 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 24.sp,
-            fontWeight: FontWeight.w700,
-            color: AppColors.authTitle,
-            fontFamily: StyleAtom.fontFamilyPlusJakartaSans,
-          ),
-        ),
+        Text(title, style: context.bold24.black),
         SizedBox(height: 10.h),
         Text(
           body,
-          style: TextStyle(
-            fontSize: 15.sp,
-            height: 1.45,
-            color: AppColors.authSubtitle,
-            fontFamily: StyleAtom.fontFamilyPlusJakartaSans,
-          ),
+          style: context.regular15.greyPaleBlue.copyWith(height: 1.45),
         ),
       ],
     );
@@ -207,18 +202,13 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
           borderRadius: BorderRadius.circular(12.r),
           borderWidth: 1,
           focusedBorderWidth: 1,
-          fillColor: Colors.white,
-          focusedFillColor: Colors.white,
-          filledFillColor: Colors.white,
-          borderColor: AppColors.authInputBorder,
-          focusedBorderColor: AppColors.primary,
-          filledBorderColor: AppColors.authInputBorder,
-          textStyle: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
-            color: AppColors.authTitle,
-            fontFamily: StyleAtom.fontFamilyPlusJakartaSans,
-          ),
+          fillColor: AppColors.white,
+          focusedFillColor: AppColors.white,
+          filledFillColor: AppColors.white,
+          borderColor: AppColors.greyBorderSoft,
+          focusedBorderColor: AppColors.green,
+          filledBorderColor: AppColors.greyBorderSoft,
+          textStyle: context.semiBold20.black,
         ),
       ),
     );

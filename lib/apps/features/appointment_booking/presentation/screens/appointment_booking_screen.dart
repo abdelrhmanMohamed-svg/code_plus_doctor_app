@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../i18n/strings.g.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
+import '../../../../../generated/style_atoms.dart';
 import '../../../../core/widgets/blurred_blob.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/widgets/success_dialog.dart';
@@ -23,7 +23,7 @@ class AppointmentBookingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.appointmentBg,
+      backgroundColor: AppColors.offWhiteSoft,
       body: Stack(
         children: [
           BackgroundBlobs(),
@@ -40,7 +40,7 @@ class AppointmentBookingScreen extends StatelessWidget {
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: AppColors.white,
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(45.r),
                       ),
@@ -55,14 +55,14 @@ class AppointmentBookingScreen extends StatelessWidget {
                         children: [
                           Text(
                             context.t.appointmentBooking.availableTime,
-                            style: StyleAtom.homeSectionTitle,
+                            style: context.medium18Dark,
                           ),
                           SizedBox(height: 20.h),
                           const TimeSelector(),
                           SizedBox(height: 30.h),
                           Text(
                             context.t.appointmentBooking.reminderMeBefore,
-                            style: StyleAtom.homeSectionTitle,
+                            style: context.medium18Dark,
                           ),
                           SizedBox(height: 20.h),
                           const ReminderSelector(),

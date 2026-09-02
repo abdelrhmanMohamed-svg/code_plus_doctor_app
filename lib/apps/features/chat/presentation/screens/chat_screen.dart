@@ -10,7 +10,7 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.white,
       body: SafeArea(child: Center(child: Text(context.t.tabs.chat))),
     );
   }

@@ -67,6 +67,9 @@
     "chat": "Chat",
     "profile": "Profile"
   },
+  "profile": {
+    "logout": "Logout"
+  },
   "favouriteDoctors": {
     "title": "Favourite Doctors",
     "searchHint": "Dentist",
@@ -83,7 +86,7 @@
     "statsReview": "Review"
   },
   "home": {
-    "greeting": "Hi Handwerker!",
+    "greeting": "Hi {name}!",
     "userName": "Find Your Doctor",
     "searchHint": "Search.....",
     "liveDoctors": "Live Doctors",
@@ -164,5 +167,22 @@
     "message": "Your appointment has been booked successfully. You will receive a confirmation notification shortly.",
     "editButton": "Edit Appointment",
     "doneButton": "Done"
+  },
+  "auth": {
+    "userNotFound": "No account found with this email.",
+    "wrongPassword": "Incorrect password. Please try again.",
+    "emailAlreadyInUse": "An account already exists with this email.",
+    "weakPassword": "Password is too weak. Please use a stronger password.",
+    "invalidEmail": "Please enter a valid email address.",
+    "invalidCredentials": "Incorrect email or password. Please try again.",
+    "networkRequestFailed": "Network error. Please check your connection.",
+    "generic": "Something went wrong. Please try again.",
+    "termsRequired": "Please accept the Terms of Service to continue.",
+    "emptyFields": "Please fill in all fields.",
+    "fieldRequired": "This field is required.",
+    "passwordTooShort": "Password must be at least 6 characters.",
+    "passwordsMismatch": "Passwords do not match.",
+    "googleSignInConfig": "Google sign-in isn't configured. Please check your Firebase settings.",
+    "googleSignInError": "Google sign-in failed. Please try again."
   }
 }

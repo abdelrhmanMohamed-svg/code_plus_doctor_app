@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../i18n/strings.g.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/style_atom.dart';
+import '../../../../../generated/style_atoms.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../controller/find_doctor_cubit.dart';
 import '../controller/find_doctor_state.dart';
@@ -20,11 +20,11 @@ class DoctorCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.fromLTRB(20.w, 17.h, 17.w, 17.h),
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(8.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.cardShadow,
+            color: AppColors.overlayLight,
             blurRadius: 20.r,
             offset: const Offset(0, 0),
           ),
@@ -51,21 +51,21 @@ class DoctorCard extends StatelessWidget {
                   children: [
                     Text(
                       doctor.name,
-                      style: StyleAtom.findDoctorName,
+                      style: context.medium21Dark,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 3.h),
                     Text(
                       context.t.findDoctors.toothsDentist,
-                      style: StyleAtom.findDoctorSpecialty,
+                      style: context.regular17Green,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 8.h),
                     Text(
                       doctor.experience,
-                      style: StyleAtom.findDoctorExperience,
+                      style: context.regular14Grey,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -74,14 +74,14 @@ class DoctorCard extends StatelessWidget {
                       children: [
                         _RatingDot(),
                         SizedBox(width: 8.w),
-                        Text(doctor.rating, style: StyleAtom.findDoctorRating),
+                        Text(doctor.rating, style: context.regular13Grey),
                         SizedBox(width: 8.w),
                         _RatingDot(),
                         SizedBox(width: 8.w),
                         Expanded(
                           child: Text(
                             doctor.stories,
-                            style: StyleAtom.findDoctorRating,
+                            style: context.regular13Grey,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -105,8 +105,8 @@ class DoctorCard extends StatelessWidget {
                           : Icons.favorite_border,
                       size: 19.r,
                       color: state.isFavorited(doctor.id)
-                          ? AppColors.liveBadgeRed
-                          : AppColors.secondary,
+                          ? AppColors.red
+                          : AppColors.grey,
                     ),
                   ),
                 ),
@@ -121,10 +121,10 @@ class DoctorCard extends StatelessWidget {
                 children: [
                   Text(
                     context.t.findDoctors.nextAvailable,
-                    style: StyleAtom.findDoctorNextAvailable,
+                    style: context.regular15Green,
                   ),
                   SizedBox(height: 7.h),
-                  Text(doctor.availableTime, style: StyleAtom.findDoctorTime),
+                  Text(doctor.availableTime, style: context.regular14Grey),
                 ],
               ),
               const Spacer(),
@@ -133,7 +133,7 @@ class DoctorCard extends StatelessWidget {
                 width: 112,
                 height: 34,
                 borderRadius: 4,
-                labelStyle: StyleAtom.findDoctorBookNow,
+                labelStyle: context.medium14White,
               ),
             ],
           ),
@@ -174,7 +174,7 @@ class _RatingDot extends StatelessWidget {
       height: 10.r,
       decoration: const BoxDecoration(
         shape: BoxShape.circle,
-        color: AppColors.primary,
+        color: AppColors.green,
       ),
     );
   }
