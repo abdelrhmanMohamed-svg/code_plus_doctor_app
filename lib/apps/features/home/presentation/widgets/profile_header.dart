@@ -42,15 +42,13 @@ class ProfileHeader extends StatelessWidget {
                     children: [
                       Text(
                         state.isLoading
-                            ? context.t.home.greeting(name: 'Skeleton')
+                            ? context.t.home.greeting(name: '')
                             : context.t.home.greeting(name: state.name),
                         style: context.regular20OffWhiteWarm,
                       ),
                       SizedBox(height: 6.h),
                       Text(
-                        state.isLoading
-                            ? 'Skeleton'
-                            : context.t.home.userName,
+                        state.isLoading ? 'Skeleton' : context.t.home.userName,
                         style: context.bold25White,
                       ),
                     ],

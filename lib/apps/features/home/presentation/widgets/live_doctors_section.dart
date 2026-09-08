@@ -23,10 +23,7 @@ class LiveDoctorsSection extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Text(
-            context.t.home.liveDoctors,
-            style: context.medium18Dark,
-          ),
+          child: Text(context.t.home.liveDoctors, style: context.medium18Dark),
         ),
         SizedBox(height: 20.h),
         SizedBox(
@@ -71,9 +68,7 @@ class _LiveDoctorCard extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             Image.asset(photo, fit: BoxFit.cover),
-            DecoratedBox(
-              decoration: BoxDecoration(color: AppColors.overlay),
-            ),
+            DecoratedBox(decoration: BoxDecoration(color: AppColors.overlay)),
             Positioned(top: 11.h, right: 11.w, child: const _LiveBadge()),
             const Center(child: _PlayOverlay()),
           ],
@@ -126,11 +121,7 @@ class _PlayOverlay extends StatelessWidget {
         color: Colors.transparent,
         border: Border.all(color: AppColors.white, width: 4),
       ),
-      child: Icon(
-        Icons.play_arrow_rounded,
-        size: 18.r,
-        color: AppColors.white,
-      ),
+      child: Icon(Icons.play_arrow_rounded, size: 18.r, color: AppColors.white),
     );
   }
 }

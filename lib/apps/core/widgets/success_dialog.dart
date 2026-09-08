@@ -116,10 +116,7 @@ class _SuccessDialog extends StatelessWidget {
                     context.pop();
                     onAction?.call();
                   },
-                  child: Text(
-                    actionLabel,
-                    style: context.semiBold16Grey,
-                  ),
+                  child: Text(actionLabel, style: context.semiBold16Grey),
                 ),
               ),
             ],

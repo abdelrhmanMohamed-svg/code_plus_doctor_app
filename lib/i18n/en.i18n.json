@@ -16,8 +16,8 @@
     "subtitle": "Select the role that best describes you to continue!",
     "patient": "Patient",
     "patientDescription": "Book appointments and manage your medical records.",
-    "doctor": "Doctor",
-    "doctorDescription": "Manage appointments and your schedule as a medical professional.",
+    "admin": "Admin",
+    "adminDescription": "Manage doctors, create new doctor profiles, and oversee the platform.",
     "continueButton": "Continue"
   },
   "login": {
@@ -68,7 +68,9 @@
     "profile": "Profile"
   },
   "profile": {
-    "logout": "Logout"
+    "logout": "Logout",
+    "createDoctor": "Create New Doctor",
+    "signOutFailure": "Couldn't sign you out. Please try again."
   },
   "favouriteDoctors": {
     "title": "Favourite Doctors",
@@ -184,5 +186,44 @@
     "passwordsMismatch": "Passwords do not match.",
     "googleSignInConfig": "Google sign-in isn't configured. Please check your Firebase settings.",
     "googleSignInError": "Google sign-in failed. Please try again."
+  },
+  "createDoctor": {
+    "title": "Create Doctor",
+    "nameLabel": "Doctor Name",
+    "nameHint": "Enter doctor name",
+    "specialtyLabel": "Specialty",
+    "specialtyHint": "Select specialty",
+    "submitButton": "Create Doctor",
+    "successMessage": "Doctor created successfully!",
+    "failureMessage": "Failed to create doctor. Please try again.",
+    "imageUpload": "Doctor Image",
+    "imageUploadHint": "Upload doctor image",
+    "imageUploadTap": "Tap to pick an image"
+  },
+  "admin": {
+    "doctorsTitle": "Doctors",
+    "settingsTitle": "Settings",
+    "searchHint": "Search doctors...",
+    "totalDoctors": "Total Doctors",
+    "active": "Active",
+    "inactive": "Inactive",
+    "addDoctor": "Add Doctor",
+    "emptyStateTitle": "No doctors yet",
+    "emptyStateMessage": "Create your first doctor to get started.",
+    "retry": "Retry",
+    "loadFailureMessage": "Failed to load doctors. Please try again.",
+    "filterTitle": "Filter by specialty",
+    "filterAll": "All",
+    "noResultsTitle": "No doctors found",
+    "noResultsMessage": "Try adjusting your search or filters."
+  },
+  "specialties": {
+    "cardiologist": "Cardiologist",
+    "orthopedic": "Orthopedic",
+    "dermatologist": "Dermatologist",
+    "pediatrician": "Pediatrician",
+    "neurologist": "Neurologist",
+    "ophthalmologist": "Ophthalmologist",
+    "general": "General Practice"
   }
 }

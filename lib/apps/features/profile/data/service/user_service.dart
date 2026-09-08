@@ -15,7 +15,7 @@ class UserService {
 
   Future<void> createUserProfile(UserProfile profile) {
     return _firestore.collection(_collection).doc(profile.uid).set({
-      ...profile.toDoc(),
+      ...profile.toJson(),
       'createdAt': FieldValue.serverTimestamp(),
     });
   }
@@ -23,6 +23,6 @@ class UserService {
   Future<UserProfile?> getUserProfile(String uid) async {
     final doc = await _firestore.collection(_collection).doc(uid).get();
     if (!doc.exists) return null;
-    return UserProfile.fromDoc(doc.id, doc.data()!);
+    return UserProfile.fromJson(doc.id, doc.data()!);
   }
 }

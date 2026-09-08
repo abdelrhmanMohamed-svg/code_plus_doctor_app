@@ -5,19 +5,19 @@
 import 'package:flutter/material.dart';
 import 'package:doctor_hunt/apps/core/theme/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-  
+
 extension WeightAtoms on BuildContext {
   TextStyle get style => Theme.of(this).textTheme.titleMedium!.copyWith(
-        color: Color(0xFF1A1A1A),
-        fontFamily: 'Plus Jakarta Sans',
-      );
+    color: Color(0xFF1A1A1A),
+    fontFamily: 'Plus Jakarta Sans',
+  );
   TextStyle get light => style.copyWith(fontWeight: FontWeight.w300);
   TextStyle get regular => style.copyWith(fontWeight: FontWeight.normal);
   TextStyle get medium => style.copyWith(fontWeight: FontWeight.w500);
   TextStyle get semiBold => style.copyWith(fontWeight: FontWeight.w600);
   TextStyle get bold => style.copyWith(fontWeight: FontWeight.bold);
 }
-  
+
 extension ColorAtoms on TextStyle {
   TextStyle get green => copyWith(color: AppColors.green);
   TextStyle get greenLight => copyWith(color: AppColors.greenLight);
@@ -70,7 +70,6 @@ extension ColorAtoms on TextStyle {
   TextStyle get overlayDark => copyWith(color: AppColors.overlayDark);
 }
 
-
 extension FontSizeAtoms on TextStyle {
   TextStyle get px8 => copyWith(fontSize: 8.sp);
   TextStyle get px9 => copyWith(fontSize: 9.sp);
@@ -96,7 +95,6 @@ extension FontSizeAtoms on TextStyle {
   TextStyle get px36 => copyWith(fontSize: 36.sp);
   TextStyle get px40 => copyWith(fontSize: 40.sp);
 }
-
 
 extension WeightAndPxMixes on BuildContext {
   TextStyle get light8 => light.px8;
@@ -215,6 +213,7 @@ extension WeightAndPxMixes on BuildContext {
   TextStyle get semiBold40 => semiBold.px40;
   TextStyle get bold40 => bold.px40;
 }
+
 extension LightAtoms on BuildContext {
   TextStyle get light8Green => light8.green;
   TextStyle get light8GreenLight => light8.greenLight;
@@ -1344,6 +1343,7 @@ extension LightAtoms on BuildContext {
   TextStyle get light40OverlayLight => light40.overlayLight;
   TextStyle get light40OverlayDark => light40.overlayDark;
 }
+
 extension RegularAtoms on BuildContext {
   TextStyle get regular8Green => regular8.green;
   TextStyle get regular8GreenLight => regular8.greenLight;
@@ -2473,6 +2473,7 @@ extension RegularAtoms on BuildContext {
   TextStyle get regular40OverlayLight => regular40.overlayLight;
   TextStyle get regular40OverlayDark => regular40.overlayDark;
 }
+
 extension MediumAtoms on BuildContext {
   TextStyle get medium8Green => medium8.green;
   TextStyle get medium8GreenLight => medium8.greenLight;
@@ -3602,6 +3603,7 @@ extension MediumAtoms on BuildContext {
   TextStyle get medium40OverlayLight => medium40.overlayLight;
   TextStyle get medium40OverlayDark => medium40.overlayDark;
 }
+
 extension SemiBoldAtoms on BuildContext {
   TextStyle get semiBold8Green => semiBold8.green;
   TextStyle get semiBold8GreenLight => semiBold8.greenLight;
@@ -4731,6 +4733,7 @@ extension SemiBoldAtoms on BuildContext {
   TextStyle get semiBold40OverlayLight => semiBold40.overlayLight;
   TextStyle get semiBold40OverlayDark => semiBold40.overlayDark;
 }
+
 extension BoldAtoms on BuildContext {
   TextStyle get bold8Green => bold8.green;
   TextStyle get bold8GreenLight => bold8.greenLight;

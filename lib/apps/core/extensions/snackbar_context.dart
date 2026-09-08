@@ -1,4 +1,3 @@
-import 'package:doctor_hunt/apps/core/extensions/error_mapper.dart';
 import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,12 +6,11 @@ import '../theme/app_colors.dart';
 
 extension SnackBarContext on BuildContext {
   void showErrorSnackBar(String message) {
-    final newMessage = resolveAuthCode(message);
     ScaffoldMessenger.of(this)
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
-          content: Text(newMessage, style: regular14Black),
+          content: Text(message, style: regular14White),
           backgroundColor: AppColors.black,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(

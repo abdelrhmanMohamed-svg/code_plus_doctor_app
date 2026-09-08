@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:doctor_hunt/apps/features/profile/data/models/user_profile.dart';
 import 'package:doctor_hunt/apps/features/profile/data/service/user_service.dart';
 
+import '../../../profile/data/models/role.dart';
 import '../service/auth_service.dart';
 import 'auth_repository.dart';
 
@@ -37,6 +38,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String name,
     required String email,
     required String password,
+    Role? role,
   }) async {
     try {
       final credential = await _authService.signUpWithEmail(
@@ -56,6 +58,7 @@ class AuthRepositoryImpl implements AuthRepository {
         name: name,
         email: email,
         createdAt: DateTime.now(),
+        role: role ?? Role.patient,
       );
       await _userService.createUserProfile(profile);
     } on AuthFailure {
@@ -68,7 +71,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> signInWithGoogle() async {
+  Future<void> signInWithGoogle({Role? role}) async {
     try {
       final credential = await _authService.signInWithGoogle();
       final user = credential.user;
@@ -84,6 +87,7 @@ class AuthRepositoryImpl implements AuthRepository {
         name: user.displayName ?? '',
         email: user.email ?? '',
         createdAt: DateTime.now(),
+        role: role ?? Role.patient,
       );
       await _userService.createUserProfile(profile);
     } on AuthFailure {

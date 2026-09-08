@@ -25,10 +25,7 @@ class LoadingScreen extends StatelessWidget {
               children: [
                 Image.asset(ImageAssets.logo, width: 100.r, height: 100.r),
                 SizedBox(height: 16.h),
-                Text(
-                  context.t.common.brandName,
-                  style: context.bold24Black,
-                ),
+                Text(context.t.common.brandName, style: context.bold24Black),
                 SizedBox(height: 32.h),
                 SizedBox(
                   width: 24.r,

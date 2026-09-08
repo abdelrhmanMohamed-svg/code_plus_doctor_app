@@ -15,8 +15,9 @@ class AuthService {
 
   Future<void> _ensureGoogleSignInInitialized() async {
     if (_googleSignInInitialized) return;
-    await GoogleSignIn.instance
-        .initialize(serverClientId: AppConstants.googleServerClientId);
+    await GoogleSignIn.instance.initialize(
+      serverClientId: AppConstants.googleServerClientId,
+    );
     _googleSignInInitialized = true;
   }
 
@@ -54,7 +55,9 @@ class AuthService {
   }
 
   Future<void> signOut() async {
-    await GoogleSignIn.instance.signOut();
+    if (_googleSignInInitialized) {
+      await GoogleSignIn.instance.signOut();
+    }
     await _auth.signOut();
   }
 }

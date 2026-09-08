@@ -43,10 +43,7 @@ class AuthSocialButton extends StatelessWidget {
             children: [
               leading,
               SizedBox(width: 8.w),
-              Text(
-                label,
-                style: context.regular16BlueDark
-              ),
+              Text(label, style: context.regular16BlueDark),
             ],
           ),
         ),
