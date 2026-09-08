@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/apps/features/profile/data/models/role.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,7 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../generated/style_atoms.dart';
 import '../../../../../i18n/strings.g.dart';
-import '../../../../core/di/injection.dart';
+import '../../../../core/extensions/error_mapper.dart';
 import '../../../../core/extensions/snackbar_context.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -42,52 +43,48 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<AuthCubit>(),
-      child: Builder(
-        builder: (context) {
-          return Scaffold(
-            backgroundColor: AppColors.white,
-            body: BlocListener<AuthCubit, AuthState>(
-              listener: (context, state) {
-                if (state.status == AuthRequestStatus.success) {
-                  context.go(AppRouter.home);
-                } else if (state.status == AuthRequestStatus.error &&
-                    state.errorCode != 'google-signin-canceled') {
-                  context.showErrorSnackBar(state.errorCode ?? 'generic');
-                }
-              },
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  const BackgroundBlobs(),
-                  SafeArea(
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: Column(
-                        children: [
-                          SizedBox(height: 130.h),
-                          _buildHeader(),
-                          SizedBox(height: 71.h),
-                          _buildSocialButtons(context),
-                          SizedBox(height: 34.h),
-                          _buildFields(),
-                          SizedBox(height: 59.h),
-                          _buildLoginButton(context),
-                          SizedBox(height: 21.h),
-                          _buildForgotPassword(),
-                          SizedBox(height: 37.h),
-                          _buildJoinPrompt(),
-                          SizedBox(height: 28.h),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+    final role = GoRouterState.of(context).extra as Role?;
+    return Scaffold(
+      backgroundColor: AppColors.white,
+      body: BlocListener<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state.status == AuthRequestStatus.success) {
+            context.go(AppRouter.home);
+          } else if (state.status == AuthRequestStatus.error &&
+              state.errorCode != 'google-signin-canceled') {
+            context.showErrorSnackBar(
+              context.resolveAuthCode(state.errorCode ?? 'generic'),
+            );
+          }
+        },
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            const BackgroundBlobs(),
+            SafeArea(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Column(
+                  children: [
+                    SizedBox(height: 130.h),
+                    _buildHeader(),
+                    SizedBox(height: 71.h),
+                    _buildSocialButtons(context, role),
+                    SizedBox(height: 34.h),
+                    _buildFields(),
+                    SizedBox(height: 59.h),
+                    _buildLoginButton(context),
+                    SizedBox(height: 21.h),
+                    _buildForgotPassword(),
+                    SizedBox(height: 37.h),
+                    _buildJoinPrompt(role),
+                    SizedBox(height: 28.h),
+                  ],
+                ),
               ),
             ),
-          );
-        },
+          ],
+        ),
       ),
     );
   }
@@ -111,14 +108,14 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildSocialButtons(BuildContext context) {
+  Widget _buildSocialButtons(BuildContext context, Role? role) {
     return Row(
       children: [
         Expanded(
           child: AuthSocialButton(
             leading: SvgPicture.asset(ImageAssets.googleLogo, height: 20.r),
             label: context.t.signUp.googleLabel,
-            onTap: () => context.read<AuthCubit>().signInWithGoogle(),
+            onTap: () => context.read<AuthCubit>().signInWithGoogle(role: role),
           ),
         ),
         SizedBox(width: 15.w),
@@ -194,14 +191,14 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildJoinPrompt() {
+  Widget _buildJoinPrompt(Role? role) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(context.t.login.dontHaveAccount, style: context.regular14Green),
         SizedBox(width: 4.w),
         InkWell(
-          onTap: () => context.go(AppRouter.signUp),
+          onTap: () => context.go(AppRouter.signUp, extra: role),
           borderRadius: BorderRadius.circular(6.r),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),

@@ -36,11 +36,7 @@ class OnboardingPage extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: context.medium28Dark,
-          ),
+          Text(title, textAlign: TextAlign.center, style: context.medium28Dark),
           SizedBox(height: 11.h),
           Text(
             context.t.onboarding.body,

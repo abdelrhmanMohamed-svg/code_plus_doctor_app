@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../i18n/strings.g.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../../generated/style_atoms.dart';
-import '../../data/models/doctor_model.dart';
+import '../../../../core/models/doctor.dart';
 
 /// Three-column stats bar (Running / Ongoing / Patient) on the
 /// Doctor Details screen.

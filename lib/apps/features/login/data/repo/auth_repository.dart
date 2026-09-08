@@ -1,3 +1,5 @@
+import 'package:doctor_hunt/apps/features/profile/data/models/role.dart';
+
 /// Abstract auth repository contract.
 abstract class AuthRepository {
   /// Firebase session validity (true when Firebase user is non-null).
@@ -9,9 +11,10 @@ abstract class AuthRepository {
     required String name,
     required String email,
     required String password,
+    Role? role,
   });
 
-  Future<void> signInWithGoogle();
+  Future<void> signInWithGoogle({Role? role});
 
   Future<void> signOut();
 }

@@ -1,5 +1,4 @@
-/// The two app user roles selectable on the choose-role screen.
-enum Role { patient, doctor }
+import '../../../profile/data/models/role.dart';
 
 /// Immutable state tracking the currently selected user role.
 class ChooseRoleState {

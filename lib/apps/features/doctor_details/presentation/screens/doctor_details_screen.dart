@@ -8,7 +8,7 @@ import '../../../../core/di/injection.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../../generated/style_atoms.dart';
 import '../../../../core/widgets/blurred_blob.dart';
-import '../../data/models/doctor_model.dart';
+import '../../../../core/models/doctor.dart';
 import '../controller/doctor_details_cubit.dart';
 import '../widgets/doctor_details_card.dart';
 import '../widgets/doctor_stats_card.dart';

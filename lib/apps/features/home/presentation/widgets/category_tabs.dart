@@ -19,11 +19,7 @@ class CategoryTabs extends StatelessWidget {
       AppColors.greenLight,
       ImageAssets.categoryEye,
     ),
-    _CategoryTab(
-      AppColors.orange,
-      AppColors.yellow,
-      ImageAssets.categoryHeart,
-    ),
+    _CategoryTab(AppColors.orange, AppColors.yellow, ImageAssets.categoryHeart),
     _CategoryTab(
       AppColors.redLight,
       AppColors.redLighter,

@@ -78,6 +78,10 @@ UI / widgets → Cubit / controller → repository → service → backend / API
 
 Do not move business logic into widgets, services, or repositories when it belongs in the Cubit/controller.
 
+## Snackbar notifications
+
+Use the project's snackbar extension (`SnackbarsContext`) for all user-facing success/error notifications in presentation code. Call `context.showErrorSnackBar(message)` on failure and `context.showSuccessSnackBar(message)` on success. The extension handles styling, animation, and dismissal automatically — never build custom snackbars or use `ScaffoldMessenger` directly. In Cubits/controllers, emit states (`success`/`failure`) with messages; the UI layer consumes those states and triggers the appropriate snackbar.
+
 ## Strict rules
 
 - No `print`.
@@ -91,6 +95,7 @@ Do not move business logic into widgets, services, or repositories when it belon
 - No direct navigation outside the centralized router.
 - No backend/Firebase implementation, tests, git operations, architecture changes, or unrelated refactoring unless explicitly requested.
 - No edits to generated files unless required via their generation source.
+- No inline `ElevatedButton`/`TextButton`/`Material` buttons when a shared widget exists — always use the project's shared widgets (e.g. `PrimaryButton` in `apps/core/widgets/`) instead of re-implementing the same design inline. If the shared widget doesn't cover a needed variant, extend it or ask before creating a duplicate.
 
 ## Magic numbers
 

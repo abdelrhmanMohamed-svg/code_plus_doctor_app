@@ -1,7 +1,8 @@
-import 'package:doctor_hunt/apps/core/di/injection.dart';
+import 'package:doctor_hunt/apps/core/extensions/error_mapper.dart';
 import 'package:doctor_hunt/apps/core/extensions/snackbar_context.dart';
 import 'package:doctor_hunt/apps/core/router/app_router.dart';
 import 'package:doctor_hunt/apps/core/utils/app_validator.dart';
+import 'package:doctor_hunt/apps/features/profile/data/models/role.dart';
 import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,52 +45,49 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<AuthCubit>(),
-      child: Builder(
-        builder: (context) {
-          return Scaffold(
-            backgroundColor: AppColors.white,
-            body: BlocListener<AuthCubit, AuthState>(
-              listener: (context, state) {
-                if (state.status == AuthRequestStatus.success) {
-                  context.go(AppRouter.home);
-                } else if (state.status == AuthRequestStatus.error) {
-                  context.showErrorSnackBar(state.errorCode ?? 'generic');
-                }
-              },
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  const BackgroundBlobs(),
-                  SafeArea(
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          SizedBox(height: 130.h),
-                          _buildHeader(),
-                          SizedBox(height: 71.h),
-                          _buildSocialButtons(context),
-                          SizedBox(height: 34.h),
-                          _buildInputFields(),
-                          SizedBox(height: 15.h),
-                          _buildTermsRow(),
-                          SizedBox(height: 59.h),
-                          _buildSignUpButton(context),
-                          SizedBox(height: 19.h),
-                          _buildLoginPrompt(),
-                          SizedBox(height: 28.h),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+    final role = GoRouterState.of(context).extra as Role?;
+    return Scaffold(
+      backgroundColor: AppColors.white,
+      body: BlocListener<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state.status == AuthRequestStatus.success) {
+            context.go(AppRouter.home);
+          } else if (state.status == AuthRequestStatus.error &&
+              state.errorCode != 'google-signin-canceled') {
+            context.showErrorSnackBar(
+              context.resolveAuthCode(state.errorCode ?? 'generic'),
+            );
+          }
+        },
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            const BackgroundBlobs(),
+            SafeArea(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: 130.h),
+                    _buildHeader(),
+                    SizedBox(height: 71.h),
+                    _buildSocialButtons(context, role),
+                    SizedBox(height: 34.h),
+                    _buildInputFields(),
+                    SizedBox(height: 15.h),
+                    _buildTermsRow(),
+                    SizedBox(height: 59.h),
+                    _buildSignUpButton(context, role),
+                    SizedBox(height: 19.h),
+                    _buildLoginPrompt(),
+                    SizedBox(height: 28.h),
+                  ],
+                ),
               ),
             ),
-          );
-        },
+          ],
+        ),
       ),
     );
   }
@@ -113,14 +111,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget _buildSocialButtons(BuildContext context) {
+  Widget _buildSocialButtons(BuildContext context, Role? role) {
     return Row(
       children: [
         Expanded(
           child: AuthSocialButton(
             leading: SvgPicture.asset(ImageAssets.googleLogo, height: 20.r),
             label: context.t.signUp.googleLabel,
-            onTap: () => context.read<AuthCubit>().signInWithGoogle(),
+            onTap: () => context.read<AuthCubit>().signInWithGoogle(role: role),
           ),
         ),
         SizedBox(width: 15.w),
@@ -187,7 +185,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget _buildSignUpButton(BuildContext context) {
+  Widget _buildSignUpButton(BuildContext context, Role? role) {
     return BlocBuilder<AuthCubit, AuthState>(
       buildWhen: (prev, curr) => prev.status != curr.status,
       builder: (context, state) {
@@ -197,13 +195,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
           onTap: () {
             if (!_formKey.currentState!.validate()) return;
             if (!_termsAccepted) {
-              context.showErrorSnackBar('auth.termsRequired');
+              context.showErrorSnackBar(context.t.auth.termsRequired);
               return;
             }
             context.read<AuthCubit>().signUp(
               name: _nameController.text.trim(),
               email: _emailController.text.trim(),
               password: _passwordController.text,
+              role: role,
             );
           },
         );
@@ -215,17 +214,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          context.t.signUp.haveAccount,
-          style:context.regular14Green
-        ),
+        Text(context.t.signUp.haveAccount, style: context.regular14Green),
         SizedBox(width: 4.w),
         InkWell(
           onTap: () => context.go(AppRouter.login),
-          child: Text(
-            context.t.signUp.logIn,
-            style: context.semiBold14Green
-          ),
+          child: Text(context.t.signUp.logIn, style: context.semiBold14Green),
         ),
       ],
     );

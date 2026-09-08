@@ -133,11 +133,7 @@ class _BackButton extends StatelessWidget {
         child: SizedBox(
           width: 30.r,
           height: 30.r,
-          child: Icon(
-            Icons.chevron_left,
-            size: 18.r,
-            color: AppColors.grey,
-          ),
+          child: Icon(Icons.chevron_left, size: 18.r, color: AppColors.grey),
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/apps/features/profile/data/models/role.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,33 +22,35 @@ class ChooseRoleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      body: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          const BackgroundBlobs(),
-          SafeArea(
-            child: BlocProvider<ChooseRoleCubit>(
-              create: (_) => getIt<ChooseRoleCubit>(),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    _buildBranding(context),
-                    _buildHeader(context),
-                    SizedBox(height: 32.h),
-                    _buildRoleCards(),
-                    const Spacer(),
-                    _buildContinueButton(context),
-                    SizedBox(height: 32.h),
-                  ],
+    return BlocProvider<ChooseRoleCubit>(
+      create: (_) => getIt<ChooseRoleCubit>(),
+      child: Builder(
+        builder: (context) => Scaffold(
+          backgroundColor: AppColors.white,
+          body: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              const BackgroundBlobs(),
+              SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _buildBranding(context),
+                      _buildHeader(context),
+                      SizedBox(height: 32.h),
+                      _buildRoleCards(context),
+                      const Spacer(),
+                      _buildContinueButton(context),
+                      SizedBox(height: 32.h),
+                    ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -84,7 +87,7 @@ class ChooseRoleScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRoleCards() {
+  Widget _buildRoleCards(BuildContext context) {
     return BlocBuilder<ChooseRoleCubit, ChooseRoleState>(
       builder: (context, state) => Column(
         children: [
@@ -98,11 +101,11 @@ class ChooseRoleScreen extends StatelessWidget {
           ),
           SizedBox(height: 16.h),
           RoleCard(
-            icon: Icons.medical_services_outlined,
-            title: context.t.chooseRole.doctor,
-            body: context.t.chooseRole.doctorDescription,
-            selected: state.selectedRole == Role.doctor,
-            onTap: () => context.read<ChooseRoleCubit>().selectRole(Role.doctor),
+            icon: Icons.admin_panel_settings_outlined,
+            title: context.t.chooseRole.admin,
+            body: context.t.chooseRole.adminDescription,
+            selected: state.selectedRole == Role.admin,
+            onTap: () => context.read<ChooseRoleCubit>().selectRole(Role.admin),
           ),
         ],
       ),
@@ -112,7 +115,10 @@ class ChooseRoleScreen extends StatelessWidget {
   Widget _buildContinueButton(BuildContext context) {
     return PrimaryButton(
       label: context.t.chooseRole.continueButton,
-      onTap: () => context.go(AppRouter.login),
+      onTap: () {
+        final selectedRole = context.read<ChooseRoleCubit>().state.selectedRole;
+        context.go(AppRouter.login, extra: selectedRole);
+      },
       width: double.infinity,
       height: 56,
       boxShadow: [

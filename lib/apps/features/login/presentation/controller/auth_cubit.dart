@@ -1,4 +1,5 @@
 import 'package:doctor_hunt/apps/core/error/error_mapper.dart';
+import 'package:doctor_hunt/apps/features/profile/data/models/role.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -27,10 +28,16 @@ class AuthCubit extends Cubit<AuthState> {
     required String name,
     required String email,
     required String password,
+    Role? role,
   }) async {
     emit(state.copyWith(status: AuthRequestStatus.submitting));
     try {
-      await _repository.signUp(name: name, email: email, password: password);
+      await _repository.signUp(
+        name: name,
+        email: email,
+        password: password,
+        role: role,
+      );
       emit(state.copyWith(status: AuthRequestStatus.success));
     } on Exception catch (e) {
       emit(
@@ -39,10 +46,10 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> signInWithGoogle() async {
+  Future<void> signInWithGoogle({Role? role}) async {
     emit(state.copyWith(status: AuthRequestStatus.submitting));
     try {
-      await _repository.signInWithGoogle();
+      await _repository.signInWithGoogle(role: role);
       emit(state.copyWith(status: AuthRequestStatus.success));
     } on Exception catch (e) {
       emit(
@@ -52,6 +59,13 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> signOut() async {
-    await _repository.signOut();
+    try {
+      await _repository.signOut();
+      emit(state.copyWith(status: AuthRequestStatus.idle));
+    } on Exception catch (e) {
+      emit(
+        state.copyWith(status: AuthRequestStatus.error, errorCode: mapError(e)),
+      );
+    }
   }
 }

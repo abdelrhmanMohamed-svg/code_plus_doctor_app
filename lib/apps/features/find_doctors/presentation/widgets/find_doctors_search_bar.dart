@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../i18n/strings.g.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../../generated/style_atoms.dart';
+import '../../../login/presentation/widgets/auth_text_field.dart';
 
 /// Search input shown above the doctors list.
 class FindDoctorsSearchBar extends StatefulWidget {
@@ -54,20 +55,17 @@ class _FindDoctorsSearchBarState extends State<FindDoctorsSearchBar> {
           Icon(Icons.search, size: 20.r, color: AppColors.grey),
           SizedBox(width: 12.w),
           Expanded(
-            child: TextField(
+            child: CustomTextField(
               controller: _controller,
               focusNode: _focusNode,
               onChanged: widget.onChanged,
-              onTapOutside: (_) => _focusNode.unfocus(),
               textAlignVertical: TextAlignVertical.center,
               style: context.regular19Grey,
               cursorColor: AppColors.grey,
-              decoration: InputDecoration(
-                hintText: context.t.findDoctors.searchHint,
-                hintStyle: context.regular19Grey,
-                border: InputBorder.none,
-                isCollapsed: true,
-              ),
+              hint: context.t.findDoctors.searchHint,
+              hintStyle: context.regular19Grey,
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.zero,
             ),
           ),
           Icon(Icons.tune, size: 11.r, color: AppColors.grey),

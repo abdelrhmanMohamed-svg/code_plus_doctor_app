@@ -56,6 +56,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$doctorDetails$en doctorDetails = Translations$doctorDetails$en._(_root);
 	late final Translations$thankYou$en thankYou = Translations$thankYou$en._(_root);
 	late final Translations$auth$en auth = Translations$auth$en._(_root);
+	late final Translations$createDoctor$en createDoctor = Translations$createDoctor$en._(_root);
+	late final Translations$admin$en admin = Translations$admin$en._(_root);
+	late final Translations$specialties$en specialties = Translations$specialties$en._(_root);
 }
 
 // Path: common
@@ -120,11 +123,11 @@ class Translations$chooseRole$en {
 	/// en: 'Book appointments and manage your medical records.'
 	String get patientDescription => 'Book appointments and manage your medical records.';
 
-	/// en: 'Doctor'
-	String get doctor => 'Doctor';
+	/// en: 'Admin'
+	String get admin => 'Admin';
 
-	/// en: 'Manage appointments and your schedule as a medical professional.'
-	String get doctorDescription => 'Manage appointments and your schedule as a medical professional.';
+	/// en: 'Manage doctors, create new doctor profiles, and oversee the platform.'
+	String get adminDescription => 'Manage doctors, create new doctor profiles, and oversee the platform.';
 
 	/// en: 'Continue'
 	String get continueButton => 'Continue';
@@ -293,6 +296,12 @@ class Translations$profile$en {
 
 	/// en: 'Logout'
 	String get logout => 'Logout';
+
+	/// en: 'Create New Doctor'
+	String get createDoctor => 'Create New Doctor';
+
+	/// en: 'Couldn't sign you out. Please try again.'
+	String get signOutFailure => 'Couldn\'t sign you out. Please try again.';
 }
 
 // Path: favouriteDoctors
@@ -664,6 +673,132 @@ class Translations$auth$en {
 	String get googleSignInError => 'Google sign-in failed. Please try again.';
 }
 
+// Path: createDoctor
+class Translations$createDoctor$en {
+	Translations$createDoctor$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Create Doctor'
+	String get title => 'Create Doctor';
+
+	/// en: 'Doctor Name'
+	String get nameLabel => 'Doctor Name';
+
+	/// en: 'Enter doctor name'
+	String get nameHint => 'Enter doctor name';
+
+	/// en: 'Specialty'
+	String get specialtyLabel => 'Specialty';
+
+	/// en: 'Select specialty'
+	String get specialtyHint => 'Select specialty';
+
+	/// en: 'Create Doctor'
+	String get submitButton => 'Create Doctor';
+
+	/// en: 'Doctor created successfully!'
+	String get successMessage => 'Doctor created successfully!';
+
+	/// en: 'Failed to create doctor. Please try again.'
+	String get failureMessage => 'Failed to create doctor. Please try again.';
+
+	/// en: 'Doctor Image'
+	String get imageUpload => 'Doctor Image';
+
+	/// en: 'Upload doctor image'
+	String get imageUploadHint => 'Upload doctor image';
+
+	/// en: 'Tap to pick an image'
+	String get imageUploadTap => 'Tap to pick an image';
+}
+
+// Path: admin
+class Translations$admin$en {
+	Translations$admin$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Doctors'
+	String get doctorsTitle => 'Doctors';
+
+	/// en: 'Settings'
+	String get settingsTitle => 'Settings';
+
+	/// en: 'Search doctors...'
+	String get searchHint => 'Search doctors...';
+
+	/// en: 'Total Doctors'
+	String get totalDoctors => 'Total Doctors';
+
+	/// en: 'Active'
+	String get active => 'Active';
+
+	/// en: 'Inactive'
+	String get inactive => 'Inactive';
+
+	/// en: 'Add Doctor'
+	String get addDoctor => 'Add Doctor';
+
+	/// en: 'No doctors yet'
+	String get emptyStateTitle => 'No doctors yet';
+
+	/// en: 'Create your first doctor to get started.'
+	String get emptyStateMessage => 'Create your first doctor to get started.';
+
+	/// en: 'Retry'
+	String get retry => 'Retry';
+
+	/// en: 'Failed to load doctors. Please try again.'
+	String get loadFailureMessage => 'Failed to load doctors. Please try again.';
+
+	/// en: 'Filter by specialty'
+	String get filterTitle => 'Filter by specialty';
+
+	/// en: 'All'
+	String get filterAll => 'All';
+
+	/// en: 'No doctors found'
+	String get noResultsTitle => 'No doctors found';
+
+	/// en: 'Try adjusting your search or filters.'
+	String get noResultsMessage => 'Try adjusting your search or filters.';
+}
+
+// Path: specialties
+class Translations$specialties$en {
+	Translations$specialties$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Cardiologist'
+	String get cardiologist => 'Cardiologist';
+
+	/// en: 'Orthopedic'
+	String get orthopedic => 'Orthopedic';
+
+	/// en: 'Dermatologist'
+	String get dermatologist => 'Dermatologist';
+
+	/// en: 'Pediatrician'
+	String get pediatrician => 'Pediatrician';
+
+	/// en: 'Neurologist'
+	String get neurologist => 'Neurologist';
+
+	/// en: 'Ophthalmologist'
+	String get ophthalmologist => 'Ophthalmologist';
+
+	/// en: 'General Practice'
+	String get general => 'General Practice';
+}
+
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -684,8 +819,8 @@ extension on Translations {
 			'chooseRole.subtitle' => 'Select the role that best describes you to continue!',
 			'chooseRole.patient' => 'Patient',
 			'chooseRole.patientDescription' => 'Book appointments and manage your medical records.',
-			'chooseRole.doctor' => 'Doctor',
-			'chooseRole.doctorDescription' => 'Manage appointments and your schedule as a medical professional.',
+			'chooseRole.admin' => 'Admin',
+			'chooseRole.adminDescription' => 'Manage doctors, create new doctor profiles, and oversee the platform.',
 			'chooseRole.continueButton' => 'Continue',
 			'login.welcomeBack' => 'Welcome back',
 			'login.joinSubtitle' => 'You can search course, apply course and find\nscholarship for abroad studies',
@@ -727,6 +862,8 @@ extension on Translations {
 			'tabs.chat' => 'Chat',
 			'tabs.profile' => 'Profile',
 			'profile.logout' => 'Logout',
+			'profile.createDoctor' => 'Create New Doctor',
+			'profile.signOutFailure' => 'Couldn\'t sign you out. Please try again.',
 			'favouriteDoctors.title' => 'Favourite Doctors',
 			'favouriteDoctors.searchHint' => 'Dentist',
 			'favouriteDoctors.drShouey' => 'Dr. Shouey',
@@ -826,6 +963,39 @@ extension on Translations {
 			'auth.passwordsMismatch' => 'Passwords do not match.',
 			'auth.googleSignInConfig' => 'Google sign-in isn\'t configured. Please check your Firebase settings.',
 			'auth.googleSignInError' => 'Google sign-in failed. Please try again.',
+			'createDoctor.title' => 'Create Doctor',
+			'createDoctor.nameLabel' => 'Doctor Name',
+			'createDoctor.nameHint' => 'Enter doctor name',
+			'createDoctor.specialtyLabel' => 'Specialty',
+			'createDoctor.specialtyHint' => 'Select specialty',
+			'createDoctor.submitButton' => 'Create Doctor',
+			'createDoctor.successMessage' => 'Doctor created successfully!',
+			'createDoctor.failureMessage' => 'Failed to create doctor. Please try again.',
+			'createDoctor.imageUpload' => 'Doctor Image',
+			'createDoctor.imageUploadHint' => 'Upload doctor image',
+			'createDoctor.imageUploadTap' => 'Tap to pick an image',
+			'admin.doctorsTitle' => 'Doctors',
+			'admin.settingsTitle' => 'Settings',
+			'admin.searchHint' => 'Search doctors...',
+			'admin.totalDoctors' => 'Total Doctors',
+			'admin.active' => 'Active',
+			'admin.inactive' => 'Inactive',
+			'admin.addDoctor' => 'Add Doctor',
+			'admin.emptyStateTitle' => 'No doctors yet',
+			'admin.emptyStateMessage' => 'Create your first doctor to get started.',
+			'admin.retry' => 'Retry',
+			'admin.loadFailureMessage' => 'Failed to load doctors. Please try again.',
+			'admin.filterTitle' => 'Filter by specialty',
+			'admin.filterAll' => 'All',
+			'admin.noResultsTitle' => 'No doctors found',
+			'admin.noResultsMessage' => 'Try adjusting your search or filters.',
+			'specialties.cardiologist' => 'Cardiologist',
+			'specialties.orthopedic' => 'Orthopedic',
+			'specialties.dermatologist' => 'Dermatologist',
+			'specialties.pediatrician' => 'Pediatrician',
+			'specialties.neurologist' => 'Neurologist',
+			'specialties.ophthalmologist' => 'Ophthalmologist',
+			'specialties.general' => 'General Practice',
 			_ => null,
 		};
 	}

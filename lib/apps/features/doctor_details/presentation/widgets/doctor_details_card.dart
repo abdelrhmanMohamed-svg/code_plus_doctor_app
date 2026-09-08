@@ -8,7 +8,7 @@ import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../../generated/style_atoms.dart';
 import '../../../../core/widgets/primary_button.dart';
-import '../../data/models/doctor_model.dart';
+import '../../../../core/models/doctor.dart';
 import '../controller/doctor_details_cubit.dart';
 import '../controller/doctor_details_state.dart';
 

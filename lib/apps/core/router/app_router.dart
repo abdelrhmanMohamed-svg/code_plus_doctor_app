@@ -1,20 +1,25 @@
 import 'package:doctor_hunt/apps/features/favourite_doctors/presentation/screens/favourite_doctors_screen.dart';
 import 'package:go_router/go_router.dart';
 
-import '../auth/auth_status_notifier.dart';
-import '../di/injection.dart';
-import '../widgets/app_shell.dart';
-import '../widgets/loading_screen.dart';
+import '../../features/admin/presentation/screens/admin_doctors_screen.dart';
+import '../../features/admin/presentation/screens/admin_settings_screen.dart';
+import '../../features/admin/presentation/widgets/admin_shell.dart';
 import '../../features/appointment_booking/presentation/screens/appointment_booking_screen.dart';
 import '../../features/chat/presentation/screens/chat_screen.dart';
 import '../../features/choose_role/presentation/screens/choose_role_screen.dart';
+import '../../features/create_doctor/presentation/screens/create_doctor_screen.dart';
 import '../../features/doctor_details/presentation/screens/doctor_details_screen.dart';
 import '../../features/find_doctors/presentation/screens/find_doctors_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/login/presentation/screens/login_screen.dart';
 import '../../features/login/presentation/screens/sign_up_screen.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
+import '../../features/profile/data/models/role.dart';
 import '../../features/profile/presentation/screens/profile_screen.dart';
+import '../auth/auth_role_notifier.dart';
+import '../di/injection.dart';
+import '../widgets/app_shell.dart';
+import '../widgets/loading_screen.dart';
 
 /// Centralized route configuration. No direct `Navigator` in feature code.
 class AppRouter {
@@ -32,26 +37,46 @@ class AppRouter {
   static const String appointmentBooking = '/appointment-booking';
   static const String chat = '/chat';
   static const String profile = '/profile';
+  static const String createDoctor = '/create-doctor';
+  static const String admin = '/admin';
+  static const String adminSettings = '/admin-settings';
 
   static const _authRoutes = {onboarding, chooseRole, login, signUp};
   static const _shellRoutes = {home, favourites, chat, profile};
+  static const _patientRoutes = {
+    findDoctors,
+    doctorDetails,
+    appointmentBooking,
+  };
+  static const _adminRoutes = {admin, adminSettings, createDoctor};
 
   static final GoRouter router = GoRouter(
     initialLocation: splash,
-    refreshListenable: getIt<AuthStatusNotifier>(),
+    refreshListenable: getIt<AuthRoleNotifier>(),
     redirect: (context, state) {
-      final status = getIt<AuthStatusNotifier>().value;
+      final auth = getIt<AuthRoleNotifier>().value;
+      final status = auth.status;
       final path = state.matchedLocation;
 
       if (status == AuthSessionStatus.unknown) return splash;
 
       if (status == AuthSessionStatus.authenticated) {
-        if (path == splash || _authRoutes.contains(path)) return home;
+        final isAdmin = auth.role == Role.admin;
+        if (isAdmin) {
+          if (path == splash || _authRoutes.contains(path)) return admin;
+        } else if (path == splash ||
+            _authRoutes.contains(path) ||
+            _adminRoutes.contains(path)) {
+          return home;
+        }
       }
 
       if (status == AuthSessionStatus.unauthenticated) {
-        if (path == splash || _shellRoutes.contains(path)) {
-          return onboarding;
+        if (path == splash ||
+            _shellRoutes.contains(path) ||
+            _adminRoutes.contains(path) ||
+            _patientRoutes.contains(path)) {
+          return chooseRole;
         }
       }
 
@@ -80,6 +105,32 @@ class AppRouter {
       GoRoute(
         path: appointmentBooking,
         builder: (context, state) => const AppointmentBookingScreen(),
+      ),
+      GoRoute(
+        path: createDoctor,
+        builder: (context, state) => const CreateDoctorScreen(),
+      ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) =>
+            AdminShell(navigationShell: navigationShell),
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: admin,
+                builder: (context, state) => const AdminDoctorsScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: adminSettings,
+                builder: (context, state) => const AdminSettingsScreen(),
+              ),
+            ],
+          ),
+        ],
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
