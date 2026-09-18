@@ -1,21 +1,21 @@
-import 'package:doctor_hunt/apps/features/favourite_doctors/presentation/screens/favourite_doctors_screen.dart';
+import 'package:doctor_hunt/apps/features/patient/favourite_doctors/presentation/screens/favourite_doctors_screen.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/admin/presentation/screens/admin_doctors_screen.dart';
-import '../../features/admin/presentation/screens/admin_settings_screen.dart';
-import '../../features/admin/presentation/widgets/admin_shell.dart';
-import '../../features/appointment_booking/presentation/screens/appointment_booking_screen.dart';
-import '../../features/chat/presentation/screens/chat_screen.dart';
-import '../../features/choose_role/presentation/screens/choose_role_screen.dart';
-import '../../features/create_doctor/presentation/screens/create_doctor_screen.dart';
-import '../../features/doctor_details/presentation/screens/doctor_details_screen.dart';
-import '../../features/find_doctors/presentation/screens/find_doctors_screen.dart';
-import '../../features/home/presentation/screens/home_screen.dart';
-import '../../features/login/presentation/screens/login_screen.dart';
-import '../../features/login/presentation/screens/sign_up_screen.dart';
-import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
-import '../../features/profile/data/models/role.dart';
-import '../../features/profile/presentation/screens/profile_screen.dart';
+import '../../features/admin/manage_doctors/presentation/screens/admin_settings_screen.dart';
+import '../../features/admin/manage_doctors/presentation/screens/manage_doctors_screen.dart';
+import '../../features/admin/manage_doctors/presentation/widgets/admin_shell.dart';
+import '../../features/patient/appointment_booking/presentation/screens/appointment_booking_screen.dart';
+import '../../features/common/chat/presentation/screens/chat_screen.dart';
+import '../../features/common/choose_role/presentation/screens/choose_role_screen.dart';
+import '../../features/admin/create_doctor/presentation/screens/create_doctor_screen.dart';
+import '../../features/patient/doctor_details/presentation/screens/doctor_details_screen.dart';
+import '../../features/patient/find_doctors/presentation/screens/find_doctors_screen.dart';
+import '../../features/patient/home/presentation/screens/home_screen.dart';
+import '../../features/common/login/presentation/screens/login_screen.dart';
+import '../../features/common/login/presentation/screens/sign_up_screen.dart';
+import '../../features/common/onboarding/presentation/screens/onboarding_screen.dart';
+import '../../features/common/profile/data/models/role.dart';
+import '../../features/common/profile/presentation/screens/profile_screen.dart';
 import '../auth/auth_role_notifier.dart';
 import '../di/injection.dart';
 import '../widgets/app_shell.dart';
@@ -118,7 +118,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: admin,
-                builder: (context, state) => const AdminDoctorsScreen(),
+                builder: (context, state) => const ManageDoctorsScreen(),
               ),
             ],
           ),

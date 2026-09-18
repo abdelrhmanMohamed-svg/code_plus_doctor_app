@@ -12,40 +12,54 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
 import 'package:doctor_hunt/apps/core/auth/auth_role_notifier.dart' as _i24;
 import 'package:doctor_hunt/apps/core/di/firebase_module.dart' as _i391;
-import 'package:doctor_hunt/apps/features/admin/data/repo/doctor_repository.dart'
-    as _i937;
-import 'package:doctor_hunt/apps/features/admin/data/repo/doctor_repository_impl.dart'
-    as _i197;
-import 'package:doctor_hunt/apps/features/admin/data/service/doctor_service.dart'
-    as _i358;
-import 'package:doctor_hunt/apps/features/admin/presentation/controller/admin_cubit.dart'
-    as _i492;
-import 'package:doctor_hunt/apps/features/choose_role/presentation/controller/choose_role_cubit.dart'
-    as _i100;
-import 'package:doctor_hunt/apps/features/create_doctor/presentation/controller/create_doctor_cubit.dart'
-    as _i829;
-import 'package:doctor_hunt/apps/features/doctor_details/presentation/controller/doctor_details_cubit.dart'
-    as _i769;
-import 'package:doctor_hunt/apps/features/favourite_doctors/presentation/controller/favourite_doctors_cubit.dart'
-    as _i750;
-import 'package:doctor_hunt/apps/features/find_doctors/presentation/controller/find_doctor_cubit.dart'
-    as _i50;
-import 'package:doctor_hunt/apps/features/login/data/repo/auth_repository.dart'
-    as _i498;
-import 'package:doctor_hunt/apps/features/login/data/repo/auth_repository_impl.dart'
-    as _i538;
-import 'package:doctor_hunt/apps/features/login/data/service/auth_service.dart'
-    as _i747;
-import 'package:doctor_hunt/apps/features/login/presentation/controller/auth_cubit.dart'
-    as _i45;
-import 'package:doctor_hunt/apps/features/profile/data/repo/user_repository.dart'
-    as _i766;
-import 'package:doctor_hunt/apps/features/profile/data/repo/user_repository_impl.dart'
+import 'package:doctor_hunt/apps/features/admin/create_doctor/data/repo/create_doctor_repository.dart'
+    as _i663;
+import 'package:doctor_hunt/apps/features/admin/create_doctor/data/repo/create_doctor_repository_impl.dart'
+    as _i671;
+import 'package:doctor_hunt/apps/features/admin/create_doctor/data/service/create_doctor_service.dart'
+    as _i184;
+import 'package:doctor_hunt/apps/features/admin/create_doctor/presentation/controller/create_doctor_cubit.dart'
+    as _i685;
+import 'package:doctor_hunt/apps/features/admin/manage_doctors/data/repo/doctor_repository.dart'
+    as _i446;
+import 'package:doctor_hunt/apps/features/admin/manage_doctors/data/repo/doctor_repository_impl.dart'
+    as _i828;
+import 'package:doctor_hunt/apps/features/admin/manage_doctors/data/service/manage_doctor_service.dart'
+    as _i577;
+import 'package:doctor_hunt/apps/features/admin/manage_doctors/presentation/controller/manage_doctors_cubit.dart'
+    as _i414;
+import 'package:doctor_hunt/apps/features/common/choose_role/presentation/controller/choose_role_cubit.dart'
+    as _i1058;
+import 'package:doctor_hunt/apps/features/common/login/data/repo/auth_repository.dart'
+    as _i957;
+import 'package:doctor_hunt/apps/features/common/login/data/repo/auth_repository_impl.dart'
+    as _i916;
+import 'package:doctor_hunt/apps/features/common/login/data/service/auth_service.dart'
+    as _i658;
+import 'package:doctor_hunt/apps/features/common/login/presentation/controller/auth_cubit.dart'
+    as _i519;
+import 'package:doctor_hunt/apps/features/common/profile/data/repo/user_repository.dart'
+    as _i247;
+import 'package:doctor_hunt/apps/features/common/profile/data/repo/user_repository_impl.dart'
+    as _i84;
+import 'package:doctor_hunt/apps/features/common/profile/data/service/user_service.dart'
+    as _i974;
+import 'package:doctor_hunt/apps/features/common/profile/presentation/controller/user_cubit.dart'
+    as _i591;
+import 'package:doctor_hunt/apps/features/patient/doctor_details/presentation/controller/doctor_details_cubit.dart'
+    as _i853;
+import 'package:doctor_hunt/apps/features/patient/favourite_doctors/presentation/controller/favourite_doctors_cubit.dart'
+    as _i167;
+import 'package:doctor_hunt/apps/features/patient/find_doctors/presentation/controller/find_doctor_cubit.dart'
+    as _i322;
+import 'package:doctor_hunt/apps/features/patient/home/data/repo/home_doctor_repository.dart'
     as _i271;
-import 'package:doctor_hunt/apps/features/profile/data/service/user_service.dart'
-    as _i475;
-import 'package:doctor_hunt/apps/features/profile/presentation/controller/user_cubit.dart'
-    as _i464;
+import 'package:doctor_hunt/apps/features/patient/home/data/repo/home_doctor_repository_impl.dart'
+    as _i765;
+import 'package:doctor_hunt/apps/features/patient/home/data/service/home_services.dart'
+    as _i962;
+import 'package:doctor_hunt/apps/features/patient/home/presentation/controller/home_cubit.dart'
+    as _i302;
 import 'package:firebase_auth/firebase_auth.dart' as _i59;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -58,58 +72,76 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final firebaseModule = _$FirebaseModule();
-    gh.factory<_i100.ChooseRoleCubit>(() => _i100.ChooseRoleCubit());
-    gh.factory<_i769.DoctorDetailsCubit>(() => _i769.DoctorDetailsCubit());
-    gh.factory<_i750.FavouriteDoctorsCubit>(
-      () => _i750.FavouriteDoctorsCubit(),
+    gh.factory<_i1058.ChooseRoleCubit>(() => _i1058.ChooseRoleCubit());
+    gh.factory<_i853.DoctorDetailsCubit>(() => _i853.DoctorDetailsCubit());
+    gh.factory<_i167.FavouriteDoctorsCubit>(
+      () => _i167.FavouriteDoctorsCubit(),
     );
-    gh.factory<_i50.FindDoctorCubit>(() => _i50.FindDoctorCubit());
+    gh.factory<_i322.FindDoctorCubit>(() => _i322.FindDoctorCubit());
     gh.lazySingleton<_i59.FirebaseAuth>(() => firebaseModule.auth);
     gh.lazySingleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);
-    gh.lazySingleton<_i358.DoctorService>(
-      () => _i358.DoctorService(firestore: gh<_i974.FirebaseFirestore>()),
+    gh.lazySingleton<_i184.CreateDoctorService>(
+      () => _i184.CreateDoctorService(firestore: gh<_i974.FirebaseFirestore>()),
     );
-    gh.lazySingleton<_i475.UserService>(
-      () => _i475.UserService(firestore: gh<_i974.FirebaseFirestore>()),
+    gh.lazySingleton<_i577.ManageDoctorService>(
+      () => _i577.ManageDoctorService(firestore: gh<_i974.FirebaseFirestore>()),
     );
-    gh.lazySingleton<_i747.AuthService>(
-      () => _i747.AuthService(auth: gh<_i59.FirebaseAuth>()),
+    gh.lazySingleton<_i974.UserService>(
+      () => _i974.UserService(firestore: gh<_i974.FirebaseFirestore>()),
     );
-    gh.lazySingleton<_i766.UserRepository>(
-      () => _i271.UserRepositoryImpl(
-        gh<_i747.AuthService>(),
-        gh<_i475.UserService>(),
+    gh.lazySingleton<_i962.HomeService>(
+      () => _i962.HomeService(firestore: gh<_i974.FirebaseFirestore>()),
+    );
+    gh.lazySingleton<_i658.AuthService>(
+      () => _i658.AuthService(auth: gh<_i59.FirebaseAuth>()),
+    );
+    gh.lazySingleton<_i663.CreateDoctorRepository>(
+      () => _i671.CreateDoctorRepositoryImpl(
+        gh<_i658.AuthService>(),
+        gh<_i184.CreateDoctorService>(),
       ),
     );
-    gh.lazySingleton<_i498.AuthRepository>(
-      () => _i538.AuthRepositoryImpl(
-        gh<_i747.AuthService>(),
-        gh<_i475.UserService>(),
+    gh.lazySingleton<_i271.HomeDoctorRepository>(
+      () => _i765.HomeDoctorRepositoryImpl(gh<_i962.HomeService>()),
+    );
+    gh.lazySingleton<_i957.AuthRepository>(
+      () => _i916.AuthRepositoryImpl(
+        gh<_i658.AuthService>(),
+        gh<_i974.UserService>(),
       ),
     );
-    gh.lazySingleton<_i937.DoctorRepository>(
-      () => _i197.DoctorRepositoryImpl(
-        gh<_i747.AuthService>(),
-        gh<_i358.DoctorService>(),
+    gh.lazySingleton<_i446.DoctorRepository>(
+      () => _i828.DoctorRepositoryImpl(
+        gh<_i658.AuthService>(),
+        gh<_i577.ManageDoctorService>(),
       ),
     );
-    gh.factory<_i45.AuthCubit>(
-      () => _i45.AuthCubit(gh<_i498.AuthRepository>()),
+    gh.factory<_i302.HomeCubit>(
+      () => _i302.HomeCubit(gh<_i271.HomeDoctorRepository>()),
+    );
+    gh.lazySingleton<_i247.UserRepository>(
+      () => _i84.UserRepositoryImpl(
+        gh<_i658.AuthService>(),
+        gh<_i974.UserService>(),
+      ),
+    );
+    gh.factory<_i519.AuthCubit>(
+      () => _i519.AuthCubit(gh<_i957.AuthRepository>()),
+    );
+    gh.factory<_i685.CreateDoctorCubit>(
+      () => _i685.CreateDoctorCubit(gh<_i663.CreateDoctorRepository>()),
+    );
+    gh.factory<_i414.ManageDoctorsCubit>(
+      () => _i414.ManageDoctorsCubit(gh<_i446.DoctorRepository>()),
+    );
+    gh.factory<_i591.UserCubit>(
+      () => _i591.UserCubit(gh<_i247.UserRepository>()),
     );
     gh.lazySingleton<_i24.AuthRoleNotifier>(
       () => _i24.AuthRoleNotifier(
-        gh<_i498.AuthRepository>(),
-        gh<_i766.UserRepository>(),
+        gh<_i957.AuthRepository>(),
+        gh<_i247.UserRepository>(),
       ),
-    );
-    gh.factory<_i464.UserCubit>(
-      () => _i464.UserCubit(gh<_i766.UserRepository>()),
-    );
-    gh.factory<_i492.AdminCubit>(
-      () => _i492.AdminCubit(gh<_i937.DoctorRepository>()),
-    );
-    gh.factory<_i829.CreateDoctorCubit>(
-      () => _i829.CreateDoctorCubit(gh<_i937.DoctorRepository>()),
     );
     return this;
   }

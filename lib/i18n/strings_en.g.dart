@@ -158,6 +158,9 @@ class Translations$login$en {
 
 	/// en: 'Join us'
 	String get joinUs => 'Join us';
+
+	/// en: 'Login successful!'
+	String get loginSuccess => 'Login successful!';
 }
 
 // Path: signUp
@@ -383,6 +386,9 @@ class Translations$home$en {
 
 	/// en: 'LIVE'
 	String get liveBadge => 'LIVE';
+
+	/// en: 'Retry'
+	String get retry => 'Retry';
 }
 
 // Path: doctorData
@@ -828,6 +834,7 @@ extension on Translations {
 			'login.button' => 'Login',
 			'login.dontHaveAccount' => 'Don\'t have an account?',
 			'login.joinUs' => 'Join us',
+			'login.loginSuccess' => 'Login successful!',
 			'signUp.title' => 'Sign Up',
 			'signUp.subtitle' => 'Create your account to continue!',
 			'signUp.fullNameFieldLabel' => 'Full Name',
@@ -885,6 +892,7 @@ extension on Translations {
 			'home.featureDoctor' => 'Feature Doctor',
 			'home.seeAll' => 'See all',
 			'home.liveBadge' => 'LIVE',
+			'home.retry' => 'Retry',
 			'doctorData.drBlessing' => 'Dr. Blessing',
 			'doctorData.drBlessingSpecialty' => 'Dentist Specialist',
 			'doctorData.drFillerupGrab' => 'Dr. Fillerup Grab',

@@ -26,7 +26,8 @@
     "forgotPassword": "Forgot Password?",
     "button": "Login",
     "dontHaveAccount": "Don't have an account?",
-    "joinUs": "Join us"
+    "joinUs": "Join us",
+    "loginSuccess": "Login successful!"
   },
   "signUp": {
     "title": "Sign Up",
@@ -95,7 +96,8 @@
     "popularDoctor": "Popular Doctor",
     "featureDoctor": "Feature Doctor",
     "seeAll": "See all",
-    "liveBadge": "LIVE"
+    "liveBadge": "LIVE",
+    "retry": "Retry"
   },
   "doctorData": {
     "drBlessing": "Dr. Blessing",

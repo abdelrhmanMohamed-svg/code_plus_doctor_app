@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../features/login/data/repo/auth_repository.dart';
-import '../../features/profile/data/models/role.dart';
-import '../../features/profile/data/models/user_profile.dart';
-import '../../features/profile/data/repo/user_repository.dart';
+import '../../features/common/login/data/repo/auth_repository.dart';
+import '../../features/common/profile/data/models/role.dart';
+import '../../features/common/profile/data/models/user_profile.dart';
+import '../../features/common/profile/data/repo/user_repository.dart';
 
 enum AuthSessionStatus { unknown, authenticated, unauthenticated }
 
