@@ -26,7 +26,7 @@ class AppointmentBookingScreen extends StatelessWidget {
       backgroundColor: AppColors.offWhiteSoft,
       body: Stack(
         children: [
-          BackgroundBlobs(),
+         const BackgroundBlobs(),
           SafeArea(
             child: Column(
               children: [

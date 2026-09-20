@@ -12,20 +12,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
 import 'package:doctor_hunt/apps/core/auth/auth_role_notifier.dart' as _i24;
 import 'package:doctor_hunt/apps/core/di/firebase_module.dart' as _i391;
-import 'package:doctor_hunt/apps/features/admin/create_doctor/data/repo/create_doctor_repository.dart'
-    as _i663;
-import 'package:doctor_hunt/apps/features/admin/create_doctor/data/repo/create_doctor_repository_impl.dart'
-    as _i671;
-import 'package:doctor_hunt/apps/features/admin/create_doctor/data/service/create_doctor_service.dart'
-    as _i184;
-import 'package:doctor_hunt/apps/features/admin/create_doctor/presentation/controller/create_doctor_cubit.dart'
-    as _i685;
 import 'package:doctor_hunt/apps/features/admin/manage_doctors/data/repo/doctor_repository.dart'
     as _i446;
 import 'package:doctor_hunt/apps/features/admin/manage_doctors/data/repo/doctor_repository_impl.dart'
     as _i828;
 import 'package:doctor_hunt/apps/features/admin/manage_doctors/data/service/manage_doctor_service.dart'
-    as _i577;
+    as _i987;
 import 'package:doctor_hunt/apps/features/admin/manage_doctors/presentation/controller/manage_doctors_cubit.dart'
     as _i414;
 import 'package:doctor_hunt/apps/features/common/choose_role/presentation/controller/choose_role_cubit.dart'
@@ -57,7 +49,7 @@ import 'package:doctor_hunt/apps/features/patient/home/data/repo/home_doctor_rep
 import 'package:doctor_hunt/apps/features/patient/home/data/repo/home_doctor_repository_impl.dart'
     as _i765;
 import 'package:doctor_hunt/apps/features/patient/home/data/service/home_services.dart'
-    as _i962;
+    as _i708;
 import 'package:doctor_hunt/apps/features/patient/home/presentation/controller/home_cubit.dart'
     as _i302;
 import 'package:firebase_auth/firebase_auth.dart' as _i59;
@@ -80,29 +72,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i322.FindDoctorCubit>(() => _i322.FindDoctorCubit());
     gh.lazySingleton<_i59.FirebaseAuth>(() => firebaseModule.auth);
     gh.lazySingleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);
-    gh.lazySingleton<_i184.CreateDoctorService>(
-      () => _i184.CreateDoctorService(firestore: gh<_i974.FirebaseFirestore>()),
-    );
-    gh.lazySingleton<_i577.ManageDoctorService>(
-      () => _i577.ManageDoctorService(firestore: gh<_i974.FirebaseFirestore>()),
+    gh.lazySingleton<_i987.ManageDoctorService>(
+      () => _i987.ManageDoctorService(firestore: gh<_i974.FirebaseFirestore>()),
     );
     gh.lazySingleton<_i974.UserService>(
       () => _i974.UserService(firestore: gh<_i974.FirebaseFirestore>()),
     );
-    gh.lazySingleton<_i962.HomeService>(
-      () => _i962.HomeService(firestore: gh<_i974.FirebaseFirestore>()),
+    gh.lazySingleton<_i708.HomeService>(
+      () => _i708.HomeService(firestore: gh<_i974.FirebaseFirestore>()),
     );
     gh.lazySingleton<_i658.AuthService>(
       () => _i658.AuthService(auth: gh<_i59.FirebaseAuth>()),
-    );
-    gh.lazySingleton<_i663.CreateDoctorRepository>(
-      () => _i671.CreateDoctorRepositoryImpl(
-        gh<_i658.AuthService>(),
-        gh<_i184.CreateDoctorService>(),
-      ),
-    );
-    gh.lazySingleton<_i271.HomeDoctorRepository>(
-      () => _i765.HomeDoctorRepositoryImpl(gh<_i962.HomeService>()),
     );
     gh.lazySingleton<_i957.AuthRepository>(
       () => _i916.AuthRepositoryImpl(
@@ -110,26 +90,23 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i974.UserService>(),
       ),
     );
-    gh.lazySingleton<_i446.DoctorRepository>(
-      () => _i828.DoctorRepositoryImpl(
-        gh<_i658.AuthService>(),
-        gh<_i577.ManageDoctorService>(),
-      ),
-    );
-    gh.factory<_i302.HomeCubit>(
-      () => _i302.HomeCubit(gh<_i271.HomeDoctorRepository>()),
-    );
     gh.lazySingleton<_i247.UserRepository>(
       () => _i84.UserRepositoryImpl(
         gh<_i658.AuthService>(),
         gh<_i974.UserService>(),
       ),
     );
+    gh.lazySingleton<_i271.HomeDoctorRepository>(
+      () => _i765.HomeDoctorRepositoryImpl(gh<_i708.HomeService>()),
+    );
     gh.factory<_i519.AuthCubit>(
       () => _i519.AuthCubit(gh<_i957.AuthRepository>()),
     );
-    gh.factory<_i685.CreateDoctorCubit>(
-      () => _i685.CreateDoctorCubit(gh<_i663.CreateDoctorRepository>()),
+    gh.lazySingleton<_i446.DoctorRepository>(
+      () => _i828.DoctorRepositoryImpl(
+        gh<_i658.AuthService>(),
+        gh<_i987.ManageDoctorService>(),
+      ),
     );
     gh.factory<_i414.ManageDoctorsCubit>(
       () => _i414.ManageDoctorsCubit(gh<_i446.DoctorRepository>()),
@@ -142,6 +119,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i957.AuthRepository>(),
         gh<_i247.UserRepository>(),
       ),
+    );
+    gh.factory<_i302.HomeCubit>(
+      () => _i302.HomeCubit(gh<_i271.HomeDoctorRepository>()),
     );
     return this;
   }

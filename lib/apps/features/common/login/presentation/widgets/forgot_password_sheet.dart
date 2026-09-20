@@ -59,7 +59,7 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: _step == _ForgotStep.reset ? 470 : 360.h,
+      height: _step == _ForgotStep.reset ? 470.h : 360.h,
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),

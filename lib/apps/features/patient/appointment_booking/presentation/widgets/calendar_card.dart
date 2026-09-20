@@ -38,7 +38,7 @@ class _CalendarCardState extends State<CalendarCard> {
           view: DateRangePickerView.month,
           selectionMode: DateRangePickerSelectionMode.range,
 
-          initialDisplayDate: DateTime(2021, 2, 1),
+          initialDisplayDate: DateTime.now(),
           headerStyle: DateRangePickerHeaderStyle(
             backgroundColor: AppColors.green,
             textAlign: TextAlign.center,

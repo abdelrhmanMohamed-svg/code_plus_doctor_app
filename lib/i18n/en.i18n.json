@@ -202,6 +202,12 @@
     "imageUploadHint": "Upload doctor image",
     "imageUploadTap": "Tap to pick an image"
   },
+  "editDoctor": {
+    "title": "Edit Doctor",
+    "submitButton": "Save Changes",
+    "successMessage": "Doctor updated successfully!",
+    "failureMessage": "Failed to update doctor. Please try again."
+  },
   "admin": {
     "doctorsTitle": "Doctors",
     "settingsTitle": "Settings",
@@ -217,7 +223,15 @@
     "filterTitle": "Filter by specialty",
     "filterAll": "All",
     "noResultsTitle": "No doctors found",
-    "noResultsMessage": "Try adjusting your search or filters."
+    "noResultsMessage": "Try adjusting your search or filters.",
+    "editDoctor": "Edit Doctor",
+    "deleteDoctor": "Delete Doctor",
+    "deleteTitle": "Delete Doctor",
+    "deleteMessage": "Are you sure you want to delete this doctor? This action cannot be undone.",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "deleteSuccessMessage": "Doctor deleted successfully!",
+    "deleteFailureMessage": "Failed to delete doctor. Please try again."
   },
   "specialties": {
     "cardiologist": "Cardiologist",

@@ -57,6 +57,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$thankYou$en thankYou = Translations$thankYou$en._(_root);
 	late final Translations$auth$en auth = Translations$auth$en._(_root);
 	late final Translations$createDoctor$en createDoctor = Translations$createDoctor$en._(_root);
+	late final Translations$editDoctor$en editDoctor = Translations$editDoctor$en._(_root);
 	late final Translations$admin$en admin = Translations$admin$en._(_root);
 	late final Translations$specialties$en specialties = Translations$specialties$en._(_root);
 }
@@ -721,6 +722,27 @@ class Translations$createDoctor$en {
 	String get imageUploadTap => 'Tap to pick an image';
 }
 
+// Path: editDoctor
+class Translations$editDoctor$en {
+	Translations$editDoctor$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Edit Doctor'
+	String get title => 'Edit Doctor';
+
+	/// en: 'Save Changes'
+	String get submitButton => 'Save Changes';
+
+	/// en: 'Doctor updated successfully!'
+	String get successMessage => 'Doctor updated successfully!';
+
+	/// en: 'Failed to update doctor. Please try again.'
+	String get failureMessage => 'Failed to update doctor. Please try again.';
+}
+
 // Path: admin
 class Translations$admin$en {
 	Translations$admin$en._(this._root);
@@ -773,6 +795,30 @@ class Translations$admin$en {
 
 	/// en: 'Try adjusting your search or filters.'
 	String get noResultsMessage => 'Try adjusting your search or filters.';
+
+	/// en: 'Edit Doctor'
+	String get editDoctor => 'Edit Doctor';
+
+	/// en: 'Delete Doctor'
+	String get deleteDoctor => 'Delete Doctor';
+
+	/// en: 'Delete Doctor'
+	String get deleteTitle => 'Delete Doctor';
+
+	/// en: 'Are you sure you want to delete this doctor? This action cannot be undone.'
+	String get deleteMessage => 'Are you sure you want to delete this doctor? This action cannot be undone.';
+
+	/// en: 'Delete'
+	String get delete => 'Delete';
+
+	/// en: 'Cancel'
+	String get cancel => 'Cancel';
+
+	/// en: 'Doctor deleted successfully!'
+	String get deleteSuccessMessage => 'Doctor deleted successfully!';
+
+	/// en: 'Failed to delete doctor. Please try again.'
+	String get deleteFailureMessage => 'Failed to delete doctor. Please try again.';
 }
 
 // Path: specialties
@@ -982,6 +1028,10 @@ extension on Translations {
 			'createDoctor.imageUpload' => 'Doctor Image',
 			'createDoctor.imageUploadHint' => 'Upload doctor image',
 			'createDoctor.imageUploadTap' => 'Tap to pick an image',
+			'editDoctor.title' => 'Edit Doctor',
+			'editDoctor.submitButton' => 'Save Changes',
+			'editDoctor.successMessage' => 'Doctor updated successfully!',
+			'editDoctor.failureMessage' => 'Failed to update doctor. Please try again.',
 			'admin.doctorsTitle' => 'Doctors',
 			'admin.settingsTitle' => 'Settings',
 			'admin.searchHint' => 'Search doctors...',
@@ -997,6 +1047,14 @@ extension on Translations {
 			'admin.filterAll' => 'All',
 			'admin.noResultsTitle' => 'No doctors found',
 			'admin.noResultsMessage' => 'Try adjusting your search or filters.',
+			'admin.editDoctor' => 'Edit Doctor',
+			'admin.deleteDoctor' => 'Delete Doctor',
+			'admin.deleteTitle' => 'Delete Doctor',
+			'admin.deleteMessage' => 'Are you sure you want to delete this doctor? This action cannot be undone.',
+			'admin.delete' => 'Delete',
+			'admin.cancel' => 'Cancel',
+			'admin.deleteSuccessMessage' => 'Doctor deleted successfully!',
+			'admin.deleteFailureMessage' => 'Failed to delete doctor. Please try again.',
 			'specialties.cardiologist' => 'Cardiologist',
 			'specialties.orthopedic' => 'Orthopedic',
 			'specialties.dermatologist' => 'Dermatologist',
