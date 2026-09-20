@@ -51,7 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state.status == AuthRequestStatus.success) {
-            context.go(AppRouter.home);
+            context.showSuccessSnackBar(context.t.login.loginSuccess);
           } else if (state.status == AuthRequestStatus.error &&
               state.errorCode != 'google-signin-canceled') {
             context.showErrorSnackBar(

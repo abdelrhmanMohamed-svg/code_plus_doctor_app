@@ -33,33 +33,37 @@ class HomeScreen extends StatelessWidget {
           SafeArea(
             child: BlocProvider<HomeCubit>(
               create: (_) => getIt<HomeCubit>()..loadDoctors(),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: RefreshIndicator(
-                      onRefresh: () => context.read<HomeCubit>().refresh(),
-                      color: AppColors.green,
-                      child: SingleChildScrollView(
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _buildHeaderWithSearchOverlay(),
-                            SizedBox(height: 40.h),
-                            const LiveDoctorsSection(),
-                            SizedBox(height: 30.h),
-                            const CategoryTabs(),
-                            SizedBox(height: 24.h),
-                            BlocBuilder<HomeCubit, HomeState>(
-                              builder: (context, state) =>
-                                  _DoctorsSections(state: state),
+              child: Builder(
+                builder: (context) {
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: RefreshIndicator(
+                          onRefresh: () => context.read<HomeCubit>().refresh(),
+                          color: AppColors.green,
+                          child: SingleChildScrollView(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _buildHeaderWithSearchOverlay(),
+                                SizedBox(height: 40.h),
+                                const LiveDoctorsSection(),
+                                SizedBox(height: 30.h),
+                                const CategoryTabs(),
+                                SizedBox(height: 24.h),
+                                BlocBuilder<HomeCubit, HomeState>(
+                                  builder: (context, state) =>
+                                      _DoctorsSections(state: state),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ],
+                    ],
+                  );
+                }
               ),
             ),
           ),

@@ -1,13 +1,14 @@
 import 'package:doctor_hunt/apps/features/patient/favourite_doctors/presentation/screens/favourite_doctors_screen.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/admin/manage_doctors/presentation/controller/manage_doctors_cubit.dart';
 import '../../features/admin/manage_doctors/presentation/screens/admin_settings_screen.dart';
+import '../../features/admin/manage_doctors/presentation/screens/doctor_form_screen.dart';
 import '../../features/admin/manage_doctors/presentation/screens/manage_doctors_screen.dart';
 import '../../features/admin/manage_doctors/presentation/widgets/admin_shell.dart';
 import '../../features/patient/appointment_booking/presentation/screens/appointment_booking_screen.dart';
 import '../../features/common/chat/presentation/screens/chat_screen.dart';
 import '../../features/common/choose_role/presentation/screens/choose_role_screen.dart';
-import '../../features/admin/create_doctor/presentation/screens/create_doctor_screen.dart';
 import '../../features/patient/doctor_details/presentation/screens/doctor_details_screen.dart';
 import '../../features/patient/find_doctors/presentation/screens/find_doctors_screen.dart';
 import '../../features/patient/home/presentation/screens/home_screen.dart';
@@ -18,6 +19,7 @@ import '../../features/common/profile/data/models/role.dart';
 import '../../features/common/profile/presentation/screens/profile_screen.dart';
 import '../auth/auth_role_notifier.dart';
 import '../di/injection.dart';
+import '../models/doctor.dart';
 import '../widgets/app_shell.dart';
 import '../widgets/loading_screen.dart';
 
@@ -38,6 +40,7 @@ class AppRouter {
   static const String chat = '/chat';
   static const String profile = '/profile';
   static const String createDoctor = '/create-doctor';
+  static const String editDoctor = '/edit-doctor';
   static const String admin = '/admin';
   static const String adminSettings = '/admin-settings';
 
@@ -48,7 +51,7 @@ class AppRouter {
     doctorDetails,
     appointmentBooking,
   };
-  static const _adminRoutes = {admin, adminSettings, createDoctor};
+  static const _adminRoutes = {admin, adminSettings, createDoctor, editDoctor};
 
   static final GoRouter router = GoRouter(
     initialLocation: splash,
@@ -108,7 +111,19 @@ class AppRouter {
       ),
       GoRoute(
         path: createDoctor,
-        builder: (context, state) => const CreateDoctorScreen(),
+        builder: (context, state) {
+          final (cubit, doctor) =
+              state.extra as (ManageDoctorsCubit, Doctor?);
+          return DoctorFormScreen(cubit: cubit, doctor: doctor);
+        },
+      ),
+      GoRoute(
+        path: editDoctor,
+        builder: (context, state) {
+          final (cubit, doctor) =
+              state.extra as (ManageDoctorsCubit, Doctor?);
+          return DoctorFormScreen(cubit: cubit, doctor: doctor);
+        },
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>

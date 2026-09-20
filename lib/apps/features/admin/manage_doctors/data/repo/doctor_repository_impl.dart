@@ -31,6 +31,28 @@ class DoctorRepositoryImpl implements DoctorRepository {
     }).toList();
   }
 
+  @override
+  Future<void> saveDoctor({
+    String? id,
+    required String name,
+    required String specialty,
+  }) async {
+    if (id == null) {
+      final newDoctor = Doctor(
+        id: _doctorService.newDoctorId(),
+        name: name,
+        specialty: specialty,
+        adminId: _currentAdminId(),
+      );
+      await _doctorService.createDoctor(newDoctor);
+      return;
+    }
+    await _doctorService.updateDoctor(id: id, name: name, specialty: specialty);
+  }
+
+  @override
+  Future<void> deleteDoctor(String id) => _doctorService.deleteDoctor(id);
+
   String _currentAdminId() {
     final user = _authService.currentUser;
     if (user == null) throw const AuthFailure(code: 'missing-user');

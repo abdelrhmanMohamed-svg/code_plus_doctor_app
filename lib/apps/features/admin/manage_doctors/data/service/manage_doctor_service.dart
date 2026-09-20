@@ -23,4 +23,31 @@ class ManageDoctorService {
         .map((doc) => Doctor.fromJson(doc.id, doc.data()))
         .toList();
   }
+
+  /// Generates a brand-new Firestore document id client-side (no network call).
+  String newDoctorId() => _firestore.collection(_collection).doc().id;
+
+  Future<void> createDoctor(Doctor doctor) async {
+    await _firestore
+        .collection(_collection)
+        .doc(doctor.id)
+        .set(doctor.toJson());
+  }
+
+  /// Merges only the form-editable fields, preserving any data written by
+  /// other features (price, photo, isActive, counters...) on the document.
+  Future<void> updateDoctor({
+    required String id,
+    required String name,
+    required String specialty,
+  }) async {
+    await _firestore.collection(_collection).doc(id).set({
+      'name': name,
+      'specialty': specialty,
+    }, SetOptions(merge: true));
+  }
+
+  Future<void> deleteDoctor(String id) async {
+    await _firestore.collection(_collection).doc(id).delete();
+  }
 }

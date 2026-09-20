@@ -16,6 +16,7 @@ class PrimaryButton extends StatelessWidget {
     this.width = 295,
     this.height = 54,
     this.borderRadius = 12,
+    this.color = AppColors.green,
     this.labelStyle,
     this.boxShadow,
     this.isLoading = false,
@@ -26,6 +27,7 @@ class PrimaryButton extends StatelessWidget {
   final double width;
   final double height;
   final double borderRadius;
+  final Color color;
   final TextStyle? labelStyle;
   final List<BoxShadow>? boxShadow;
   final bool isLoading;
@@ -37,7 +39,7 @@ class PrimaryButton extends StatelessWidget {
     final effectiveStyle = labelStyle ?? defaultStyle;
 
     final button = Material(
-      color: AppColors.green,
+      color: color,
       borderRadius: BorderRadius.circular(borderRadius.r),
       child: InkWell(
         onTap: onTap,

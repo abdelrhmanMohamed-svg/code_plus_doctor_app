@@ -8,8 +8,10 @@ import '../../../../../../i18n/strings.g.dart';
 import '../../../../../core/di/injection.dart';
 import '../../../../../core/extensions/error_mapper.dart';
 import '../../../../../core/extensions/snackbar_context.dart';
+import '../../../../../core/models/doctor.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/widgets/confirmation_dialog.dart';
 import '../controller/manage_doctors_cubit.dart';
 import '../controller/manage_doctors_state.dart';
 import '../widgets/doctor_list_item.dart';
@@ -36,8 +38,29 @@ class _ManageDoctorsView extends StatelessWidget {
 
   Future<void> _openCreateDoctor(BuildContext context) async {
     final cubit = context.read<ManageDoctorsCubit>();
-    final created = await context.push<bool>(AppRouter.createDoctor);
-    if (created == true && context.mounted) cubit.loadDoctors();
+    await context.push(AppRouter.createDoctor, extra: (cubit, null as Doctor?));
+  }
+
+  Future<void> _openEditDoctor(BuildContext context, Doctor doctor) async {
+    final cubit = context.read<ManageDoctorsCubit>();
+    await context.push(AppRouter.editDoctor, extra: (cubit, doctor));
+  }
+
+  void _confirmDelete(BuildContext context, Doctor doctor) {
+    final cubit = context.read<ManageDoctorsCubit>();
+    showConfirmationDialog(
+      context,
+      title: context.t.admin.deleteTitle,
+      message: context.t.admin.deleteMessage,
+      confirmLabel: context.t.admin.delete,
+      cancelLabel: context.t.admin.cancel,
+      onConfirm: () async {
+        final deleted = await cubit.deleteDoctor(doctor.id);
+        if (deleted && context.mounted) {
+          context.showSuccessSnackBar(context.t.admin.deleteSuccessMessage);
+        }
+      },
+    );
   }
 
   Future<void> _openFilter(BuildContext context) async {
@@ -55,13 +78,24 @@ class _ManageDoctorsView extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.offWhiteSoft,
       body: BlocListener<ManageDoctorsCubit, ManageDoctorsState>(
-        listenWhen: (prev, curr) => !prev.hasError && curr.hasError,
+        listenWhen: (prev, curr) =>
+            (!prev.hasError && curr.hasError) ||
+            (prev.errorMessage != curr.errorMessage &&
+                curr.formStatus == DoctorFormStatus.initial),
         listener: (context, state) {
-          context.showErrorSnackBar(
-            state.errorMessage == null
-                ? context.t.admin.loadFailureMessage
-                : context.resolveAuthCode(state.errorMessage!),
-          );
+          if (state.hasError) {
+            context.showErrorSnackBar(
+              state.errorMessage == null
+                  ? context.t.admin.loadFailureMessage
+                  : context.resolveAuthCode(state.errorMessage!),
+            );
+            return;
+          }
+          if (state.errorMessage != null) {
+            context.showErrorSnackBar(
+              context.resolveAuthCode(state.errorMessage!),
+            );
+          }
         },
         child: BlocBuilder<ManageDoctorsCubit, ManageDoctorsState>(
           builder: (context, state) {
@@ -111,7 +145,9 @@ class _ManageDoctorsView extends StatelessWidget {
 
   Widget _buildBody(BuildContext context, ManageDoctorsState state) {
     if (state.isLoading) {
-      return Center(child: CircularProgressIndicator(color: AppColors.green));
+      return const Center(
+        child: CircularProgressIndicator(color: AppColors.green),
+      );
     }
 
     if (state.hasError) {
@@ -138,7 +174,11 @@ class _ManageDoctorsView extends StatelessWidget {
       itemCount: state.doctors.length,
       itemBuilder: (context, index) {
         final doctor = state.doctors[index];
-        return DoctorListItem(doctor: doctor);
+        return DoctorListItem(
+          doctor: doctor,
+          onEdit: () => _openEditDoctor(context, doctor),
+          onDelete: () => _confirmDelete(context, doctor),
+        );
       },
     );
   }

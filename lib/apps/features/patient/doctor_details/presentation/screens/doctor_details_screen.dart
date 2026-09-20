@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/apps/core/widgets/back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,7 +41,7 @@ class DoctorDetailsScreen extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 0),
                     child: Row(
                       children: [
-                        _BackButton(onPressed: () => context.pop()),
+                        CustomBackButton(onPressed: () => context.pop()),
                         SizedBox(width: 19.w),
                         Text(
                           context.t.doctorDetails.title,
@@ -76,25 +77,4 @@ class DoctorDetailsScreen extends StatelessWidget {
   }
 }
 
-class _BackButton extends StatelessWidget {
-  const _BackButton({required this.onPressed});
 
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: AppColors.white,
-      borderRadius: BorderRadius.circular(10.r),
-      child: InkWell(
-        onTap: onPressed,
-        borderRadius: BorderRadius.circular(10.r),
-        child: SizedBox(
-          width: 30.r,
-          height: 30.r,
-          child: Icon(Icons.chevron_left, size: 18.r, color: AppColors.grey),
-        ),
-      ),
-    );
-  }
-}

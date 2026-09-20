@@ -1,5 +1,8 @@
 import '../../../../../core/models/doctor.dart';
 
+/// Submission status for the Add/Edit Doctor form.
+enum DoctorFormStatus { initial, submitting, success, failure }
+
 class ManageDoctorsState {
   const ManageDoctorsState({
     this.doctors = const [],
@@ -8,6 +11,7 @@ class ManageDoctorsState {
     this.filterSpecialty = '',
     this.hasError = false,
     this.errorMessage,
+    this.formStatus = DoctorFormStatus.initial,
   });
 
   final List<Doctor> doctors;
@@ -16,6 +20,7 @@ class ManageDoctorsState {
   final String filterSpecialty;
   final bool hasError;
   final String? errorMessage;
+  final DoctorFormStatus formStatus;
 
   int get totalDoctors => doctors.length;
   int get activeDoctors => doctors.where((d) => d.isActive).length;
@@ -29,6 +34,7 @@ class ManageDoctorsState {
     String? filterSpecialty,
     bool? hasError,
     String? errorMessage,
+    DoctorFormStatus? formStatus,
   }) {
     return ManageDoctorsState(
       doctors: doctors ?? this.doctors,
@@ -37,6 +43,7 @@ class ManageDoctorsState {
       filterSpecialty: filterSpecialty ?? this.filterSpecialty,
       hasError: hasError ?? this.hasError,
       errorMessage: errorMessage ?? this.errorMessage,
+      formStatus: formStatus ?? this.formStatus,
     );
   }
 
@@ -48,7 +55,8 @@ class ManageDoctorsState {
       other.searchQuery == searchQuery &&
       other.filterSpecialty == filterSpecialty &&
       other.hasError == hasError &&
-      other.errorMessage == errorMessage;
+      other.errorMessage == errorMessage &&
+      other.formStatus == formStatus;
 
   @override
   int get hashCode => Object.hash(
@@ -58,5 +66,6 @@ class ManageDoctorsState {
     filterSpecialty,
     hasError,
     errorMessage,
+    formStatus,
   );
 }

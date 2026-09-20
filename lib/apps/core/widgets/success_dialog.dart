@@ -68,8 +68,8 @@ class _SuccessDialog extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 156.w,
-                height: 156.h,
+                width: 156.r,
+                height: 156.r,
                 decoration: const BoxDecoration(
                   color: AppColors.mintPale,
                   shape: BoxShape.circle,

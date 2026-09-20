@@ -28,8 +28,8 @@ class SelectablePillRow extends StatelessWidget {
         return GestureDetector(
           onTap: () => onSelect(index),
           child: Container(
-            width: 60.w,
-            height: 60.h,
+            width: 60.r,
+            height: 60.r,
             decoration: BoxDecoration(
               color: isSelected
                   ? AppColors.green
