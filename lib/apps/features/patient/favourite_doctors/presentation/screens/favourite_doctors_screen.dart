@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../i18n/strings.g.dart';
 import '../../../../../core/di/injection.dart';
+import '../../../../../core/models/doctor.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../../generated/style_atoms.dart';
 import '../../../../../core/utils/image_assets.dart';
@@ -102,10 +103,7 @@ class FavouriteDoctorsScreen extends StatelessWidget {
                             itemBuilder: (context, index) {
                               final doctor = gridDoctors[index];
                               return FavouriteDoctorGridCard(
-                                id: doctor.id,
-                                name: doctor.name,
-                                specialty: doctor.specialty,
-                                photo: doctor.photo,
+                                doctor: doctor.toDoctor(),
                               );
                             },
                           ),
@@ -146,9 +144,7 @@ class FavouriteDoctorsScreen extends StatelessWidget {
                                 ];
                                 final doctor = doctors[index];
                                 return FavouriteFeatureDoctorCard(
-                                  name: doctor.name,
-                                  price: doctor.price,
-                                  rating: doctor.rating,
+                                  doctor: doctor.toDoctor(),
                                 );
                               },
                             ),
@@ -190,6 +186,15 @@ class _GridDoctor {
   final String name;
   final String specialty;
   final String photo;
+
+  Doctor toDoctor() => Doctor(
+    id: id,
+    name: name,
+    specialty: specialty,
+    price: '',
+    photo: photo,
+    isFavorited: true,
+  );
 }
 
 class _FeatureDoctor {
@@ -198,4 +203,14 @@ class _FeatureDoctor {
   final String name;
   final String price;
   final String rating;
+
+  Doctor toDoctor() => Doctor(
+    id: name,
+    name: name,
+    specialty: '',
+    price: price,
+    rating: double.tryParse(rating) ?? 0,
+    photo: Doctor.defaultPhoto,
+    isFavorited: true,
+  );
 }
