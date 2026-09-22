@@ -18,13 +18,12 @@ import '../widgets/services_section.dart';
 
 /// Doctor Details screen.
 class DoctorDetailsScreen extends StatelessWidget {
-  const DoctorDetailsScreen({super.key, this.doctor});
+  const DoctorDetailsScreen({super.key, required this.doctor});
 
-  final Doctor? doctor;
+  final Doctor doctor;
 
   @override
   Widget build(BuildContext context) {
-    final data = doctor ?? Doctor.dummyDoctors.first;
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Stack(
@@ -33,7 +32,9 @@ class DoctorDetailsScreen extends StatelessWidget {
           SafeArea(
             child: BlocProvider<DoctorDetailsCubit>(
               create: (context) => getIt<DoctorDetailsCubit>()
-                ..setInitialFavorites(data.isFavorited ? [data.id] : const []),
+                ..setInitialFavorites(
+                  doctor.isFavorited ? [doctor.id] : const [],
+                ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -56,11 +57,11 @@ class DoctorDetailsScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Center(child: DoctorDetailsCard(doctor: data)),
+                          Center(child: DoctorDetailsCard(doctor: doctor)),
                           SizedBox(height: 24.h),
-                          Center(child: DoctorStatsCard(doctor: data)),
+                          Center(child: DoctorStatsCard(doctor: doctor)),
                           SizedBox(height: 27.h),
-                          ServicesSection(services: data.services),
+                          ServicesSection(services: doctor.services),
                           SizedBox(height: 30.h),
                           const Center(child: LocationMapCard()),
                         ],
@@ -76,5 +77,3 @@ class DoctorDetailsScreen extends StatelessWidget {
     );
   }
 }
-
-

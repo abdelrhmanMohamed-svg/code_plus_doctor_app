@@ -1,4 +1,3 @@
-import '../../../i18n/strings.g.dart';
 import '../utils/image_assets.dart';
 
 /// Doctor entity shown on the Doctor Details screen.
@@ -8,7 +7,7 @@ class Doctor {
     required this.name,
     required this.specialty,
     this.price = '',
-    this.rating = 0,
+    this.rating = 2,
     this.photo = defaultPhoto,
     this.isFavorited = false,
     this.isActive = true,
@@ -42,7 +41,7 @@ class Doctor {
       name: data['name'] as String? ?? '',
       specialty: data['specialty'] as String? ?? '',
       price: data['price'] as String? ?? '',
-      rating: (data['rating'] as num?)?.toDouble() ?? 0,
+      rating: (data['rating'] as num?)?.toDouble() ?? 2,
       photo: data['photo'] as String? ?? defaultPhoto,
       isFavorited: data['isFavorited'] as bool? ?? false,
       isActive: data['isActive'] as bool? ?? true,
@@ -69,24 +68,4 @@ class Doctor {
     'patients': patients,
     'services': services,
   };
-
-  static final List<Doctor> dummyDoctors = [
-    Doctor(
-      id: 'dr-pediatrician',
-      name: t.doctorDetails.drPediatrician,
-      specialty: t.doctorDetails.specialistCardiologist,
-      price: t.doctorDetails.price28PerHour,
-      rating: 4.5,
-      photo: ImageAssets.popularDoctor1,
-      isFavorited: true,
-      runningAppointments: 100,
-      ongoingAppointments: 500,
-      patients: 700,
-      services: [
-        t.doctorDetails.serviceItem1,
-        t.doctorDetails.serviceItem2,
-        t.doctorDetails.serviceItem3,
-      ],
-    ),
-  ];
 }

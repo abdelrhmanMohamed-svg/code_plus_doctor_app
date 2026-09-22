@@ -103,7 +103,8 @@ class AppRouter {
       ),
       GoRoute(
         path: doctorDetails,
-        builder: (context, state) => const DoctorDetailsScreen(),
+        builder: (context, state) =>
+            DoctorDetailsScreen(doctor: state.extra as Doctor),
       ),
       GoRoute(
         path: appointmentBooking,
@@ -112,16 +113,14 @@ class AppRouter {
       GoRoute(
         path: createDoctor,
         builder: (context, state) {
-          final (cubit, doctor) =
-              state.extra as (ManageDoctorsCubit, Doctor?);
+          final (cubit, doctor) = state.extra as (ManageDoctorsCubit, Doctor?);
           return DoctorFormScreen(cubit: cubit, doctor: doctor);
         },
       ),
       GoRoute(
         path: editDoctor,
         builder: (context, state) {
-          final (cubit, doctor) =
-              state.extra as (ManageDoctorsCubit, Doctor?);
+          final (cubit, doctor) = state.extra as (ManageDoctorsCubit, Doctor?);
           return DoctorFormScreen(cubit: cubit, doctor: doctor);
         },
       ),

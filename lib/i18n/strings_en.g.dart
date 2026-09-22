@@ -421,14 +421,14 @@ class Translations$doctorData$en {
 	/// en: 'Dr. Strain'
 	String get drStrain => 'Dr. Strain';
 
-	/// en: '$ 25.00/ hours'
-	String get priceCrick => '\$ 25.00/ hours';
+	/// en: '25.00/ hours'
+	String get priceCrick => '25.00/ hours';
 
-	/// en: '$ 29.00/ hours'
-	String get priceLachinet => '\$ 29.00/ hours';
+	/// en: '29.00/ hours'
+	String get priceLachinet => '29.00/ hours';
 
-	/// en: '$ 22.00/ hours'
-	String get priceStrain => '\$ 22.00/ hours';
+	/// en: '22.00/ hours'
+	String get priceStrain => '22.00/ hours';
 }
 
 // Path: findDoctors
@@ -571,15 +571,6 @@ class Translations$doctorDetails$en {
 	/// en: 'Doctor Details'
 	String get title => 'Doctor Details';
 
-	/// en: 'Dr. Pediatrician'
-	String get drPediatrician => 'Dr. Pediatrician';
-
-	/// en: 'Specialist Cardiologist'
-	String get specialistCardiologist => 'Specialist Cardiologist';
-
-	/// en: '28.00/hr'
-	String get price28PerHour => '28.00/hr';
-
 	/// en: 'Running'
 	String get statsRunning => 'Running';
 
@@ -591,15 +582,6 @@ class Translations$doctorDetails$en {
 
 	/// en: 'Services'
 	String get servicesTitle => 'Services';
-
-	/// en: ' Patient care should be the number one priority.'
-	String get serviceItem1 => ' Patient care should be the number one priority.';
-
-	/// en: ' If you run your practice you know how frustrating.'
-	String get serviceItem2 => ' If you run your practice you know how frustrating.';
-
-	/// en: ' That's why some of appointment reminder system.'
-	String get serviceItem3 => ' That\'s why some of appointment reminder system.';
 }
 
 // Path: thankYou
@@ -946,9 +928,9 @@ extension on Translations {
 			'doctorData.drCrick' => 'Dr. Crick',
 			'doctorData.drLachinet' => 'Dr. Lachinet',
 			'doctorData.drStrain' => 'Dr. Strain',
-			'doctorData.priceCrick' => '\$ 25.00/ hours',
-			'doctorData.priceLachinet' => '\$ 29.00/ hours',
-			'doctorData.priceStrain' => '\$ 22.00/ hours',
+			'doctorData.priceCrick' => '25.00/ hours',
+			'doctorData.priceLachinet' => '29.00/ hours',
+			'doctorData.priceStrain' => '22.00/ hours',
 			'findDoctors.title' => 'Find Doctors',
 			'findDoctors.searchHint' => 'Dentist',
 			'findDoctors.drShrutiKedia' => 'Dr. Shruti Kedia',
@@ -987,16 +969,10 @@ extension on Translations {
 			'appointmentBooking.reminder35' => '35',
 			'appointmentBooking.minutes' => 'Minit',
 			'doctorDetails.title' => 'Doctor Details',
-			'doctorDetails.drPediatrician' => 'Dr. Pediatrician',
-			'doctorDetails.specialistCardiologist' => 'Specialist Cardiologist',
-			'doctorDetails.price28PerHour' => '28.00/hr',
 			'doctorDetails.statsRunning' => 'Running',
 			'doctorDetails.statsOngoing' => 'Ongoing',
 			'doctorDetails.statsPatient' => 'Patient',
 			'doctorDetails.servicesTitle' => 'Services',
-			'doctorDetails.serviceItem1' => ' Patient care should be the number one priority.',
-			'doctorDetails.serviceItem2' => ' If you run your practice you know how frustrating.',
-			'doctorDetails.serviceItem3' => ' That\'s why some of appointment reminder system.',
 			'thankYou.title' => 'Thank You!',
 			'thankYou.subtitle' => 'Appointment Booked',
 			'thankYou.message' => 'Your appointment has been booked successfully. You will receive a confirmation notification shortly.',

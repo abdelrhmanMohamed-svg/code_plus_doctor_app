@@ -22,6 +22,7 @@ class FindDoctorsScreen extends StatelessWidget {
     DoctorCardData(
       id: 'dr-shruti-kedia',
       name: context.t.findDoctors.drShrutiKedia,
+      specialty: context.t.findDoctors.toothsDentist,
       experience: context.t.findDoctors.experience7Years,
       rating: context.t.findDoctors.rating87,
       stories: context.t.findDoctors.stories69,
@@ -32,6 +33,7 @@ class FindDoctorsScreen extends StatelessWidget {
     DoctorCardData(
       id: 'dr-watamaniuk',
       name: context.t.findDoctors.drWatamaniuk,
+      specialty: context.t.findDoctors.toothsDentist,
       experience: context.t.findDoctors.experience9Years,
       rating: context.t.findDoctors.rating74,
       stories: context.t.findDoctors.stories78,
@@ -42,6 +44,7 @@ class FindDoctorsScreen extends StatelessWidget {
     DoctorCardData(
       id: 'dr-crownover',
       name: context.t.findDoctors.drCrownover,
+      specialty: context.t.findDoctors.toothsDentist,
       experience: context.t.findDoctors.experience5Years,
       rating: context.t.findDoctors.rating59,
       stories: context.t.findDoctors.stories86,
@@ -52,6 +55,7 @@ class FindDoctorsScreen extends StatelessWidget {
     DoctorCardData(
       id: 'dr-balestra',
       name: context.t.findDoctors.drBalestra,
+      specialty: context.t.findDoctors.toothsDentist,
       experience: context.t.findDoctors.experience6Years,
       rating: context.t.findDoctors.rating87,
       stories: context.t.findDoctors.stories69,
@@ -117,5 +121,3 @@ class FindDoctorsScreen extends StatelessWidget {
     );
   }
 }
-
-

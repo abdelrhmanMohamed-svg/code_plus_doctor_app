@@ -107,9 +107,9 @@
     "drCrick": "Dr. Crick",
     "drLachinet": "Dr. Lachinet",
     "drStrain": "Dr. Strain",
-    "priceCrick": "$ 25.00/ hours",
-    "priceLachinet": "$ 29.00/ hours",
-    "priceStrain": "$ 22.00/ hours"
+    "priceCrick": "25.00/ hours",
+    "priceLachinet": "29.00/ hours",
+    "priceStrain": "22.00/ hours"
   },
   "findDoctors": {
     "title": "Find Doctors",
@@ -154,16 +154,10 @@
   },
   "doctorDetails": {
     "title": "Doctor Details",
-    "drPediatrician": "Dr. Pediatrician",
-    "specialistCardiologist": "Specialist Cardiologist",
-    "price28PerHour": "28.00/hr",
     "statsRunning": "Running",
     "statsOngoing": "Ongoing",
     "statsPatient": "Patient",
-    "servicesTitle": "Services",
-    "serviceItem1": " Patient care should be the number one priority.",
-    "serviceItem2": " If you run your practice you know how frustrating.",
-    "serviceItem3": " That's why some of appointment reminder system."
+    "servicesTitle": "Services"
   },
   "thankYou": {
     "title": "Thank You!",
