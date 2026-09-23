@@ -6,8 +6,8 @@ import '../../../../../../generated/style_atoms.dart';
 import '../../../../../../i18n/strings.g.dart';
 import '../../../../../core/extensions/snackbar_context.dart';
 import '../../../../../core/theme/app_colors.dart';
-import '../../../../common/login/presentation/controller/auth_cubit.dart';
-import '../../../../common/login/presentation/controller/auth_state.dart';
+import '../../../../common/auth/presentation/controller/auth_cubit.dart';
+import '../../../../common/auth/presentation/controller/auth_state.dart';
 
 class AdminSettingsScreen extends StatelessWidget {
   const AdminSettingsScreen({super.key});

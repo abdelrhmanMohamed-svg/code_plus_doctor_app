@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'apps/core/di/injection.dart';
 import 'apps/core/theme/app_colors.dart';
 import 'apps/core/router/app_router.dart';
-import 'apps/features/common/login/presentation/controller/auth_cubit.dart';
+import 'apps/features/common/auth/presentation/controller/auth_cubit.dart';
 import 'i18n/strings.g.dart';
 
 /// Root application widget.

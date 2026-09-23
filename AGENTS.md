@@ -23,36 +23,50 @@ Trust order: this repo's code/rules > official Flutter/Dart/pub.dev docs > other
 ## Project-Specific Rules
 
 **Feature layout**
+
 - Feature-first: `lib/apps/features/<role: common | patient | admin>/<feature>/` with `presentation/` (screens, widgets, controller) and `data/` (service, repo, models). Shared infra lives in `lib/apps/core/` (router, di, theme, models, error, widgets, extensions, utils). Mirror an existing feature's folders when adding a new one.
 - Shared cross-feature models (`Doctor`) live in `apps/core/models/doctor.dart`; feature-local models (`UserProfile`, `Role`) live in the feature's `data/models/`.
+- The `auth` feature (renamed from `login`) is the repo's Clean Architecture exemplar: `domain/` (`repositories/` abstract contract + `usecases/`), `data/` (`remote_data/` transport + `repo/` impl), `presentation/`. Reuse that shape for the next approved domain refactor.
 
 **Layering**
-- `Cubit → Repository → Service → Firebase`. Cubits depend only on repositories; repositories orchestrate one or more services (e.g. `AuthRepositoryImpl` = `AuthService` + `UserService`) and own business logic (search/filter in `DoctorRepositoryImpl`). No domain layer in this repo.
+
+- `auth`: `Cubit → Use case → Repository → RemoteDataSource → Firebase`, plus `UserService` for profile writes. Use cases own error translation to `AuthFailure`; the repository impl is data-only orchestration (no try/catch mapping). All other features keep `Cubit → Repository → Service → Firebase` until a domain layer is explicitly approved for them.
+- `Role`/`UserProfile`/`UserService` stay in the `profile` feature; auth's layers import them. `AuthFailure` stays in `core/error`. No entities in `auth/domain` yet.
 
 **DI — injectable + get_it**
-- Annotations: services `@lazySingleton`; repository impls `@LazySingleton(as: Interface)`; cubits `@injectable` (registered as GetIt factories); Firebase instances via `FirebaseModule` (`@module`). `core/di/injection.dart` is the only hand-written DI file; the rest is generated.
+
+- Annotations: services/use cases `@lazySingleton`; repository impls `@LazySingleton(as: Interface)`; cubits `@injectable` (registered as GetIt factories); Firebase instances via `FirebaseModule` (`@module`). `core/di/injection.dart` is the only hand-written DI file; the rest is generated.
 - Regenerate after changing registrations: `dart run build_runner build --delete-conflicting-outputs` (rewrites `lib/apps/core/di/injection.config.dart`).
 - Screen-scoped cubits: `BlocProvider(create: (_) => getIt<XCubit>()..load())` — cubits are GetIt factories, so BlocProvider owns disposal. Shared feature cubits are passed across screens via router `state.extra` (a record like `(ManageDoctorsCubit, Doctor?)`) and exposed with `BlocProvider.value` (see `doctor_form_screen.dart`). App-wide session state (`AuthRoleNotifier`) is a lazySingleton read via `getIt` directly.
 
 **Auth / routing**
+
 - One centralized `GoRouter` in `core/router/app_router.dart`. Route paths are `AppRouter.xxx` constants; navigate with `context.go` / `context.push` / `context.pop` (go_router), never raw `Navigator`.
 - `AuthRoleNotifier` (`core/auth/auth_role_notifier.dart`) is the single session + role source the router redirects on (status unknown/authenticated/unauthenticated; `Role` is only `patient` or `admin`). Don't add a second session-tracking mechanism.
 
+**Branching**
+
+- All Clean Architecture refactoring — introducing domain layers (`domain/`), feature renames/re-layouts (e.g. `login → auth`), or promoting shared widgets/models into `apps/core/` — happens ONLY on the `clean-architecture` branch. Regular feature work continues on its own branch; CA changes are reviewed/merged through the normal flow.
+
 **Data / Firestore**
+
 - Services are thin per-feature Firestore transports. Collection names are private constants on the service (`static const _collection = 'doctors'`) — don't inline them at call sites.
 - New Firestore doc ids are generated client-side via `_firestore.collection(c).doc().id` before `set()`.
 - Profiles live at `users/{uid}` with `role` serialized via `role.name` (`UserProfile.toJson`). Models use `fromJson(String id, Map<String, dynamic>)` / `toJson()` with `??` defaults.
 - Google OAuth uses `AppConstants.googleServerClientId` (web OAuth client id, `core/utils/app_constants.dart`).
 
 **Errors**
-- Pipeline: repository throws `AuthFailure(code: ..., cause: ...)` → cubit catches `on Exception` and stores `mapError(e)`'s code in state → UI maps the code to a translated message via `context.resolveAuthCode(code)` and shows it with `context.showErrorSnackBar` / `context.showSuccessSnackBar`. Reuse those extensions (`core/extensions/error_mapper.dart`, `core/extensions/snackbar_context.dart`); `google-signin-canceled` maps to an empty string (silent).
+
+- Pipeline: auth use cases (or repository impls in non-auth features) throw `AuthFailure(code: ..., cause: ...)` → cubit catches `on Exception` and stores `mapError(e)`'s code in state → UI maps the code to a translated message via `context.resolveAuthCode(code)` and shows it with `context.showErrorSnackBar` / `context.showSuccessSnackBar`. Reuse those extensions (`core/extensions/error_mapper.dart`, `core/extensions/snackbar_context.dart`); `google-signin-canceled` maps to an empty string (silent).
 
 **Localization & tokens**
+
 - `slang`, single locale `en`; source strings in `lib/i18n/en.i18n.json`. Regenerate with `dart run slang` (outputs `strings.g.dart` + `strings_en.g.dart`). Access via `context.t.<group>.<key>`.
 - Colors: `AppColors.<name>` (`core/theme/app_colors.dart`, "generated from Figma") — add new colors there, never inline hex. Text styles: generated atoms `context.<weight><size><ColorName>` from `lib/generated/style_atoms.dart` (e.g. `context.semiBold21BlackSoft`, `context.regular15.greyPaleBlue.copyWith(...)`). That file is output of `lib/generate_styles.dart` — edit the script and run `dart run lib/generate_styles.dart` (repo root); never hand-edit.
 - Responsive sizing via `flutter_screenutil` (`.w` / `.h` / `.r` / `.sp`, design size 375×812). Asset paths via `ImageAssets` (`core/utils/image_assets.dart`). Reuse shared widgets `PrimaryButton`, `BackgroundBlobs`, `LoadingScreen`, `AppShell`, `ConfirmationDialog`/`SuccessDialog` (`core/widgets/`). Form validators via `AppValidator` (`core/utils/app_validator.dart`), which return translated messages.
 
 **Commands & verification**
+
 - `flutter analyze` (lint + typecheck; flutter_lints) and `dart format`. No test directory exists yet — don't invent a test command.
 - Regeneration commands: DI → `dart run build_runner build --delete-conflicting-outputs`; i18n → `dart run slang`; styles → `dart run lib/generate_styles.dart`; Firebase platform config → `flutterfire configure` (rewrites `lib/firebase_options.dart`).
 

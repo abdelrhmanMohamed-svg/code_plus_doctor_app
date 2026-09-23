@@ -1,6 +1,6 @@
 import 'package:doctor_hunt/apps/core/error/auth_failure.dart';
 import 'package:doctor_hunt/apps/core/models/doctor.dart';
-import 'package:doctor_hunt/apps/features/common/login/data/service/auth_service.dart';
+import 'package:doctor_hunt/apps/features/common/auth/data/remote_data/auth_remote_data_source.dart';
 import 'package:injectable/injectable.dart';
 
 import '../service/manage_doctor_service.dart';
@@ -9,9 +9,9 @@ import 'doctor_repository.dart';
 /// Concrete doctor repository — persists doctors to Firestore via DoctorService.
 @LazySingleton(as: DoctorRepository)
 class DoctorRepositoryImpl implements DoctorRepository {
-  DoctorRepositoryImpl(this._authService, this._doctorService);
+  DoctorRepositoryImpl(this._remoteDataSource, this._doctorService);
 
-  final AuthService _authService;
+  final AuthRemoteDataSource _remoteDataSource;
   final ManageDoctorService _doctorService;
 
   @override
@@ -54,7 +54,7 @@ class DoctorRepositoryImpl implements DoctorRepository {
   Future<void> deleteDoctor(String id) => _doctorService.deleteDoctor(id);
 
   String _currentAdminId() {
-    final user = _authService.currentUser;
+    final user = _remoteDataSource.currentUser;
     if (user == null) throw const AuthFailure(code: 'missing-user');
     return user.uid;
   }

@@ -2,12 +2,12 @@ import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/theme/app_colors.dart';
+import '../theme/app_colors.dart';
 
 /// White rounded input matching the auth reference.
 ///
 /// Pass [onChanged] (without [controller]) for search-bar usage,
-/// or [controller] + [hint] for auth form usage.
+/// or [controller] + [hint] for form usage.
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,

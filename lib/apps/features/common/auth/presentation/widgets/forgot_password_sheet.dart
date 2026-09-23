@@ -7,9 +7,9 @@ import '../../../../../../generated/style_atoms.dart';
 import '../../../../../../i18n/strings.g.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/utils/app_validator.dart';
+import '../../../../../core/widgets/custom_text_field.dart';
 import '../../../../../core/widgets/primary_button.dart';
 import '../widgets/auth_password_field.dart';
-import '../widgets/auth_text_field.dart';
 
 /// Opens the forgot-password sheet (email → code → reset) from the login screen.
 void showForgotPasswordSheet(BuildContext context) {
