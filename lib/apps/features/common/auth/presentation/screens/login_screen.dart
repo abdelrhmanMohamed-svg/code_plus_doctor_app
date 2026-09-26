@@ -192,8 +192,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildJoinPrompt(Role? role) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      alignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         Text(context.t.login.dontHaveAccount, style: context.regular14Green),
         SizedBox(width: 4.w),
