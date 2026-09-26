@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../features/common/login/data/repo/auth_repository.dart';
+import '../../features/common/auth/domain/usecases/auth_session_changes.dart';
 import '../../features/common/profile/data/models/role.dart';
 import '../../features/common/profile/data/models/user_profile.dart';
 import '../../features/common/profile/data/repo/user_repository.dart';
@@ -38,9 +38,9 @@ class AuthRoleState {
 /// routes on a stale patient default.
 @lazySingleton
 class AuthRoleNotifier extends ValueNotifier<AuthRoleState> {
-  AuthRoleNotifier(this._repository, this._userRepository)
+  AuthRoleNotifier(this._authSessionChanges, this._userRepository)
     : super(const AuthRoleState(status: AuthSessionStatus.unknown)) {
-    _subscription = _repository.authSessionChanges.listen(
+    _subscription = _authSessionChanges().listen(
       (isAuthenticated) {
         if (isAuthenticated) {
           value = const AuthRoleState(status: AuthSessionStatus.unknown);
@@ -60,7 +60,7 @@ class AuthRoleNotifier extends ValueNotifier<AuthRoleState> {
   static const _maxRoleResolveAttempts = 5;
   static const _roleResolveRetryDelay = Duration(milliseconds: 300);
 
-  final AuthRepository _repository;
+  final AuthSessionChanges _authSessionChanges;
   final UserRepository _userRepository;
   late final StreamSubscription<bool> _subscription;
 

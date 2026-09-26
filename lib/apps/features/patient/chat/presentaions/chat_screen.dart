@@ -1,9 +1,7 @@
+import 'package:doctor_hunt/apps/core/theme/app_colors.dart';
+import 'package:doctor_hunt/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../i18n/strings.g.dart';
-import '../../../../../core/theme/app_colors.dart';
-
-/// Placeholder for the chat tab.
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
 

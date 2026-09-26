@@ -122,11 +122,6 @@ class ManageDoctorsCubit extends Cubit<ManageDoctorsState> {
           errorMessage: mapError(e),
         ),
       );
-    } finally {
-      // The form screen is a transient consumer relying on this status;
-      // always return it to `initial` so the shared list screen's error
-      // snackbar is not silently suppressed afterwards.
-      resetForm();
     }
   }
 

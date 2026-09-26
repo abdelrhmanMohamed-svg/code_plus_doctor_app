@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/apps/features/patient/chat/presentaions/chat_screen.dart';
 import 'package:doctor_hunt/apps/features/patient/favourite_doctors/presentation/screens/favourite_doctors_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -7,13 +8,12 @@ import '../../features/admin/manage_doctors/presentation/screens/doctor_form_scr
 import '../../features/admin/manage_doctors/presentation/screens/manage_doctors_screen.dart';
 import '../../features/admin/manage_doctors/presentation/widgets/admin_shell.dart';
 import '../../features/patient/appointment_booking/presentation/screens/appointment_booking_screen.dart';
-import '../../features/common/chat/presentation/screens/chat_screen.dart';
 import '../../features/common/choose_role/presentation/screens/choose_role_screen.dart';
 import '../../features/patient/doctor_details/presentation/screens/doctor_details_screen.dart';
 import '../../features/patient/find_doctors/presentation/screens/find_doctors_screen.dart';
 import '../../features/patient/home/presentation/screens/home_screen.dart';
-import '../../features/common/login/presentation/screens/login_screen.dart';
-import '../../features/common/login/presentation/screens/sign_up_screen.dart';
+import '../../features/common/auth/presentation/screens/login_screen.dart';
+import '../../features/common/auth/presentation/screens/sign_up_screen.dart';
 import '../../features/common/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/common/profile/data/models/role.dart';
 import '../../features/common/profile/presentation/screens/profile_screen.dart';

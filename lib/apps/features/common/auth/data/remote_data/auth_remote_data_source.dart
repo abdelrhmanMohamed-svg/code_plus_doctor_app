@@ -6,8 +6,9 @@ import '../../../../../core/utils/app_constants.dart';
 
 /// FirebaseAuth transport — sign-in, sign-up, Google sign-in, sign-out.
 @lazySingleton
-class AuthService {
-  AuthService({FirebaseAuth? auth}) : _auth = auth ?? FirebaseAuth.instance;
+class AuthRemoteDataSource {
+  AuthRemoteDataSource({FirebaseAuth? auth})
+    : _auth = auth ?? FirebaseAuth.instance;
 
   final FirebaseAuth _auth;
 
