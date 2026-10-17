@@ -33,10 +33,31 @@ class EmptyDoctorsView extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: AppColors.greenLighter,
               ),
-              child: Icon(
-                Icons.person_search_outlined,
-                size: 42.r,
-                color: AppColors.green,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Icon(
+                    Icons.medical_services_outlined,
+                    size: 42.r,
+                    color: AppColors.green,
+                  ),
+                  Positioned(
+                    bottom: 12.r,
+                    right: 12.r,
+                    child: Container(
+                      padding: EdgeInsets.all(2.r),
+                      decoration: const BoxDecoration(
+                        color: AppColors.green,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.add,
+                        size: 14.r,
+                        color: AppColors.white,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(height: 20.h),
@@ -59,7 +80,7 @@ class EmptyDoctorsView extends StatelessWidget {
                   onPressed: onRetry,
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.green,
-                    side: BorderSide(color: AppColors.green, width: 1),
+                    side: const BorderSide(color: AppColors.green, width: 1),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.r),
                     ),

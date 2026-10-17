@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../i18n/strings.g.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../../generated/style_atoms.dart';
-import '../../../../common/login/presentation/widgets/auth_text_field.dart';
+import '../../../../../core/widgets/custom_text_field.dart';
 
 /// Search input shown above the doctors list.
 class FindDoctorsSearchBar extends StatefulWidget {

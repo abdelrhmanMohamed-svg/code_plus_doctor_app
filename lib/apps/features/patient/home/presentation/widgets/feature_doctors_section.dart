@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/apps/core/widgets/doctor_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -20,7 +21,10 @@ class FeatureDoctorsSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HomeSectionTitle(title: context.t.home.featureDoctor),
+        HomeSectionTitle(
+          title: context.t.home.featureDoctor,
+          onSeeAllTap: () => context.push(AppRouter.sectionDoctors, extra: (context.t.home.featureDoctor, doctors)),
+        ),
         SizedBox(height: 20.h),
         SizedBox(
           height: 130.h,
@@ -65,8 +69,8 @@ class _FeatureDoctorCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ClipOval(
-              child: Image.asset(
-                doctor.photo,
+              child: DoctorImage(
+                photo: doctor.photo,
                 width: 54.r,
                 height: 54.r,
                 fit: BoxFit.cover,

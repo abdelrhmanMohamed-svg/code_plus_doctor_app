@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../features/common/login/data/repo/auth_repository.dart';
+import '../../features/common/auth/domain/usecases/auth_session_changes.dart';
 import '../../features/common/profile/data/models/role.dart';
 import '../../features/common/profile/data/models/user_profile.dart';
 import '../../features/common/profile/data/repo/user_repository.dart';
@@ -38,9 +38,9 @@ class AuthRoleState {
 /// routes on a stale patient default.
 @lazySingleton
 class AuthRoleNotifier extends ValueNotifier<AuthRoleState> {
-  AuthRoleNotifier(this._repository, this._userRepository)
-    : super(const AuthRoleState(status: AuthSessionStatus.unknown)) {
-    _subscription = _repository.authSessionChanges.listen(
+  AuthRoleNotifier(this._authSessionChanges, this._userRepository)
+      : super(const AuthRoleState(status: AuthSessionStatus.unknown)) {
+    _subscription = _authSessionChanges().listen(
       (isAuthenticated) {
         if (isAuthenticated) {
           value = const AuthRoleState(status: AuthSessionStatus.unknown);
@@ -60,7 +60,7 @@ class AuthRoleNotifier extends ValueNotifier<AuthRoleState> {
   static const _maxRoleResolveAttempts = 5;
   static const _roleResolveRetryDelay = Duration(milliseconds: 300);
 
-  final AuthRepository _repository;
+  final AuthSessionChanges _authSessionChanges;
   final UserRepository _userRepository;
   late final StreamSubscription<bool> _subscription;
 
@@ -70,8 +70,12 @@ class AuthRoleNotifier extends ValueNotifier<AuthRoleState> {
     UserProfile? profile;
     for (var attempt = 0; attempt < _maxRoleResolveAttempts; attempt++) {
       try {
+        debugPrint('AuthRoleNotifier: Attempting to fetch profile for user...');
         profile = await _userRepository.fetchCurrentUserProfile();
-      } catch (_) {
+        debugPrint('AuthRoleNotifier: Fetched profile: ${profile?.toJson()}');
+      } catch (e, stack) {
+        debugPrint(
+            'AuthRoleNotifier: Failed to resolve user profile: $e\n$stack');
         profile = null;
       }
       if (profile != null) break;
@@ -79,9 +83,14 @@ class AuthRoleNotifier extends ValueNotifier<AuthRoleState> {
         await Future<void>.delayed(_roleResolveRetryDelay);
       }
     }
+
+    final finalRole = profile?.role ?? Role.patient;
+    debugPrint(
+        'AuthRoleNotifier: Final resolved role: $finalRole (profile exists: ${profile != null})');
+
     value = AuthRoleState(
       status: AuthSessionStatus.authenticated,
-      role: profile?.role ?? Role.patient,
+      role: finalRole,
     );
   }
 

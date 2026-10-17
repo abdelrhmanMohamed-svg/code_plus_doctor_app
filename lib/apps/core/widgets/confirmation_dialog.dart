@@ -93,7 +93,8 @@ class _ConfirmationDialog extends StatelessWidget {
                     ),
                   ),
                   onPressed: () => context.pop(),
-                  child: Text(cancelLabel, style: context.semiBold16GreyBlueDark),
+                  child:
+                      Text(cancelLabel, style: context.semiBold16GreyBlueDark),
                 ),
               ),
             ],

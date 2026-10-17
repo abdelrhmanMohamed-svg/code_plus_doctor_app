@@ -11,15 +11,14 @@ import '../../../../../core/extensions/snackbar_context.dart';
 import '../../../../../core/models/doctor.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../../../core/theme/app_colors.dart';
-import '../../../../../core/widgets/confirmation_dialog.dart';
 import '../controller/manage_doctors_cubit.dart';
 import '../controller/manage_doctors_state.dart';
 import '../widgets/doctor_list_item.dart';
 import '../widgets/doctor_search_bar.dart';
 import '../widgets/doctor_stats_card.dart';
-import '../widgets/doctors_app_bar.dart';
 import '../widgets/empty_doctors_view.dart';
-import '../widgets/specialty_filter_sheet.dart';
+import '../widgets/specialty_filter_chips.dart';
+import '../../../shell/presentation/widgets/admin_app_bar.dart';
 
 class ManageDoctorsScreen extends StatelessWidget {
   const ManageDoctorsScreen({super.key});
@@ -41,42 +40,20 @@ class _ManageDoctorsView extends StatelessWidget {
     await context.push(AppRouter.createDoctor, extra: (cubit, null as Doctor?));
   }
 
-  Future<void> _openEditDoctor(BuildContext context, Doctor doctor) async {
+  Future<void> _openDoctorDetails(BuildContext context, Doctor doctor) async {
     final cubit = context.read<ManageDoctorsCubit>();
-    await context.push(AppRouter.editDoctor, extra: (cubit, doctor));
+    await context.push(AppRouter.adminDoctorDetails, extra: (cubit, doctor));
   }
 
-  void _confirmDelete(BuildContext context, Doctor doctor) {
-    final cubit = context.read<ManageDoctorsCubit>();
-    showConfirmationDialog(
-      context,
-      title: context.t.admin.deleteTitle,
-      message: context.t.admin.deleteMessage,
-      confirmLabel: context.t.admin.delete,
-      cancelLabel: context.t.admin.cancel,
-      onConfirm: () async {
-        final deleted = await cubit.deleteDoctor(doctor.id);
-        if (deleted && context.mounted) {
-          context.showSuccessSnackBar(context.t.admin.deleteSuccessMessage);
-        }
-      },
-    );
-  }
 
-  Future<void> _openFilter(BuildContext context) async {
-    final cubit = context.read<ManageDoctorsCubit>();
-    final selected = await showSpecialtyFilterSheet(
-      context,
-      current: cubit.state.filterSpecialty,
-    );
-    if (!context.mounted) return;
-    cubit.setSpecialtyFilter(selected);
-  }
+
+  // Bottom sheet filter removed, using inline chips now.
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.offWhiteSoft,
+      appBar: AdminAppBar(title: context.t.admin.doctorsTitle),
       body: BlocListener<ManageDoctorsCubit, ManageDoctorsState>(
         listenWhen: (prev, curr) =>
             (!prev.hasError && curr.hasError) ||
@@ -99,31 +76,30 @@ class _ManageDoctorsView extends StatelessWidget {
         },
         child: BlocBuilder<ManageDoctorsCubit, ManageDoctorsState>(
           builder: (context, state) {
-            return Column(
-              children: [
-                DoctorsAppBar(
-                  title: context.t.admin.doctorsTitle,
-                  leading: Icon(Icons.menu, color: AppColors.white, size: 24.r),
-                  trailing: Icon(
-                    Icons.notifications_outlined,
-                    color: AppColors.white,
-                    size: 24.r,
+            return SafeArea(
+              child: Column(
+                children: [
+                  SizedBox(height: 16.h),
+                  DoctorStatsCard(
+                    totalDoctors: state.totalDoctors,
+                    activeDoctors: state.activeDoctors,
                   ),
-                ),
-                SizedBox(height: 16.h),
-                DoctorSearchBar(
-                  onChanged: (query) =>
-                      context.read<ManageDoctorsCubit>().search(query),
-                  onFilterTap: () => _openFilter(context),
-                ),
-                SizedBox(height: 16.h),
-                DoctorStatsCard(
-                  totalDoctors: state.totalDoctors,
-                  activeDoctors: state.activeDoctors,
-                ),
-                SizedBox(height: 16.h),
-                Expanded(child: _buildBody(context, state)),
-              ],
+                  SizedBox(height: 16.h),
+                  DoctorSearchBar(
+                    onChanged: (query) =>
+                        context.read<ManageDoctorsCubit>().search(query),
+                  ),
+                  SizedBox(height: 16.h),
+                  SpecialtyFilterChips(
+                    selectedSpecialty: state.filterSpecialty,
+                    onSelected: (specialty) => context
+                        .read<ManageDoctorsCubit>()
+                        .setSpecialtyFilter(specialty),
+                  ),
+                  SizedBox(height: 16.h),
+                  Expanded(child: _buildBody(context, state)),
+                ],
+              ),
             );
           },
         ),
@@ -176,8 +152,7 @@ class _ManageDoctorsView extends StatelessWidget {
         final doctor = state.doctors[index];
         return DoctorListItem(
           doctor: doctor,
-          onEdit: () => _openEditDoctor(context, doctor),
-          onDelete: () => _confirmDelete(context, doctor),
+          onTap: () => _openDoctorDetails(context, doctor),
         );
       },
     );

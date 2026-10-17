@@ -17,6 +17,17 @@ abstract class DoctorRepository {
     String? id,
     required String name,
     required String specialty,
+    required String price,
+    required bool isActive,
+    String? photoUrl,
+  });
+
+  Future<void> saveDoctorAvailability({
+    required String id,
+    required List<String> workingDays,
+    required String startTime,
+    required String endTime,
+    required int slotDuration,
   });
 
   Future<void> deleteDoctor(String id);

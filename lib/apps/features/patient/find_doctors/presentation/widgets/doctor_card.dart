@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/apps/core/widgets/doctor_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,13 +17,22 @@ import '../controller/find_doctor_state.dart';
 class DoctorCard extends StatelessWidget {
   const DoctorCard({super.key, required this.doctor});
 
-  final DoctorCardData doctor;
+  final Doctor doctor;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () =>
-          context.push(AppRouter.doctorDetails, extra: doctor.toDoctor()),
+      onTap: () async {
+        final cubit = context.read<FindDoctorCubit>();
+        final isFav = cubit.state.isFavorited(doctor.id);
+        await context.push(
+          AppRouter.doctorDetails,
+          extra: doctor.copyWith(isFavorited: isFav),
+        );
+        if (context.mounted) {
+          cubit.loadDoctors();
+        }
+      },
       child: Container(
         padding: EdgeInsets.fromLTRB(20.w, 17.h, 17.w, 17.h),
         decoration: BoxDecoration(
@@ -43,8 +53,8 @@ class DoctorCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(4.r),
-                  child: Image.asset(
-                    doctor.photo,
+                  child: DoctorImage(
+                    photo: doctor.photo,
                     width: 92.w,
                     height: 87.h,
                     fit: BoxFit.cover,
@@ -68,29 +78,14 @@ class DoctorCard extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 8.h),
-                      Text(
-                        doctor.experience,
-                        style: context.regular14Grey,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
                       SizedBox(height: 10.h),
                       Row(
                         children: [
                           _RatingDot(),
                           SizedBox(width: 8.w),
-                          Text(doctor.rating, style: context.regular13Grey),
-                          SizedBox(width: 8.w),
-                          _RatingDot(),
-                          SizedBox(width: 8.w),
-                          Expanded(
-                            child: Text(
-                              doctor.stories,
-                              style: context.regular13Grey,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                          Text(
+                            '${doctor.rating.toStringAsFixed(1)} (${doctor.reviewsCount})',
+                            style: context.regular13Grey,
                           ),
                         ],
                       ),
@@ -123,16 +118,11 @@ class DoctorCard extends StatelessWidget {
             SizedBox(height: 19.h),
             Row(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      context.t.findDoctors.nextAvailable,
-                      style: context.regular15Green,
-                    ),
-                    SizedBox(height: 7.h),
-                    Text(doctor.availableTime, style: context.regular14Grey),
-                  ],
+                Text(
+                  doctor.price.startsWith('\$')
+                      ? doctor.price
+                      : '\$${doctor.price}',
+                  style: context.semiBold16.blackSoft,
                 ),
                 const Spacer(),
                 PrimaryButton(
@@ -141,6 +131,7 @@ class DoctorCard extends StatelessWidget {
                   height: 34,
                   borderRadius: 4,
                   labelStyle: context.medium14White,
+                  onTap: () => context.push(AppRouter.appointmentBooking, extra: doctor),
                 ),
               ],
             ),
@@ -149,40 +140,6 @@ class DoctorCard extends StatelessWidget {
       ),
     );
   }
-}
-
-/// Static data backing a [DoctorCard].
-class DoctorCardData {
-  const DoctorCardData({
-    required this.id,
-    required this.name,
-    required this.specialty,
-    required this.experience,
-    required this.rating,
-    required this.stories,
-    required this.availableTime,
-    required this.photo,
-    required this.favorited,
-  });
-
-  final String id;
-  final String name;
-  final String specialty;
-  final String experience;
-  final String rating;
-  final String stories;
-  final String availableTime;
-  final String photo;
-  final bool favorited;
-
-  Doctor toDoctor() => Doctor(
-    id: id,
-    name: name,
-    specialty: specialty,
-    rating: double.tryParse(rating) ?? 0,
-    photo: photo,
-    isFavorited: favorited,
-  );
 }
 
 class _RatingDot extends StatelessWidget {

@@ -1,6 +1,7 @@
 {
   "common": {
-    "brandName": "Doctor Hunt"
+    "brandName": "Doctor Hunt",
+    "back": "Back"
   },
   "onboarding": {
     "title1": "Find Trusted Doctors",
@@ -65,7 +66,7 @@
   "tabs": {
     "home": "Home",
     "favourites": "Favourites",
-    "chat": "Chat",
+    "appointments": "Appointments",
     "profile": "Profile"
   },
   "profile": {
@@ -94,7 +95,7 @@
     "searchHint": "Search.....",
     "liveDoctors": "Live Doctors",
     "popularDoctor": "Popular Doctor",
-    "featureDoctor": "Feature Doctor",
+    "featureDoctor": "Top Rated Doctors",
     "seeAll": "See all",
     "liveBadge": "LIVE",
     "retry": "Retry"
@@ -113,6 +114,7 @@
   },
   "findDoctors": {
     "title": "Find Doctors",
+    "noResults": "No doctors found.",
     "searchHint": "Dentist",
     "drShrutiKedia": "Dr. Shruti Kedia",
     "drWatamaniuk": "Dr. Watamaniuk",
@@ -136,21 +138,23 @@
     "bookNow": "Book Now"
   },
   "appointmentBooking": {
-    "title": "Appointment",
-    "availableTime": "Available Time",
-    "reminderMeBefore": "Reminder Me Before",
+    "title": "Select Time",
+    "noSlotsAvailable": "No slots available",
+    "slotsAvailable": "slots available",
+    "afternoon": "Afternoon",
+    "evening": "Evening",
+    "morning": "Morning",
     "confirm": "Confirm",
-    "time10am": "10:00 AM",
-    "time12am": "12:00 AM",
-    "time2pm": "02:00 PM",
-    "time3pm": "03:00 PM",
-    "time4pm": "04:00 PM",
-    "reminder30": "30",
-    "reminder40": "40",
-    "reminder25": "25",
-    "reminder10": "10",
-    "reminder35": "35",
-    "minutes": "Minit"
+    "slots": "slots",
+    "reviewTitle": "Review Appointment",
+    "doctorLabel": "Doctor",
+    "specialtyLabel": "Specialty",
+    "dateTimeLabel": "Date & Time",
+    "feeLabel": "Consultation Fee",
+    "locationLabel": "Clinic Location",
+    "confirmBooking": "Confirm Booking",
+    "selectDateAndTime": "Please select a date and time slot",
+    "successMessage": "You booked an appointment with Dr. {doctor} on {date}, at {time}"
   },
   "doctorDetails": {
     "title": "Doctor Details",
@@ -181,17 +185,22 @@
     "passwordTooShort": "Password must be at least 6 characters.",
     "passwordsMismatch": "Passwords do not match.",
     "googleSignInConfig": "Google sign-in isn't configured. Please check your Firebase settings.",
-    "googleSignInError": "Google sign-in failed. Please try again."
+    "googleSignInError": "Google sign-in failed. Please try again.",
+    "permissionDenied": "You do not have permission to access this resource."
   },
   "createDoctor": {
     "title": "Create Doctor",
-    "nameLabel": "Doctor Name",
-    "nameHint": "Enter doctor name",
-    "specialtyLabel": "Specialty",
+    "nameLabel": "DOCTOR NAME",
+    "nameHint": "e.g. Dr. Ahmed Ali",
+    "specialtyLabel": "SPECIALTY",
     "specialtyHint": "Select specialty",
+    "priceLabel": "CONSULTATION FEE",
+    "priceHint": "e.g. $28.00",
     "submitButton": "Create Doctor",
     "successMessage": "Doctor created successfully!",
     "failureMessage": "Failed to create doctor. Please try again.",
+    "addPhoto": "Add photo",
+    "changePhoto": "Tap photo to change",
     "imageUpload": "Doctor Image",
     "imageUploadHint": "Upload doctor image",
     "imageUploadTap": "Tap to pick an image"
@@ -200,10 +209,15 @@
     "title": "Edit Doctor",
     "submitButton": "Save Changes",
     "successMessage": "Doctor updated successfully!",
-    "failureMessage": "Failed to update doctor. Please try again."
+    "failureMessage": "Failed to update doctor. Please try again.",
+    "statusLabel": "Doctor Status",
+    "statusActive": "Active & Available",
+    "statusInactive": "Inactive",
+    "deleteDoctor": "Delete Doctor"
   },
   "admin": {
     "doctorsTitle": "Doctors",
+    "appointmentsTitle": "Appointments",
     "settingsTitle": "Settings",
     "searchHint": "Search doctors...",
     "totalDoctors": "Total Doctors",
@@ -224,8 +238,61 @@
     "deleteMessage": "Are you sure you want to delete this doctor? This action cannot be undone.",
     "delete": "Delete",
     "cancel": "Cancel",
-    "deleteSuccessMessage": "Doctor deleted successfully!",
-    "deleteFailureMessage": "Failed to delete doctor. Please try again."
+    "deleteFailureMessage": "Failed to delete doctor. Please try again.",
+    "doctorDetailsTitle": "Doctor Details",
+    "manageAvailability": "Manage Availability",
+    "availabilityTitle": "Doctor Availability",
+    "workingDays": "Working Days",
+    "daysEnabled": "{count} days enabled",
+    "workingHours": "Working Hours",
+    "startTime": "START TIME",
+    "endTime": "END TIME",
+    "slotDuration": "SLOT DURATION",
+    "saveAvailability": "Save Availability",
+    "saveAvailabilitySuccess": "Availability updated successfully!",
+    "saveAvailabilityFailure": "Failed to update availability.",
+    "consultationFee": "Consultation Fee",
+    "rating": "Rating",
+    "reviewsCount": "{count} reviews",
+    "specialty": "Specialty",
+    "minutes": "{count} Minutes"
+  },
+  "adminAppointments": {
+    "tabUpcoming": "Upcoming",
+    "tabCompleted": "Completed",
+    "tabCancelled": "Cancelled",
+    "cancelAppointment": "Cancel Appointment",
+    "markAsCompleted": "Mark as Completed",
+    "viewDetails": "View Details",
+    "appointmentDetailsTitle": "Appointment Details",
+    "patientSection": "Patient",
+    "doctorSection": "Doctor",
+    "appointmentSection": "Appointment",
+    "clinicLocation": "Clinic Location",
+    "emptyState": "No appointments found.",
+    "cancelConfirmation": "Are you sure you want to cancel this appointment?",
+    "completeConfirmation": "Mark this appointment as completed?"
+  },
+  "patientAppointments": {
+    "tabUpcoming": "Upcoming",
+    "tabCompleted": "Completed",
+    "tabCancelled": "Cancelled",
+    "cancelAppointment": "Cancel Appointment",
+    "rateDoctor": "Rate Doctor",
+    "viewDetails": "View Details",
+    "tapToRate": "Tap to rate your visit",
+    "submitRating": "Submit Rating",
+    "reviewComment": "Review comment (optional)",
+    "cancelConfirmation": "Are you sure you want to cancel this appointment?",
+    "rateSuccess": "Thank you for your feedback!",
+    "emptyState": "No appointments found.",
+    "yourRating": "Your Rating:",
+    "dateLabel": "Date",
+    "timeLabel": "Time",
+    "feeLabel": "Fee",
+    "statusLabel": "Status",
+    "ratingLabel": "Rating",
+    "clinicLocation": "Clinic Location"
   },
   "specialties": {
     "cardiologist": "Cardiologist",
@@ -235,5 +302,47 @@
     "neurologist": "Neurologist",
     "ophthalmologist": "Ophthalmologist",
     "general": "General Practice"
+  },
+  "adminSettings": {
+    "adminProfile": "Admin Profile",
+    "adminProfileDesc": "Edit super admin details & permissions",
+    "changePassword": "Change Password",
+    "changePasswordDesc": "Update master security credentials",
+    "appInfo": "App Information",
+    "appInfoDesc": "Build version",
+    "editProfileTitle": "Edit Profile",
+    "fullName": "FULL NAME",
+    "emailAddress": "EMAIL ADDRESS",
+    "clinicLocation": "CLINIC LOCATION",
+    "saveChanges": "Save Changes",
+    "tapToChangePhoto": "Tap photo to change",
+    "logout": "Logout",
+    "updateSuccess": "Profile updated successfully!",
+    "updateFailure": "Failed to update profile. Please try again."
+  },
+  "patientSettings": {
+    "settingsTitle": "Settings",
+    "accountSettings": "Account settings",
+    "changePassword": "Change Password",
+    "notifications": "Notifications",
+    "privacyPolicy": "Privacy Policy",
+    "moreOptions": "More options",
+    "languages": "Languages",
+    "buildVersion": "Build version",
+    "logout": "Logout",
+    "logoutConfirmationTitle": "Log Out",
+    "logoutConfirmationMessage": "Are you sure you want to logout?",
+    "cancel": "Cancel",
+    "ok": "Ok",
+    "privacyPolicyTitle": "Privacy policy",
+    "privacyPolicyContent": "Doctor Hunt Apps Privacy Policy\n\nThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words believable. It is a long established fact that reader will distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a moreIt is a long established fact that reader will distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more\n\n• The standard chunk of lorem Ipsum used since 1500s is reproduced below for those interested.\n\n• Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum. The point of using.\n\n• Lorem Ipsum is that it has a moreIt is a long established fact that reader will distracted.\n\n• The point of using Lorem Ipsum is that it has a moreIt is a long established fact that reader will distracted.\n\nIt is a long established fact that reader distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a moreIt is a long established.",
+    "profileTitle": "Profile",
+    "personalInformation": "Personal information",
+    "nameLabel": "Name",
+    "contactNumberLabel": "Contact number",
+    "continueButton": "Continue",
+    "english": "English",
+    "updateSuccess": "Profile updated successfully!",
+    "updateFailure": "Failed to update profile. Please try again."
   }
 }

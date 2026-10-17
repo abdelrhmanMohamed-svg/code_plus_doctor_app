@@ -1,5 +1,6 @@
 import 'package:doctor_hunt/apps/core/models/doctor.dart';
 import 'package:doctor_hunt/apps/core/router/app_router.dart';
+import 'package:doctor_hunt/apps/core/widgets/doctor_image.dart';
 import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +20,16 @@ class FavouriteDoctorGridCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.push(AppRouter.doctorDetails, extra: doctor),
+      onTap: () async {
+        final cubit = context.read<FavouriteDoctorsCubit>();
+        await context.push(
+          AppRouter.doctorDetails,
+          extra: doctor.copyWith(isFavorited: true),
+        );
+        if (context.mounted) {
+          cubit.loadDoctors();
+        }
+      },
       child: Container(
         padding: EdgeInsets.all(10.r),
         decoration: BoxDecoration(
@@ -40,8 +50,8 @@ class FavouriteDoctorGridCard extends StatelessWidget {
               clipBehavior: Clip.none,
               children: [
                 ClipOval(
-                  child: Image.asset(
-                    doctor.photo,
+                  child: DoctorImage(
+                    photo: doctor.photo,
                     width: 84.r,
                     height: 84.r,
                     fit: BoxFit.cover,

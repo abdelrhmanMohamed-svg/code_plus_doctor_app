@@ -10,8 +10,11 @@ import '../../../../../core/theme/app_colors.dart';
 import '../../../../../../generated/style_atoms.dart';
 import '../../../../../core/widgets/blurred_blob.dart';
 import '../../../../../core/models/doctor.dart';
+import '../../../../../core/extensions/error_mapper.dart';
+import '../../../../../core/extensions/snackbar_context.dart';
 import '../controller/doctor_details_cubit.dart';
-import '../widgets/doctor_details_card.dart';
+import '../controller/doctor_details_state.dart';
+import '../../../../../core/widgets/doctor_details_card.dart';
 import '../widgets/doctor_stats_card.dart';
 import '../widgets/location_map_card.dart';
 import '../widgets/services_section.dart';
@@ -32,43 +35,54 @@ class DoctorDetailsScreen extends StatelessWidget {
           SafeArea(
             child: BlocProvider<DoctorDetailsCubit>(
               create: (context) => getIt<DoctorDetailsCubit>()
-                ..setInitialFavorites(
-                  doctor.isFavorited ? [doctor.id] : const [],
+                ..loadFavoriteStatus(
+                  doctor.id,
+                  initialIsFavorited: doctor.isFavorited,
                 ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 0),
-                    child: Row(
-                      children: [
-                        CustomBackButton(onPressed: () => context.pop()),
-                        SizedBox(width: 19.w),
-                        Text(
-                          context.t.doctorDetails.title,
-                          style: context.medium18Dark,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.fromLTRB(20.w, 30.h, 20.w, 24.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              child: BlocListener<DoctorDetailsCubit, DoctorDetailsState>(
+                listenWhen: (previous, current) => current.hasError && !previous.hasError,
+                listener: (context, state) {
+                  if (state.hasError) {
+                    context.showErrorSnackBar(
+                      context.resolveAuthCode(state.errorMessage ?? ''),
+                    );
+                  }
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 0),
+                      child: Row(
                         children: [
-                          Center(child: DoctorDetailsCard(doctor: doctor)),
-                          SizedBox(height: 24.h),
-                          Center(child: DoctorStatsCard(doctor: doctor)),
-                          SizedBox(height: 27.h),
-                          ServicesSection(services: doctor.services),
-                          SizedBox(height: 30.h),
-                          const Center(child: LocationMapCard()),
+                          CustomBackButton(onPressed: () => context.pop()),
+                          SizedBox(width: 19.w),
+                          Text(
+                            context.t.doctorDetails.title,
+                            style: context.medium18Dark,
+                          ),
                         ],
                       ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: EdgeInsets.fromLTRB(20.w, 30.h, 20.w, 24.h),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Center(child: DoctorDetailsCard(doctor: doctor)),
+                            SizedBox(height: 24.h),
+                            Center(child: DoctorStatsCard(doctor: doctor)),
+                            SizedBox(height: 27.h),
+                            ServicesSection(services: doctor.services),
+                            SizedBox(height: 30.h),
+                            const Center(child: LocationMapCard()),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

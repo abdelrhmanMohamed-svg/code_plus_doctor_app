@@ -60,12 +60,12 @@ class ManageDoctorsState {
 
   @override
   int get hashCode => Object.hash(
-    doctors,
-    isLoading,
-    searchQuery,
-    filterSpecialty,
-    hasError,
-    errorMessage,
-    formStatus,
-  );
+        doctors,
+        isLoading,
+        searchQuery,
+        filterSpecialty,
+        hasError,
+        errorMessage,
+        formStatus,
+      );
 }
