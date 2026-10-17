@@ -8,69 +8,21 @@ import '../../../../../../i18n/strings.g.dart';
 import '../../../../../core/di/injection.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../../generated/style_atoms.dart';
-import '../../../../../core/utils/image_assets.dart';
 import '../../../../../core/widgets/blurred_blob.dart';
+import '../../../../../core/widgets/primary_button.dart';
+import '../../../../../core/extensions/error_mapper.dart';
 import '../controller/find_doctor_cubit.dart';
+import '../controller/find_doctor_state.dart';
 import '../widgets/doctor_card.dart';
 import '../widgets/find_doctors_search_bar.dart';
+import '../widgets/find_doctors_filter_chips.dart';
 
 /// Doctors search & listing screen.
 class FindDoctorsScreen extends StatelessWidget {
   const FindDoctorsScreen({super.key});
 
-  List<DoctorCardData> _buildDoctors(BuildContext context) => [
-    DoctorCardData(
-      id: 'dr-shruti-kedia',
-      name: context.t.findDoctors.drShrutiKedia,
-      specialty: context.t.findDoctors.toothsDentist,
-      experience: context.t.findDoctors.experience7Years,
-      rating: context.t.findDoctors.rating87,
-      stories: context.t.findDoctors.stories69,
-      availableTime: context.t.findDoctors.timeTen,
-      photo: ImageAssets.popularDoctor1,
-      favorited: true,
-    ),
-    DoctorCardData(
-      id: 'dr-watamaniuk',
-      name: context.t.findDoctors.drWatamaniuk,
-      specialty: context.t.findDoctors.toothsDentist,
-      experience: context.t.findDoctors.experience9Years,
-      rating: context.t.findDoctors.rating74,
-      stories: context.t.findDoctors.stories78,
-      availableTime: context.t.findDoctors.timeTwelve,
-      photo: ImageAssets.popularDoctor2,
-      favorited: false,
-    ),
-    DoctorCardData(
-      id: 'dr-crownover',
-      name: context.t.findDoctors.drCrownover,
-      specialty: context.t.findDoctors.toothsDentist,
-      experience: context.t.findDoctors.experience5Years,
-      rating: context.t.findDoctors.rating59,
-      stories: context.t.findDoctors.stories86,
-      availableTime: context.t.findDoctors.timeEleven,
-      photo: ImageAssets.liveDoctor1,
-      favorited: true,
-    ),
-    DoctorCardData(
-      id: 'dr-balestra',
-      name: context.t.findDoctors.drBalestra,
-      specialty: context.t.findDoctors.toothsDentist,
-      experience: context.t.findDoctors.experience6Years,
-      rating: context.t.findDoctors.rating87,
-      stories: context.t.findDoctors.stories69,
-      availableTime: context.t.findDoctors.timeTen,
-      photo: ImageAssets.liveDoctor2,
-      favorited: false,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    final doctors = _buildDoctors(context);
-    final favoriteIds = doctors
-        .where((doctor) => doctor.favorited)
-        .map((doctor) => doctor.id);
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Stack(
@@ -78,8 +30,7 @@ class FindDoctorsScreen extends StatelessWidget {
           const BackgroundBlobs(),
           SafeArea(
             child: BlocProvider<FindDoctorCubit>(
-              create: (context) =>
-                  getIt<FindDoctorCubit>()..setInitialFavorites(favoriteIds),
+              create: (context) => getIt<FindDoctorCubit>()..loadDoctors(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -99,17 +50,87 @@ class FindDoctorsScreen extends StatelessWidget {
                   SizedBox(height: 34.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: const FindDoctorsSearchBar(),
+                    child: Builder(
+                      builder: (context) {
+                        return FindDoctorsSearchBar(
+                          onChanged: (value) =>
+                              context.read<FindDoctorCubit>().search(value),
+                        );
+                      },
+                    ),
                   ),
-                  SizedBox(height: 24.h),
+                  SizedBox(height: 16.h),
+                  BlocBuilder<FindDoctorCubit, FindDoctorState>(
+                    buildWhen: (prev, curr) =>
+                        prev.filterSpecialty != curr.filterSpecialty,
+                    builder: (context, state) {
+                      return FindDoctorsFilterChips(
+                        selectedSpecialty: state.filterSpecialty,
+                        onSelected: (specialty) => context
+                            .read<FindDoctorCubit>()
+                            .setSpecialtyFilter(specialty),
+                      );
+                    },
+                  ),
+                  SizedBox(height: 16.h),
                   Expanded(
-                    child: ListView.separated(
-                      padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 24.h),
-                      itemCount: doctors.length,
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: 10.h),
-                      itemBuilder: (context, index) =>
-                          DoctorCard(doctor: doctors[index]),
+                    child: BlocBuilder<FindDoctorCubit, FindDoctorState>(
+                      builder: (context, state) {
+                        if (state.isLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.green,
+                            ),
+                          );
+                        }
+
+                        if (state.hasError) {
+                          return Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  context.resolveAuthCode(
+                                    state.errorMessage ?? 'generic',
+                                  ),
+                                  style: context.regular14Grey,
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(height: 16.h),
+                                PrimaryButton(
+                                  label: context.t.home.retry,
+                                  width: 160,
+                                  height: 44,
+                                  borderRadius: 22,
+                                  labelStyle: context.medium14White,
+                                  onTap: () => context
+                                      .read<FindDoctorCubit>()
+                                      .loadDoctors(),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+
+                        if (state.filteredDoctors.isEmpty) {
+                          return Center(
+                            child: Text(
+                              context.t.findDoctors.noResults,
+                              style: context.regular15Grey,
+                            ),
+                          );
+                        }
+
+                        return ListView.separated(
+                          padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 24.h),
+                          itemCount: state.filteredDoctors.length,
+                          separatorBuilder: (context, index) =>
+                              SizedBox(height: 10.h),
+                          itemBuilder: (context, index) => DoctorCard(
+                            doctor: state.filteredDoctors[index],
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],

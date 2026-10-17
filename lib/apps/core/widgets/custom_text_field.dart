@@ -24,6 +24,7 @@ class CustomTextField extends StatelessWidget {
     this.hintStyle,
     this.border,
     this.contentPadding,
+    this.readOnly = false,
   });
 
   final TextEditingController? controller;
@@ -39,6 +40,7 @@ class CustomTextField extends StatelessWidget {
   final TextStyle? hintStyle;
   final InputBorder? border;
   final EdgeInsetsGeometry? contentPadding;
+  final bool readOnly;
 
   InputBorder _border(Color color) {
     return OutlineInputBorder(
@@ -55,6 +57,7 @@ class CustomTextField extends StatelessWidget {
       validator: validator,
       onChanged: onChanged,
       focusNode: focusNode,
+      readOnly: readOnly,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       cursorColor: cursorColor,
       textAlignVertical: textAlignVertical,

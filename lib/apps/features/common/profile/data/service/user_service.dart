@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../models/user_profile.dart';
@@ -6,8 +7,8 @@ import '../models/user_profile.dart';
 /// Firestore transport — user profile CRUD only.
 @lazySingleton
 class UserService {
-  UserService({FirebaseFirestore? firestore})
-    : _firestore = firestore ?? FirebaseFirestore.instance;
+  UserService({required FirebaseFirestore firestore})
+      : _firestore = firestore;
 
   final FirebaseFirestore _firestore;
 
@@ -22,7 +23,14 @@ class UserService {
 
   Future<UserProfile?> getUserProfile(String uid) async {
     final doc = await _firestore.collection(_collection).doc(uid).get();
+    debugPrint('UserService: Fetched doc $uid. Exists: ${doc.exists}');
     if (!doc.exists) return null;
     return UserProfile.fromJson(doc.id, doc.data()!);
+  }
+
+  Future<void> updateUserProfile(UserProfile profile) {
+    return _firestore.collection(_collection).doc(profile.uid).update(
+          profile.toJson(),
+        );
   }
 }

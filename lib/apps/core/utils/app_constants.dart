@@ -1,3 +1,5 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 /// App-wide constants that are not UI dimensions or API/framework values.
 class AppConstants {
   const AppConstants._();
@@ -5,4 +7,12 @@ class AppConstants {
   /// Web OAuth client from android/app/google-services.json (client_type: 3).
   static const String googleServerClientId =
       '567056682989-08n82gfmrcg14b1h3s9dcj4jofn91s39.apps.googleusercontent.com';
+
+  static String get cloudinaryCloudName =>
+      dotenv.env['CLOUDINARY_CLOUD_NAME'] ?? '';
+
+  static String get cloudinaryUploadPreset =>
+      dotenv.env['CLOUDINARY_UPLOAD_PRESET'] ?? '';
+  static String get doctorDefaultPhoto =>
+      "https://res.cloudinary.com/amtlleun/image/upload/v1791483670/defaultImage.jpg";
 }

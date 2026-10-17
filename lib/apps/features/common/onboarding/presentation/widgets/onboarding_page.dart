@@ -72,12 +72,12 @@ class _Illustration extends StatelessWidget {
             child: Container(
               width: _blobSize.w,
               height: _blobSize.w,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: const [AppColors.green, AppColors.greenLight],
+                  colors: [AppColors.green, AppColors.greenLight],
                 ),
               ),
             ),

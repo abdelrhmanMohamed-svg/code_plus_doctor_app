@@ -2,53 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../../generated/style_atoms.dart';
 import '../../../../../../i18n/strings.g.dart';
 import '../../../../../core/di/injection.dart';
-import '../../../../../core/models/doctor.dart';
 import '../../../../../core/theme/app_colors.dart';
-import '../../../../../../generated/style_atoms.dart';
-import '../../../../../core/utils/image_assets.dart';
 import '../../../../../core/widgets/blurred_blob.dart';
 import '../controller/favourite_doctors_cubit.dart';
+import '../controller/favourite_doctors_state.dart';
 import '../widgets/favourite_doctor_grid_card.dart';
 import '../widgets/favourite_doctors_search_bar.dart';
-import '../widgets/favourite_feature_doctor_card.dart';
 
-/// Favourite Doctors screen replacing the Appointments tab.
+/// Favourite Doctors screen displaying all favorited doctors in a 2-column grid.
 class FavouriteDoctorsScreen extends StatelessWidget {
   const FavouriteDoctorsScreen({super.key});
 
-  List<_GridDoctor> _buildGridDoctors(BuildContext context) => [
-    _GridDoctor(
-      id: 'dr-shouey-dentist',
-      name: context.t.favouriteDoctors.drShouey,
-      specialty: context.t.favouriteDoctors.specalistDentist,
-      photo: ImageAssets.popularDoctor1,
-    ),
-    _GridDoctor(
-      id: 'dr-shouey-cardiology',
-      name: context.t.favouriteDoctors.drShouey,
-      specialty: context.t.favouriteDoctors.specalistCardiology,
-      photo: ImageAssets.popularDoctor2,
-    ),
-    _GridDoctor(
-      id: 'dr-christenfeld-cancer',
-      name: context.t.favouriteDoctors.drChristenfeldN,
-      specialty: context.t.favouriteDoctors.specalistCancer,
-      photo: ImageAssets.liveDoctor1,
-    ),
-    _GridDoctor(
-      id: 'dr-shouey-medicine',
-      name: context.t.favouriteDoctors.drShouey,
-      specialty: context.t.favouriteDoctors.specalistMedicine,
-      photo: ImageAssets.liveDoctor2,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    final gridDoctors = _buildGridDoctors(context);
-    final initialFavorites = gridDoctors.map((d) => d.id);
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Stack(
@@ -56,9 +25,7 @@ class FavouriteDoctorsScreen extends StatelessWidget {
           const BackgroundBlobs(),
           SafeArea(
             child: BlocProvider<FavouriteDoctorsCubit>(
-              create: (_) =>
-                  getIt<FavouriteDoctorsCubit>()
-                    ..setInitialFavorites(initialFavorites),
+              create: (_) => getIt<FavouriteDoctorsCubit>()..loadDoctors(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -76,22 +43,74 @@ class FavouriteDoctorsScreen extends StatelessWidget {
                   SizedBox(height: 34.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: const FavouriteDoctorsSearchBar(),
+                    child: Builder(
+                      builder: (context) {
+                        return FavouriteDoctorsSearchBar(
+                          onChanged: (value) => context
+                              .read<FavouriteDoctorsCubit>()
+                              .search(value),
+                        );
+                      },
+                    ),
                   ),
                   SizedBox(height: 24.h),
                   Expanded(
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 24.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _SectionTitle(
-                            title: context.t.favouriteDoctors.title,
-                          ),
-                          SizedBox(height: 14.h),
-                          GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
+                    child: BlocBuilder<
+                      FavouriteDoctorsCubit,
+                      FavouriteDoctorsState
+                    >(
+                      builder: (context, state) {
+                        if (state.isLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.green,
+                            ),
+                          );
+                        }
+
+                        if (state.hasError) {
+                          return Center(
+                            child: Text(
+                              state.errorMessage ?? '',
+                              style: context.regular15Grey,
+                            ),
+                          );
+                        }
+
+                        if (state.filteredFavoriteDoctors.isEmpty) {
+                          return RefreshIndicator(
+                            color: AppColors.green,
+                            onRefresh: () => context
+                                .read<FavouriteDoctorsCubit>()
+                                .loadDoctors(),
+                            child: LayoutBuilder(
+                              builder: (context, constraints) =>
+                                  SingleChildScrollView(
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                child: ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    minHeight: constraints.maxHeight,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'No favourite doctors found.',
+                                      style: context.regular15Grey,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+
+                        return RefreshIndicator(
+                          color: AppColors.green,
+                          onRefresh: () => context
+                              .read<FavouriteDoctorsCubit>()
+                              .loadDoctors(),
+                          child: GridView.builder(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 24.h),
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
@@ -99,58 +118,15 @@ class FavouriteDoctorsScreen extends StatelessWidget {
                                   mainAxisSpacing: 12.h,
                                   childAspectRatio: 0.85,
                                 ),
-                            itemCount: gridDoctors.length,
+                            itemCount: state.filteredFavoriteDoctors.length,
                             itemBuilder: (context, index) {
-                              final doctor = gridDoctors[index];
-                              return FavouriteDoctorGridCard(
-                                doctor: doctor.toDoctor(),
-                              );
+                              final doctor =
+                                  state.filteredFavoriteDoctors[index];
+                              return FavouriteDoctorGridCard(doctor: doctor);
                             },
                           ),
-                          SizedBox(height: 24.h),
-                          _SectionTitle(
-                            title: context.t.favouriteDoctors.featureDoctor,
-                          ),
-                          SizedBox(height: 14.h),
-                          SizedBox(
-                            height: 130.h,
-                            child: ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 4,
-                              separatorBuilder: (context, index) =>
-                                  SizedBox(width: 12.w),
-                              itemBuilder: (context, index) {
-                                final doctors = [
-                                  _FeatureDoctor(
-                                    context.t.doctorData.drCrick,
-                                    context.t.doctorData.priceCrick,
-                                    '3.7',
-                                  ),
-                                  _FeatureDoctor(
-                                    context.t.doctorData.drStrain,
-                                    context.t.doctorData.priceStrain,
-                                    '3.0',
-                                  ),
-                                  _FeatureDoctor(
-                                    context.t.doctorData.drLachinet,
-                                    context.t.doctorData.priceLachinet,
-                                    '2.9',
-                                  ),
-                                  _FeatureDoctor(
-                                    context.t.doctorData.drCrick,
-                                    context.t.doctorData.priceCrick,
-                                    '3.0',
-                                  ),
-                                ];
-                                final doctor = doctors[index];
-                                return FavouriteFeatureDoctorCard(
-                                  doctor: doctor.toDoctor(),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                        );
+                      },
                     ),
                   ),
                 ],
@@ -161,56 +137,4 @@ class FavouriteDoctorsScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class _SectionTitle extends StatelessWidget {
-  const _SectionTitle({required this.title});
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(title, style: context.medium18Dark);
-  }
-}
-
-class _GridDoctor {
-  const _GridDoctor({
-    required this.id,
-    required this.name,
-    required this.specialty,
-    required this.photo,
-  });
-
-  final String id;
-  final String name;
-  final String specialty;
-  final String photo;
-
-  Doctor toDoctor() => Doctor(
-    id: id,
-    name: name,
-    specialty: specialty,
-    price: '',
-    photo: photo,
-    isFavorited: true,
-  );
-}
-
-class _FeatureDoctor {
-  const _FeatureDoctor(this.name, this.price, this.rating);
-
-  final String name;
-  final String price;
-  final String rating;
-
-  Doctor toDoctor() => Doctor(
-    id: name,
-    name: name,
-    specialty: '',
-    price: price,
-    rating: double.tryParse(rating) ?? 0,
-    photo: Doctor.defaultPhoto,
-    isFavorited: true,
-  );
 }

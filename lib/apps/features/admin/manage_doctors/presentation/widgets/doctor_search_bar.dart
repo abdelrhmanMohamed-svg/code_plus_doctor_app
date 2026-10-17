@@ -44,24 +44,6 @@ class DoctorSearchBar extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 12.w),
-          GestureDetector(
-            onTap: onFilterTap,
-            child: Container(
-              width: 44.w,
-              height: 44.h,
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(color: AppColors.greyBorder, width: 1),
-              ),
-              child: Icon(
-                Icons.filter_list,
-                color: AppColors.greyBlueDark,
-                size: 20.r,
-              ),
-            ),
-          ),
         ],
       ),
     );

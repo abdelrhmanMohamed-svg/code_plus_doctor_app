@@ -39,7 +39,7 @@ class AuthRoleState {
 @lazySingleton
 class AuthRoleNotifier extends ValueNotifier<AuthRoleState> {
   AuthRoleNotifier(this._authSessionChanges, this._userRepository)
-    : super(const AuthRoleState(status: AuthSessionStatus.unknown)) {
+      : super(const AuthRoleState(status: AuthSessionStatus.unknown)) {
     _subscription = _authSessionChanges().listen(
       (isAuthenticated) {
         if (isAuthenticated) {
@@ -70,8 +70,12 @@ class AuthRoleNotifier extends ValueNotifier<AuthRoleState> {
     UserProfile? profile;
     for (var attempt = 0; attempt < _maxRoleResolveAttempts; attempt++) {
       try {
+        debugPrint('AuthRoleNotifier: Attempting to fetch profile for user...');
         profile = await _userRepository.fetchCurrentUserProfile();
-      } catch (_) {
+        debugPrint('AuthRoleNotifier: Fetched profile: ${profile?.toJson()}');
+      } catch (e, stack) {
+        debugPrint(
+            'AuthRoleNotifier: Failed to resolve user profile: $e\n$stack');
         profile = null;
       }
       if (profile != null) break;
@@ -79,9 +83,14 @@ class AuthRoleNotifier extends ValueNotifier<AuthRoleState> {
         await Future<void>.delayed(_roleResolveRetryDelay);
       }
     }
+
+    final finalRole = profile?.role ?? Role.patient;
+    debugPrint(
+        'AuthRoleNotifier: Final resolved role: $finalRole (profile exists: ${profile != null})');
+
     value = AuthRoleState(
       status: AuthSessionStatus.authenticated,
-      role: profile?.role ?? Role.patient,
+      role: finalRole,
     );
   }
 

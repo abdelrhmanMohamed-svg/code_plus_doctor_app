@@ -12,7 +12,7 @@ import 'auth_state.dart';
 @injectable
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this._signIn, this._signUp, this._signInWithGoogle, this._signOut)
-    : super(const AuthState());
+      : super(const AuthState());
 
   final SignIn _signIn;
   final SignUp _signUp;

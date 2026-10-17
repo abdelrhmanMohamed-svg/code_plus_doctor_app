@@ -14,13 +14,21 @@ class ManageDoctorService {
   static const _collection = 'doctors';
   static const _adminId = 'adminId';
 
-  Future<List<Doctor>> getDoctorsByAdmin(String adminId) async {
-    final snapshot = await _firestore
+  Future<List<Doctor>> getDoctorsByAdmin(
+    String adminId, {
+    String specialty = '',
+  }) async {
+    Query query = _firestore
         .collection(_collection)
-        .where(_adminId, isEqualTo: adminId)
-        .get();
+        .where(_adminId, isEqualTo: adminId);
+    if (specialty.isNotEmpty) {
+      query = query.where('specialty', isEqualTo: specialty);
+    }
+    final snapshot = await query.get();
     return snapshot.docs
-        .map((doc) => Doctor.fromJson(doc.id, doc.data()))
+        .map(
+          (doc) => Doctor.fromJson(doc.id, doc.data() as Map<String, dynamic>),
+        )
         .toList();
   }
 
@@ -34,16 +42,42 @@ class ManageDoctorService {
         .set(doctor.toJson());
   }
 
-  /// Merges only the form-editable fields, preserving any data written by
-  /// other features (price, photo, isActive, counters...) on the document.
+  /// Merges the form-editable fields, preserving any data written by
+  /// other features (counters...) on the document.
   Future<void> updateDoctor({
     required String id,
     required String name,
     required String specialty,
+    required String price,
+    required bool isActive,
+    String? photoUrl,
   }) async {
-    await _firestore.collection(_collection).doc(id).set({
+    final Map<String, dynamic> data = {
       'name': name,
       'specialty': specialty,
+      'price': price,
+      'isActive': isActive,
+    };
+    if (photoUrl != null) data['photo'] = photoUrl;
+
+    await _firestore
+        .collection(_collection)
+        .doc(id)
+        .set(data, SetOptions(merge: true));
+  }
+
+  Future<void> updateDoctorAvailability({
+    required String id,
+    required List<String> workingDays,
+    required String startTime,
+    required String endTime,
+    required int slotDuration,
+  }) async {
+    await _firestore.collection(_collection).doc(id).set({
+      'workingDays': workingDays,
+      'startTime': startTime,
+      'endTime': endTime,
+      'slotDuration': slotDuration,
     }, SetOptions(merge: true));
   }
 

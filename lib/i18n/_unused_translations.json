@@ -1,6 +1,104 @@
 {
   "@@info": [
     "Here are translations that exist in secondary locales but not in <en>.",
-    "You may run 'dart run slang analyze --full' to also check translations not used in the source code."
-  ]
+    "[--full enabled] Furthermore, translations not used in 'lib/' according to the 't.<path>' pattern are written into <en>."
+  ],
+  "en": {
+    "signUp": {
+      "title": "Sign Up",
+      "subtitle": "Create your account to continue!",
+      "fullNameFieldLabel": "Full Name",
+      "fullNameHint": "Enter your full name",
+      "phoneFieldLabel": "Phone Number",
+      "phoneHint": "Enter your phone number",
+      "confirmPasswordFieldLabel": "Confirm Password",
+      "confirmPasswordHint": "Re-enter your password",
+      "alreadyHaveAccount": "Already have an account?"
+    },
+    "profile": {
+      "createDoctor": "Create New Doctor"
+    },
+    "favouriteDoctors": {
+      "drShouey": "Dr. Shouey",
+      "drChristenfeldN": "Dr. Christenfeld N",
+      "specalistDentist": "Dentist Specialist",
+      "specalistMedicine": "Medicine Specialist",
+      "specalistCardiology": "Cardiology Specialist",
+      "specalistCancer": "Cancer Specialist",
+      "featureDoctor": "Feature Doctor",
+      "statsRunning": "Running",
+      "statsOngoing": "Ongoing",
+      "statsPatient": "Patient",
+      "statsReview": "Review"
+    },
+    "home": {
+      "liveDoctors": "Live Doctors",
+      "liveBadge": "LIVE"
+    },
+    "doctorData": {
+      "drBlessing": "Dr. Blessing",
+      "drBlessingSpecialty": "Dentist Specialist",
+      "drFillerupGrab": "Dr. Fillerup Grab",
+      "drFillerupGrabSpecialty": "Medicine Specialist",
+      "drCrick": "Dr. Crick",
+      "drLachinet": "Dr. Lachinet",
+      "drStrain": "Dr. Strain",
+      "priceCrick": "25.00/ hours",
+      "priceLachinet": "29.00/ hours",
+      "priceStrain": "22.00/ hours"
+    },
+    "findDoctors": {
+      "drShrutiKedia": "Dr. Shruti Kedia",
+      "drWatamaniuk": "Dr. Watamaniuk",
+      "drCrownover": "Dr. Crownover",
+      "drBalestra": "Dr. Balestra",
+      "toothsDentist": "Tooths Dentist",
+      "experience7Years": "7 Years experience",
+      "experience9Years": "9 Years experience",
+      "experience5Years": "5 Years experience",
+      "experience6Years": "6 Years experience",
+      "rating87": "87%",
+      "rating74": "74%",
+      "rating59": "59%",
+      "stories69": "69 Patient Stories",
+      "stories78": "78 Patient Stories",
+      "stories86": "86 Patient Stories",
+      "nextAvailable": "Next Available",
+      "timeTen": "10:00 AM tomorrow",
+      "timeTwelve": "12:00 AM tomorrow",
+      "timeEleven": "11:00 AM tomorrow"
+    },
+    "thankYou": {
+      "message": "Your appointment has been booked successfully. You will receive a confirmation notification shortly.",
+      "editButton": "Edit Appointment"
+    },
+    "auth": {
+      "emptyFields": "Please fill in all fields."
+    },
+    "createDoctor": {
+      "imageUpload": "Doctor Image",
+      "imageUploadHint": "Upload doctor image",
+      "imageUploadTap": "Tap to pick an image"
+    },
+    "admin": {
+      "filterTitle": "Filter by specialty",
+      "deleteDoctor": "Delete Doctor",
+      "deleteTitle": "Delete Doctor",
+      "deleteMessage": "Are you sure you want to delete this doctor? This action cannot be undone.",
+      "delete": "Delete",
+      "deleteFailureMessage": "Failed to delete doctor. Please try again."
+    },
+    "patientAppointments": {
+      "rateSuccess": "Thank you for your feedback!"
+    },
+    "specialties": {
+      "cardiologist": "Cardiologist",
+      "orthopedic": "Orthopedic",
+      "dermatologist": "Dermatologist",
+      "pediatrician": "Pediatrician",
+      "neurologist": "Neurologist",
+      "ophthalmologist": "Ophthalmologist",
+      "general": "General Practice"
+    }
+  }
 }

@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+
 import '../../../i18n/strings.g.dart';
 import '../theme/app_colors.dart';
+import 'drawer_menu.dart';
 
-/// Scaffold hosting the persistent bottom navigation for the main tabs.
+final ZoomDrawerController appZoomDrawerController = ZoomDrawerController();
+
+/// Scaffold hosting the persistent bottom navigation for the main tabs, wrapped in a ZoomDrawer.
 class AppShell extends StatelessWidget {
   const AppShell({super.key, required this.navigationShell});
 
@@ -13,16 +18,29 @@ class AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      body: navigationShell,
-      bottomNavigationBar: _AppBottomNavBar(
-        currentIndex: navigationShell.currentIndex,
-        onDestinationSelected: (index) => navigationShell.goBranch(
-          index,
-          initialLocation: index == navigationShell.currentIndex,
+    return ZoomDrawer(
+      controller: appZoomDrawerController,
+      menuScreen: DrawerMenu(
+        navigationShell: navigationShell,
+        onClose: () => appZoomDrawerController.close?.call(),
+      ),
+      mainScreen: Scaffold(
+        backgroundColor: AppColors.white,
+        body: navigationShell,
+        bottomNavigationBar: _AppBottomNavBar(
+          currentIndex: navigationShell.currentIndex,
+          onDestinationSelected: (index) => navigationShell.goBranch(
+            index,
+            initialLocation: index == navigationShell.currentIndex,
+          ),
         ),
       ),
+      borderRadius: 30.0,
+      showShadow: true,
+      angle: 0.0,
+      drawerShadowsBackgroundColor: AppColors.greyBlueLight,
+      slideWidth: MediaQuery.of(context).size.width * 0.7,
+      menuBackgroundColor: AppColors.grey,
     );
   }
 }
@@ -90,16 +108,16 @@ class _AppBottomNavBar extends StatelessWidget {
             ),
             NavigationDestination(
               icon: Icon(
-                Icons.chat_bubble_outline,
+                Icons.menu_book_outlined,
                 size: 22.r,
                 color: AppColors.greyBlueLight,
               ),
               selectedIcon: Icon(
-                Icons.chat_bubble,
+                Icons.menu_book,
                 size: 24.r,
                 color: AppColors.white,
               ),
-              label: context.t.tabs.chat,
+              label: context.t.tabs.appointments,
             ),
             NavigationDestination(
               icon: Icon(

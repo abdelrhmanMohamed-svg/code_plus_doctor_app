@@ -15,7 +15,7 @@ import '../controller/home_state.dart';
 import '../widgets/category_tabs.dart';
 import '../widgets/feature_doctors_section.dart';
 import '../widgets/home_search_bar.dart';
-import '../widgets/live_doctors_section.dart';
+
 import '../widgets/popular_doctors_section.dart';
 import '../widgets/profile_header.dart';
 
@@ -47,9 +47,7 @@ class HomeScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 _buildHeaderWithSearchOverlay(),
-                                SizedBox(height: 40.h),
-                                const LiveDoctorsSection(),
-                                SizedBox(height: 30.h),
+                                SizedBox(height: 35.h),
                                 const CategoryTabs(),
                                 SizedBox(height: 24.h),
                                 BlocBuilder<HomeCubit, HomeState>(
@@ -63,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   );
-                }
+                },
               ),
             ),
           ),
@@ -79,8 +77,8 @@ class HomeScreen extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Positioned.fill(
-            child: BlocProvider(
-              create: (_) => getIt<UserCubit>(),
+            child: BlocProvider.value(
+              value: getIt<UserCubit>(),
               child: const ProfileHeader(),
             ),
           ),
@@ -122,12 +120,17 @@ class _DoctorsSections extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
+    final popularDoctors = [...state.doctors]
+      ..sort((a, b) => b.reviewsCount.compareTo(a.reviewsCount));
+    final featureDoctors = [...state.doctors]
+      ..sort((a, b) => b.rating.compareTo(a.rating));
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        PopularDoctorsSection(doctors: state.doctors),
+        PopularDoctorsSection(doctors: popularDoctors),
         SizedBox(height: 30.h),
-        FeatureDoctorsSection(doctors: state.doctors),
+        FeatureDoctorsSection(doctors: featureDoctors),
         SizedBox(height: 20.h),
       ],
     );

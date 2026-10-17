@@ -10,8 +10,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockSignIn extends Mock implements SignIn {}
+
 class MockSignUp extends Mock implements SignUp {}
+
 class MockSignInWithGoogle extends Mock implements SignInWithGoogle {}
+
 class MockSignOut extends Mock implements SignOut {}
 
 void main() {
@@ -50,7 +53,8 @@ void main() {
             .thenAnswer((_) async {});
         return authCubit;
       },
-      act: (cubit) => cubit.signIn(email: 'test@test.com', password: 'password'),
+      act: (cubit) =>
+          cubit.signIn(email: 'test@test.com', password: 'password'),
       expect: () => [
         const AuthState(status: AuthRequestStatus.submitting),
         const AuthState(status: AuthRequestStatus.success),
@@ -65,13 +69,15 @@ void main() {
       'emits [submitting, error] when signIn throws',
       build: () {
         when(() => mockSignIn(email: 'test@test.com', password: 'password'))
-            .thenThrow(AuthFailure(code: 'user-not-found'));
+            .thenThrow(const AuthFailure(code: 'user-not-found'));
         return authCubit;
       },
-      act: (cubit) => cubit.signIn(email: 'test@test.com', password: 'password'),
+      act: (cubit) =>
+          cubit.signIn(email: 'test@test.com', password: 'password'),
       expect: () => [
         const AuthState(status: AuthRequestStatus.submitting),
-        const AuthState(status: AuthRequestStatus.error, errorCode: 'user-not-found'),
+        const AuthState(
+            status: AuthRequestStatus.error, errorCode: 'user-not-found'),
       ],
       verify: (_) {
         verify(() => mockSignIn(email: 'test@test.com', password: 'password'))

@@ -1,5 +1,5 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format width=80
+// GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -12,14 +12,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
 import 'package:doctor_hunt/apps/core/auth/auth_role_notifier.dart' as _i24;
 import 'package:doctor_hunt/apps/core/di/firebase_module.dart' as _i391;
+import 'package:doctor_hunt/apps/core/services/image_upload_service.dart'
+    as _i379;
+import 'package:doctor_hunt/apps/features/admin/appointments/presentation/controller/admin_appointments_cubit.dart'
+    as _i662;
 import 'package:doctor_hunt/apps/features/admin/manage_doctors/data/repo/doctor_repository.dart'
     as _i446;
 import 'package:doctor_hunt/apps/features/admin/manage_doctors/data/repo/doctor_repository_impl.dart'
     as _i828;
 import 'package:doctor_hunt/apps/features/admin/manage_doctors/data/service/manage_doctor_service.dart'
     as _i987;
+import 'package:doctor_hunt/apps/features/admin/manage_doctors/presentation/controller/doctor_availability_cubit.dart'
+    as _i151;
 import 'package:doctor_hunt/apps/features/admin/manage_doctors/presentation/controller/manage_doctors_cubit.dart'
     as _i414;
+import 'package:doctor_hunt/apps/features/admin/settings/presentation/controller/admin_edit_profile_cubit.dart'
+    as _i641;
+import 'package:doctor_hunt/apps/features/common/appointments/data/repo/appointments_repository.dart'
+    as _i375;
+import 'package:doctor_hunt/apps/features/common/appointments/data/repo/appointments_repository_impl.dart'
+    as _i638;
 import 'package:doctor_hunt/apps/features/common/auth/data/remote_data/auth_remote_data_source.dart'
     as _i607;
 import 'package:doctor_hunt/apps/features/common/auth/data/repo/auth_repository_impl.dart'
@@ -48,10 +60,24 @@ import 'package:doctor_hunt/apps/features/common/profile/data/service/user_servi
     as _i974;
 import 'package:doctor_hunt/apps/features/common/profile/presentation/controller/user_cubit.dart'
     as _i591;
+import 'package:doctor_hunt/apps/features/patient/appointment_booking/data/repo/appointment_booking_repository.dart'
+    as _i359;
+import 'package:doctor_hunt/apps/features/patient/appointment_booking/data/service/appointment_booking_service.dart'
+    as _i703;
+import 'package:doctor_hunt/apps/features/patient/appointment_booking/presentation/controller/appointment_booking_cubit.dart'
+    as _i535;
+import 'package:doctor_hunt/apps/features/patient/appointments/presentation/controller/patient_appointments_cubit.dart'
+    as _i1033;
 import 'package:doctor_hunt/apps/features/patient/doctor_details/presentation/controller/doctor_details_cubit.dart'
     as _i853;
 import 'package:doctor_hunt/apps/features/patient/favourite_doctors/presentation/controller/favourite_doctors_cubit.dart'
     as _i167;
+import 'package:doctor_hunt/apps/features/patient/find_doctors/data/repo/find_doctors_repository.dart'
+    as _i286;
+import 'package:doctor_hunt/apps/features/patient/find_doctors/data/repo/find_doctors_repository_impl.dart'
+    as _i1058;
+import 'package:doctor_hunt/apps/features/patient/find_doctors/data/service/find_doctors_service.dart'
+    as _i914;
 import 'package:doctor_hunt/apps/features/patient/find_doctors/presentation/controller/find_doctor_cubit.dart'
     as _i322;
 import 'package:doctor_hunt/apps/features/patient/home/data/repo/home_doctor_repository.dart'
@@ -62,97 +88,120 @@ import 'package:doctor_hunt/apps/features/patient/home/data/service/home_service
     as _i708;
 import 'package:doctor_hunt/apps/features/patient/home/presentation/controller/home_cubit.dart'
     as _i302;
+import 'package:doctor_hunt/apps/features/patient/profile/presentation/controller/patient_edit_profile_cubit.dart'
+    as _i547;
 import 'package:firebase_auth/firebase_auth.dart' as _i59;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
 extension GetItInjectableX on _i174.GetIt {
-  // initializes the registration of main-scope dependencies inside of GetIt
+// initializes the registration of main-scope dependencies inside of GetIt
   _i174.GetIt init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
   }) {
-    final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final gh = _i526.GetItHelper(
+      this,
+      environment,
+      environmentFilter,
+    );
     final firebaseModule = _$FirebaseModule();
     gh.factory<_i1058.ChooseRoleCubit>(() => _i1058.ChooseRoleCubit());
-    gh.factory<_i853.DoctorDetailsCubit>(() => _i853.DoctorDetailsCubit());
-    gh.factory<_i167.FavouriteDoctorsCubit>(
-      () => _i167.FavouriteDoctorsCubit(),
-    );
-    gh.factory<_i322.FindDoctorCubit>(() => _i322.FindDoctorCubit());
     gh.lazySingleton<_i59.FirebaseAuth>(() => firebaseModule.auth);
     gh.lazySingleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);
-    gh.lazySingleton<_i987.ManageDoctorService>(
-      () => _i987.ManageDoctorService(firestore: gh<_i974.FirebaseFirestore>()),
-    );
-    gh.lazySingleton<_i974.UserService>(
-      () => _i974.UserService(firestore: gh<_i974.FirebaseFirestore>()),
-    );
+    gh.lazySingleton<_i379.ImageUploadService>(
+        () => _i379.ImageUploadService());
+    gh.factory<_i641.AdminEditProfileCubit>(
+        () => _i641.AdminEditProfileCubit(gh<_i379.ImageUploadService>()));
+    gh.factory<_i547.PatientEditProfileCubit>(
+        () => _i547.PatientEditProfileCubit(gh<_i379.ImageUploadService>()));
+    gh.lazySingleton<_i987.ManageDoctorService>(() =>
+        _i987.ManageDoctorService(firestore: gh<_i974.FirebaseFirestore>()));
+    gh.lazySingleton<_i914.FindDoctorsService>(() =>
+        _i914.FindDoctorsService(firestore: gh<_i974.FirebaseFirestore>()));
     gh.lazySingleton<_i708.HomeService>(
-      () => _i708.HomeService(firestore: gh<_i974.FirebaseFirestore>()),
-    );
-    gh.lazySingleton<_i607.AuthRemoteDataSource>(
-      () => _i607.AuthRemoteDataSource(auth: gh<_i59.FirebaseAuth>()),
-    );
-    gh.lazySingleton<_i372.AuthRepository>(
-      () => _i871.AuthRepositoryImpl(
-        gh<_i607.AuthRemoteDataSource>(),
-        gh<_i974.UserService>(),
-      ),
-    );
-    gh.lazySingleton<_i446.DoctorRepository>(
-      () => _i828.DoctorRepositoryImpl(
-        gh<_i607.AuthRemoteDataSource>(),
-        gh<_i987.ManageDoctorService>(),
-      ),
-    );
+        () => _i708.HomeService(firestore: gh<_i974.FirebaseFirestore>()));
+    gh.lazySingleton<_i286.FindDoctorsRepository>(
+        () => _i1058.FindDoctorsRepositoryImpl(gh<_i914.FindDoctorsService>()));
     gh.lazySingleton<_i271.HomeDoctorRepository>(
-      () => _i765.HomeDoctorRepositoryImpl(gh<_i708.HomeService>()),
-    );
+        () => _i765.HomeDoctorRepositoryImpl(gh<_i708.HomeService>()));
+    gh.lazySingleton<_i607.AuthRemoteDataSource>(
+        () => _i607.AuthRemoteDataSource(auth: gh<_i59.FirebaseAuth>()));
+    gh.lazySingleton<_i703.AppointmentBookingService>(
+        () => _i703.AppointmentBookingService(gh<_i974.FirebaseFirestore>()));
+    gh.lazySingleton<_i974.UserService>(
+        () => _i974.UserService(firestore: gh<_i974.FirebaseFirestore>()));
+    gh.lazySingleton<_i375.AppointmentsRepository>(
+        () => _i638.AppointmentsRepositoryImpl(gh<_i974.FirebaseFirestore>()));
+    gh.lazySingleton<_i446.DoctorRepository>(() => _i828.DoctorRepositoryImpl(
+          gh<_i607.AuthRemoteDataSource>(),
+          gh<_i987.ManageDoctorService>(),
+        ));
+    gh.factory<_i414.ManageDoctorsCubit>(() => _i414.ManageDoctorsCubit(
+          gh<_i446.DoctorRepository>(),
+          gh<_i379.ImageUploadService>(),
+        ));
+    gh.factory<_i151.DoctorAvailabilityCubit>(
+        () => _i151.DoctorAvailabilityCubit(gh<_i446.DoctorRepository>()));
+    gh.factory<_i662.AdminAppointmentsCubit>(
+        () => _i662.AdminAppointmentsCubit(gh<_i375.AppointmentsRepository>()));
+    gh.lazySingleton<_i247.UserRepository>(() => _i84.UserRepositoryImpl(
+          gh<_i607.AuthRemoteDataSource>(),
+          gh<_i974.UserService>(),
+        ));
+    gh.lazySingleton<_i372.AuthRepository>(() => _i871.AuthRepositoryImpl(
+          gh<_i607.AuthRemoteDataSource>(),
+          gh<_i974.UserService>(),
+        ));
+    gh.lazySingleton<_i359.AppointmentBookingRepository>(() =>
+        _i359.AppointmentBookingRepositoryImpl(
+            gh<_i703.AppointmentBookingService>()));
+    gh.factory<_i535.AppointmentBookingCubit>(
+        () => _i535.AppointmentBookingCubit(
+              gh<_i359.AppointmentBookingRepository>(),
+              gh<_i247.UserRepository>(),
+            ));
+    gh.factory<_i302.HomeCubit>(() => _i302.HomeCubit(
+          gh<_i271.HomeDoctorRepository>(),
+          gh<_i247.UserRepository>(),
+        ));
+    gh.factory<_i167.FavouriteDoctorsCubit>(() => _i167.FavouriteDoctorsCubit(
+          gh<_i286.FindDoctorsRepository>(),
+          gh<_i247.UserRepository>(),
+        ));
+    gh.factory<_i322.FindDoctorCubit>(() => _i322.FindDoctorCubit(
+          gh<_i286.FindDoctorsRepository>(),
+          gh<_i247.UserRepository>(),
+        ));
+    gh.lazySingleton<_i591.UserCubit>(
+        () => _i591.UserCubit(gh<_i247.UserRepository>()));
+    gh.factory<_i853.DoctorDetailsCubit>(
+        () => _i853.DoctorDetailsCubit(gh<_i247.UserRepository>()));
+    gh.factory<_i1033.PatientAppointmentsCubit>(
+        () => _i1033.PatientAppointmentsCubit(
+              gh<_i375.AppointmentsRepository>(),
+              gh<_i247.UserRepository>(),
+            ));
     gh.lazySingleton<_i263.AuthSessionChanges>(
-      () => _i263.AuthSessionChanges(gh<_i372.AuthRepository>()),
-    );
+        () => _i263.AuthSessionChanges(gh<_i372.AuthRepository>()));
     gh.lazySingleton<_i928.SignIn>(
-      () => _i928.SignIn(gh<_i372.AuthRepository>()),
-    );
+        () => _i928.SignIn(gh<_i372.AuthRepository>()));
     gh.lazySingleton<_i158.SignInWithGoogle>(
-      () => _i158.SignInWithGoogle(gh<_i372.AuthRepository>()),
-    );
+        () => _i158.SignInWithGoogle(gh<_i372.AuthRepository>()));
     gh.lazySingleton<_i426.SignOut>(
-      () => _i426.SignOut(gh<_i372.AuthRepository>()),
-    );
+        () => _i426.SignOut(gh<_i372.AuthRepository>()));
     gh.lazySingleton<_i1031.SignUp>(
-      () => _i1031.SignUp(gh<_i372.AuthRepository>()),
-    );
-    gh.lazySingleton<_i247.UserRepository>(
-      () => _i84.UserRepositoryImpl(
-        gh<_i607.AuthRemoteDataSource>(),
-        gh<_i974.UserService>(),
-      ),
-    );
-    gh.factory<_i831.AuthCubit>(
-      () => _i831.AuthCubit(
-        gh<_i928.SignIn>(),
-        gh<_i1031.SignUp>(),
-        gh<_i158.SignInWithGoogle>(),
-        gh<_i426.SignOut>(),
-      ),
-    );
-    gh.factory<_i414.ManageDoctorsCubit>(
-      () => _i414.ManageDoctorsCubit(gh<_i446.DoctorRepository>()),
-    );
-    gh.factory<_i591.UserCubit>(
-      () => _i591.UserCubit(gh<_i247.UserRepository>()),
-    );
-    gh.factory<_i302.HomeCubit>(
-      () => _i302.HomeCubit(gh<_i271.HomeDoctorRepository>()),
-    );
-    gh.lazySingleton<_i24.AuthRoleNotifier>(
-      () => _i24.AuthRoleNotifier(
-        gh<_i263.AuthSessionChanges>(),
-        gh<_i247.UserRepository>(),
-      ),
-    );
+        () => _i1031.SignUp(gh<_i372.AuthRepository>()));
+    gh.lazySingleton<_i24.AuthRoleNotifier>(() => _i24.AuthRoleNotifier(
+          gh<_i263.AuthSessionChanges>(),
+          gh<_i247.UserRepository>(),
+        ));
+    gh.factory<_i831.AuthCubit>(() => _i831.AuthCubit(
+          gh<_i928.SignIn>(),
+          gh<_i1031.SignUp>(),
+          gh<_i158.SignInWithGoogle>(),
+          gh<_i426.SignOut>(),
+        ));
     return this;
   }
 }

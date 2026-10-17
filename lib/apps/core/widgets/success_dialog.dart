@@ -17,7 +17,6 @@ void showSuccessDialog(
   required String title,
   required String subtitle,
   required String message,
-  required String actionLabel,
   VoidCallback? onAction,
 }) {
   showGeneralDialog<void>(
@@ -30,7 +29,6 @@ void showSuccessDialog(
       title: title,
       subtitle: subtitle,
       message: message,
-      actionLabel: actionLabel,
       onAction: onAction,
     ),
   );
@@ -41,14 +39,12 @@ class _SuccessDialog extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.message,
-    required this.actionLabel,
     this.onAction,
   });
 
   final String title;
   final String subtitle;
   final String message;
-  final String actionLabel;
   final VoidCallback? onAction;
 
   @override
@@ -100,24 +96,6 @@ class _SuccessDialog extends StatelessWidget {
                   context.pop();
                   onAction?.call();
                 },
-              ),
-              SizedBox(height: 12.h),
-              SizedBox(
-                width: 295.w,
-                height: 54.h,
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: AppColors.greyBorder),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                  ),
-                  onPressed: () {
-                    context.pop();
-                    onAction?.call();
-                  },
-                  child: Text(actionLabel, style: context.semiBold16Grey),
-                ),
               ),
             ],
           ),

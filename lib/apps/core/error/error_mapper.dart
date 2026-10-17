@@ -9,6 +9,9 @@ String mapError(Exception e) {
   if (message.contains('network-request-failed')) {
     return 'network-request-failed';
   }
+  if (message.contains('permission-denied')) {
+    return 'permission-denied';
+  }
   if (message.contains('canceled') || message.contains('interrupted')) {
     return 'google-signin-canceled';
   }

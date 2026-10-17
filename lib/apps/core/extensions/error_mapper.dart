@@ -21,6 +21,7 @@ extension ErrorMapper on BuildContext {
     if (code == 'google-signin-config') return t.auth.googleSignInConfig;
     if (code == 'google-signin-error') return t.auth.googleSignInError;
     if (code == 'google-signin-canceled') return '';
+    if (code == 'permission-denied') return t.auth.permissionDenied;
     return t.auth.generic;
   }
 }

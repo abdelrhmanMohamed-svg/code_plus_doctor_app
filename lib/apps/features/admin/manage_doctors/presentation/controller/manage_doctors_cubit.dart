@@ -1,16 +1,21 @@
+import 'dart:io';
+
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../core/error/error_mapper.dart';
+import '../../../../../core/services/image_upload_service.dart';
 import '../../data/repo/doctor_repository.dart';
 import 'manage_doctors_state.dart';
 
 @injectable
 class ManageDoctorsCubit extends Cubit<ManageDoctorsState> {
-  ManageDoctorsCubit(this._repository) : super(const ManageDoctorsState());
+  ManageDoctorsCubit(this._repository, this._imageUploadService)
+    : super(const ManageDoctorsState());
 
   final DoctorRepository _repository;
+  final ImageUploadService _imageUploadService;
 
   static const _searchDebounceDelay = Duration(milliseconds: 300);
 
@@ -98,6 +103,10 @@ class ManageDoctorsCubit extends Cubit<ManageDoctorsState> {
     String? id,
     required String name,
     required String specialty,
+    required String price,
+    required bool isActive,
+    String? existingPhotoUrl,
+    File? newImageFile,
   }) async {
     emit(
       state.copyWith(
@@ -106,7 +115,19 @@ class ManageDoctorsCubit extends Cubit<ManageDoctorsState> {
       ),
     );
     try {
-      await _repository.saveDoctor(id: id, name: name, specialty: specialty);
+      String? finalPhotoUrl = existingPhotoUrl;
+      if (newImageFile != null) {
+        finalPhotoUrl = await _imageUploadService.uploadImage(newImageFile);
+      }
+
+      await _repository.saveDoctor(
+        id: id,
+        name: name,
+        specialty: specialty,
+        price: price,
+        isActive: isActive,
+        photoUrl: finalPhotoUrl,
+      );
       final reloaded = await loadDoctors(showLoading: false);
       emit(
         state.copyWith(

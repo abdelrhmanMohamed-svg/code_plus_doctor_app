@@ -7,9 +7,10 @@ import '../../../../../core/theme/app_colors.dart';
 
 /// Section header with a title and a right-aligned "See all" link.
 class HomeSectionTitle extends StatelessWidget {
-  const HomeSectionTitle({super.key, required this.title});
+  const HomeSectionTitle({super.key, required this.title, this.onSeeAllTap});
 
   final String title;
+  final VoidCallback? onSeeAllTap;
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +19,22 @@ class HomeSectionTitle extends StatelessWidget {
       child: Row(
         children: [
           Expanded(child: Text(title, style: context.medium18Dark)),
-          Text(context.t.home.seeAll, style: context.regular12Grey),
-          SizedBox(width: 4.w),
-          Icon(Icons.arrow_forward_ios, size: 9.r, color: AppColors.grey),
+          if (onSeeAllTap != null)
+            GestureDetector(
+              onTap: onSeeAllTap,
+              behavior: HitTestBehavior.opaque,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 4.h),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(context.t.home.seeAll, style: context.regular12Grey),
+                    SizedBox(width: 4.w),
+                    Icon(Icons.arrow_forward_ios, size: 9.r, color: AppColors.grey),
+                  ],
+                ),
+              ),
+            ),
         ],
       ),
     );

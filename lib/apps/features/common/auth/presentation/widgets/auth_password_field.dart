@@ -40,19 +40,19 @@ class _AuthPasswordFieldState extends State<AuthPasswordField> {
         contentPadding: EdgeInsets.symmetric(horizontal: 21.w, vertical: 16.h),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(color: AppColors.greyBorderSoft, width: 1),
+          borderSide: const BorderSide(color: AppColors.greyBorderSoft, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(color: AppColors.green, width: 1),
+          borderSide: const BorderSide(color: AppColors.green, width: 1),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(color: AppColors.red, width: 1),
+          borderSide: const BorderSide(color: AppColors.red, width: 1),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(color: AppColors.red, width: 1),
+          borderSide: const BorderSide(color: AppColors.red, width: 1),
         ),
         suffixIcon: IconButton(
           onPressed: () => setState(() => _obscure = !_obscure),

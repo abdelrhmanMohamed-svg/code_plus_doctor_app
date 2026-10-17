@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../i18n/strings.g.dart';
@@ -11,7 +10,7 @@ import '../../../../../core/theme/app_colors.dart';
 import '../controller/manage_doctors_cubit.dart';
 import '../controller/manage_doctors_state.dart';
 import '../widgets/doctor_form_body.dart';
-import '../widgets/doctors_app_bar.dart';
+import '../../../shell/presentation/widgets/admin_app_bar.dart';
 
 class DoctorFormScreen extends StatelessWidget {
   const DoctorFormScreen({super.key, required this.cubit, this.doctor});
@@ -31,6 +30,10 @@ class DoctorFormScreen extends StatelessWidget {
       value: cubit,
       child: Scaffold(
         backgroundColor: AppColors.offWhiteSoft,
+        appBar: AdminAppBar(
+          title: _isEditing ? t.editDoctor.title : t.createDoctor.title,
+          showBackButton: true,
+        ),
         body: PopScope<Object?>(
           onPopInvokedWithResult: (didPop, result) {
             // The form is a transient consumer of the shared cubit; leave
@@ -52,22 +55,7 @@ class DoctorFormScreen extends StatelessWidget {
                 );
               }
             },
-            child: Column(
-              children: [
-                DoctorsAppBar(
-                  title: _isEditing ? t.editDoctor.title : t.createDoctor.title,
-                  leading: IconButton(
-                    onPressed: () => context.pop(),
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: AppColors.white,
-                      size: 22.r,
-                    ),
-                  ),
-                ),
-                Expanded(child: DoctorFormBody(doctor: doctor)),
-              ],
-            ),
+            child: DoctorFormBody(doctor: doctor),
           ),
         ),
       ),

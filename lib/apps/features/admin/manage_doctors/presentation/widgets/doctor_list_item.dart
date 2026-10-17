@@ -1,4 +1,6 @@
+import 'package:doctor_hunt/apps/core/widgets/doctor_image.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../generated/style_atoms.dart';
@@ -8,95 +10,89 @@ import '../../../../../core/theme/app_colors.dart';
 import 'doctor_status_badge.dart';
 
 class DoctorListItem extends StatelessWidget {
-  const DoctorListItem({
-    super.key,
-    required this.doctor,
-    this.onEdit,
-    this.onDelete,
-  });
+  const DoctorListItem({super.key, required this.doctor, this.onTap});
 
   final Doctor doctor;
-  final VoidCallback? onEdit;
-  final VoidCallback? onDelete;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColors.greyBorder, width: 0.5),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadowLight,
-            blurRadius: 4.r,
-            offset: const Offset(0, 1),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48.r,
-            height: 48.r,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.greenLighter,
-              image: DecorationImage(image: AssetImage(doctor.photo)),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(12.r),
+          border: Border.all(color: AppColors.greyBorder, width: 0.5),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.shadowLight,
+              blurRadius: 4.r,
+              offset: const Offset(0, 1),
             ),
-          ),
-          SizedBox(width: 12.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(doctor.name, style: context.semiBold14Dark),
-                SizedBox(height: 2.h),
-                Text(doctor.specialty, style: context.regular12GreyBlueDark),
-                SizedBox(height: 4.h),
-                DoctorStatusBadge(isActive: doctor.isActive),
-              ],
-            ),
-          ),
-          PopupMenuButton<String>(
-            icon: Icon(
-              Icons.more_vert,
-              color: AppColors.greyBlueDark,
-              size: 20.r,
-            ),
-            color: AppColors.white,
-            shape: RoundedRectangleBorder(
+          ],
+        ),
+        child: Row(
+          children: [
+            ClipRRect(
               borderRadius: BorderRadius.circular(12.r),
+              child: DoctorImage(
+                photo: doctor.photo,
+                width: 72.r,
+                height: 72.r,
+                fit: BoxFit.cover,
+              ),
             ),
-            onSelected: (value) {
-              switch (value) {
-                case 'edit':
-                  onEdit?.call();
-                  break;
-                case 'delete':
-                  onDelete?.call();
-              }
-            },
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 'edit',
-                child: Text(
-                  context.t.admin.editDoctor,
-                  style: context.regular14Dark,
-                ),
+            SizedBox(width: 12.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          doctor.name,
+                          style: context.semiBold16Dark,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      DoctorStatusBadge(isActive: doctor.isActive),
+                    ],
+                  ),
+                  SizedBox(height: 4.h),
+                  Text(doctor.specialty, style: context.regular13GreyBlueDark),
+                  SizedBox(height: 8.h),
+                  Row(
+                    children: [
+                      Row(
+                        children: List.generate(
+                          5,
+                          (index) => Icon(
+                            index < doctor.rating.floor()
+                                ? Icons.star
+                                : Icons.star_border,
+                            size: 14.r,
+                            color: AppColors.yellow,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 4.w),
+                      Text(
+                        '${doctor.rating.toStringAsFixed(1)} · ${context.t.admin.reviewsCount(count: doctor.reviewsCount)}',
+                        style: context.regular12GreyBlueDark,
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              PopupMenuItem(
-                value: 'delete',
-                child: Text(
-                  context.t.admin.deleteDoctor,
-                  style: context.regular14Dark,
-                ),
-              ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

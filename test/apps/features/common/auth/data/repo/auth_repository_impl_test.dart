@@ -8,9 +8,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockAuthRemoteDataSource extends Mock implements AuthRemoteDataSource {}
+
 class MockUserService extends Mock implements UserService {}
+
 class MockUserCredential extends Mock implements UserCredential {}
+
 class MockUser extends Mock implements User {}
+
 class FakeUserProfile extends Fake implements UserProfile {}
 
 void main() {
@@ -28,7 +32,7 @@ void main() {
     mockRemoteDataSource = MockAuthRemoteDataSource();
     mockUserService = MockUserService();
     repository = AuthRepositoryImpl(mockRemoteDataSource, mockUserService);
-    
+
     mockUserCredential = MockUserCredential();
     mockUser = MockUser();
   });
@@ -53,7 +57,7 @@ void main() {
             email: 'test@test.com',
             password: 'password',
           )).thenAnswer((_) async => mockUserCredential);
-      
+
       when(() => mockUserCredential.user).thenReturn(mockUser);
       when(() => mockUser.uid).thenReturn('user123');
       when(() => mockUser.updateDisplayName(any())).thenAnswer((_) async {});
@@ -80,7 +84,7 @@ void main() {
             email: 'test@test.com',
             password: 'password',
           )).thenAnswer((_) async => mockUserCredential);
-      
+
       when(() => mockUserCredential.user).thenReturn(null);
 
       expect(
@@ -100,7 +104,7 @@ void main() {
       when(() => mockUser.uid).thenReturn('user123');
       when(() => mockUser.displayName).thenReturn('Google User');
       when(() => mockUser.email).thenReturn('google@test.com');
-      
+
       when(() => mockUserService.getUserProfile('user123'))
           .thenAnswer((_) async => null); // Profile doesn't exist
       when(() => mockUserService.createUserProfile(any()))
@@ -117,7 +121,7 @@ void main() {
           .thenAnswer((_) async => mockUserCredential);
       when(() => mockUserCredential.user).thenReturn(mockUser);
       when(() => mockUser.uid).thenReturn('user123');
-      
+
       when(() => mockUserService.getUserProfile('user123'))
           .thenAnswer((_) async => FakeUserProfile()); // Profile exists
 
